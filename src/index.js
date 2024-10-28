@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
-import Home from './pages/Home'
+import Home from './pages/home/Home'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
 import ErrorRoutes from './pages/ErrorRoutes';
@@ -10,12 +10,16 @@ import ErrorRoutes from './pages/ErrorRoutes';
 import reportWebVitals from './reportWebVitals';
 
 /**
+ * @important !!!
  * @documentation https://reactrouter.com/en/main/start/tutorial
  */
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom"
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const router = createBrowserRouter([
   {
