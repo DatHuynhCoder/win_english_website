@@ -1,12 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import App from './App';
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
+import ErrorRoutes from './pages/ErrorRoutes';
+
 import reportWebVitals from './reportWebVitals';
+
+/**
+ * @documentation https://reactrouter.com/en/main/start/tutorial
+ */
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+    errorElement: <ErrorRoutes/>,
+    children: [
+      {
+        index: true,
+        element: <Home/>
+      },
+      {
+        path: "/home",
+        element: <Home/>
+      },
+      {
+        path: "/admin",
+        element: <Admin/>
+      }
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+    errorElement: <ErrorRoutes/>,
+  },
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
