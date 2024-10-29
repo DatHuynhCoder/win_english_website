@@ -10,6 +10,8 @@ import ErrorRoutes from './pages/ErrorRoutes';
 import reportWebVitals from './reportWebVitals';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 /**
  * @important !!!
