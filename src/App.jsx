@@ -13,7 +13,7 @@ const App = () => {
       </div>
       <div className="Main-content">
         <Outlet/>
-      </div> 
+      </div>
       <div className="footer-container">
         <Footer/>
       </div>
