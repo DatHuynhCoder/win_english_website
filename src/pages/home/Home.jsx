@@ -2,6 +2,7 @@
  * @author Quynh Anh
  */
 import IntroductionCarousel from "./IntroductionCarousel"
+import HomeCourse from "./HomeCourse"
 
 import pic1 from '../../assets/pic1.jpg'  
 import pic2 from '../../assets/pic2.jpg'
@@ -47,6 +48,7 @@ const Home = () => {
   return (
     <>
       <IntroductionCarousel data={data}/>
+      <HomeCourse/>
     </>
   )
 }
