@@ -1,14 +1,8 @@
 
 .Home-course-container {
-  max-width: 124rem;
-  padding: 4rem 1rem;
+  // max-width: 124rem;
+  max-width: 40rem;
   margin: 0 auto;
-
-  text-align: center;
-  img {
-    width: 71%;
-    height: 132%;
-  }
 }
 
 .heading {
@@ -27,13 +21,6 @@
   width: 100px;
   height: 100px;
   position: relative;
-}
-
-.swiper-slide img {
-  width: 100px;
-  height: 120px;
-  border-radius: 10px;
-  object-fit: cover;
 }
 
 .swiper-slide-shadow-left,
@@ -56,9 +43,9 @@
 }
 
 .slider-controler .slider-arrow {
-  background: var(--white);
-  width: 3.5rem;
-  height: 3.5rem;
+  background: white;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   left: 42%;
   transform: translateX(-42%);
@@ -66,7 +53,7 @@
 }
 
 .slider-controler .slider-arrow ion-icon {
-  font-size: 2rem;
+  font-size: 16px;
   color: #222224;
 }
 

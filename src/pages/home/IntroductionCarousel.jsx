@@ -5,14 +5,14 @@
 import Carousel from 'react-bootstrap/Carousel'
 import './IntroductionCarousel.scss'
 
-const IntroductionCarousel = ({data}) => {
+const IntroductionCarousel = ({IntroductionCarouselData}) => {
   return (
     <>
       <Carousel data-bs-theme="dark">
         {
-          data.map((item, index) => (
+          IntroductionCarouselData.map((item, index) => (
             <Carousel.Item>
-              <div style={{ width: '80%', margin: '0 auto' }}>
+              <div style={{ width: '70%', margin: '0 auto' }}>
                 <img
                   className="image-style d-block w-100 ta-c"
                   src={item.image}
