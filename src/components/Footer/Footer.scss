@@ -1,0 +1,14 @@
+.icon {
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
+    padding-right: 5px;
+}
+
+.icon-container {
+    &:hover {
+        text-decoration: underline;
+        .icon {
+            filter: grayscale(0%);
+        }
+    }
+}

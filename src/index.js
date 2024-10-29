@@ -9,6 +9,8 @@ import ErrorRoutes from './pages/ErrorRoutes';
 
 import reportWebVitals from './reportWebVitals';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 /**
  * @important !!!
  * @documentation https://reactrouter.com/en/main/start/tutorial
