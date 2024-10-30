@@ -4,6 +4,7 @@
 import IntroductionCarousel from "./IntroductionCarousel"
 import HomeCourse from "./HomeCourse"
 import HomeExam from "./HomeExam"
+import HomeFeedback from "./HomeFeedback"
 
 import pic1 from '../../assets/pic1.jpg'  
 import pic2 from '../../assets/pic2.jpg'
@@ -111,12 +112,31 @@ const HomeExamData = [
   }
 ]
 
+const HomeFeedbackData = [
+  {
+    name: 'First slide label',
+    feedback: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+    avatar: pic1
+  },
+  {
+    name: 'Second slide label',
+    feedback: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    avatar: pic2
+  },
+  {
+    name: 'Third slide label',
+    feedback: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+    avatar: pic3
+  }
+]
+
 const Home = () => {
   return (
     <>
       <IntroductionCarousel IntroductionCarouselData={IntroductionCarouselData}/>
       <HomeCourse HomeCourseData={HomeCourseData}/>
       <HomeExam HomeExamData={HomeExamData}/>
+      <HomeFeedback HomeFeedbackData={HomeFeedbackData}/>
     </>
   )
 }
