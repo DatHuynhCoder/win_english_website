@@ -5,6 +5,7 @@ import App from './App';
 import Home from './pages/home/Home'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
 
 import reportWebVitals from './reportWebVitals';
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin/>
+      },
+      {
+        path: "/about",
+        element: <About/>
       }
     ],
   },

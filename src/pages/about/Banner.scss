@@ -1,0 +1,19 @@
+.banner-container {
+    position: relative;
+    .banner-content {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        .banner-title {
+            font-size: 64px;
+            color: #1996D9;
+        }
+        .banner-text {
+            font-size: 33px;
+            color: #fff;
+        }
+    }
+}
