@@ -14,7 +14,7 @@ const HomeExam = ({HomeExamData}) => {
       <div className="HomeExam-container">
         {
           HomeExamData.map((item, index) => (
-            <Card className='Exam'>
+            <Card className='Exam' key={index}>
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>
@@ -26,7 +26,7 @@ const HomeExam = ({HomeExamData}) => {
                   <br></br>
                   4 phần thi - 90 câu hỏi
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Button variant="primary">Xem</Button>
               </Card.Body>
             </Card>
           ))
