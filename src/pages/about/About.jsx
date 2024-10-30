@@ -3,6 +3,8 @@
  */
 import Policies from './Policies'
 import Moto from './Moto'
+import Banner from './Banner'
+import FAQ from './FAQ'
 
 import policy_pic1 from '../../assets/policy_info_accessible.svg'
 
@@ -40,15 +42,54 @@ const About = () => {
     },
   ]
 
+  const faqData = [
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+    {
+      question: 'Trang web này hoạt động như thế nào ?',
+      answer: `Mục tiêu của WinEnglish là giúp người học nâng cao kĩ năng và dễ dàng lấy được các chứng chỉ ngoại ngữ một cách dễ dàng thông qua việc 
+luyện tập ở website của chúng tôi. Hãy lựa chọn chứng chỉ ngoại ngữ mà bạn muốn luyện tập và bắt đầu chương trình luyện tập miễn phí 
+ngay bạn nhé!`
+    },
+  ]
+
   return (
     <>
-      <div className="banner-container"></div>
+      <Banner />
 
       <Moto />
 
       <Policies policyData={policyData} />
 
-      <div className="faq-container"></div>
+      <FAQ faqData={faqData} />
     </>
   )
 }
