@@ -1,3 +1,6 @@
+/**
+ * @author Quynh Anh
+ */
 
 import './HomeFeedback.scss'
 
@@ -12,8 +15,12 @@ const HomeFeedback = ({HomeFeedbackData}) => {
               <div className='HomeFeedback-avatar-area'>
                 <img src={item.avatar} className='HomeFeedback-avatar' />
               </div>
-              <div>{item.name}</div>
-              <div>{item.feedback}</div>
+              <div className='HomeFeedback-name-area'>
+                <p className='HomeFeedback-name'>{item.name}</p>
+              </div>
+              <div className='HomeFeedback-feedback-area'>
+                <p className='HomeFeedback-feedback'>{item.feedback}</p>
+              </div>
             </div>
           ))
         }

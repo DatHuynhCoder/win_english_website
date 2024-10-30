@@ -1,0 +1,21 @@
+.ChooseUs-container {
+  margin-top: 30px;
+  height: 300px;
+  .ChooseUs-title {
+    text-align: center;
+
+  }
+  .ChooseUs-main {
+    display: flex;
+    margin: 0 150px;
+    justify-content: space-between;
+    text-align: center;
+    .ChooseUs-child {
+      width: 300px;
+      .ChooseUs-p {
+        font-weight: bold;
+        font-size: 25px;
+      }
+    }
+  }
+}

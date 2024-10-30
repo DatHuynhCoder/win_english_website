@@ -1,3 +1,6 @@
+/**
+ * @author Quynh Anh
+ */
 
 import './HomeExam.scss'
 

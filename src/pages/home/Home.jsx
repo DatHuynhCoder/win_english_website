@@ -5,6 +5,7 @@ import IntroductionCarousel from "./IntroductionCarousel"
 import HomeCourse from "./HomeCourse"
 import HomeExam from "./HomeExam"
 import HomeFeedback from "./HomeFeedback"
+import ChooseUs from "./ChooseUs"
 
 import pic1 from '../../assets/pic1.jpg'  
 import pic2 from '../../assets/pic2.jpg'
@@ -130,6 +131,14 @@ const HomeFeedbackData = [
   }
 ]
 
+const ChooseUsData = [
+  {
+    user: 1000,
+    rating: 200,
+    download: 88000
+  }
+]
+
 const Home = () => {
   return (
     <>
@@ -137,6 +146,7 @@ const Home = () => {
       <HomeCourse HomeCourseData={HomeCourseData}/>
       <HomeExam HomeExamData={HomeExamData}/>
       <HomeFeedback HomeFeedbackData={HomeFeedbackData}/>
+      <ChooseUs ChooseUsData={ChooseUsData}/>
     </>
   )
 }
