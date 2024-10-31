@@ -7,7 +7,7 @@ import './IntroductionCarousel.scss'
 
 const IntroductionCarousel = ({IntroductionCarouselData}) => {
   return (
-    <>
+    <div className='IntroductionCarousel-container'>
       <Carousel data-bs-theme="dark">
         {
           IntroductionCarouselData.map((item, index) => (
@@ -27,7 +27,7 @@ const IntroductionCarousel = ({IntroductionCarouselData}) => {
           ))
         }
       </Carousel>
-    </>
+    </div>
   )
 }
 

@@ -260,6 +260,7 @@ function ResponsiveExample() {
 const ExamLibrary = () => {
   return (
     <div className='ExamLibrary-container'>
+      <h1 style={{textAlign: 'center'}}>Thư viện đề thi</h1>
       <div className='table-container'></div>
       <ResponsiveExample/>
     </div>

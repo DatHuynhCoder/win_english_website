@@ -6,16 +6,27 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import { Row, Col, Image } from "react-bootstrap"
 
 import { NavLink } from 'react-router-dom'
 
 import { FaUser } from "react-icons/fa"
 
+import './Header.scss'
+import logoWinEng from '../../assets/logoWinEng.svg'
+
 const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <NavLink to={`/`} className={'navbar-brand'}>Win English</NavLink>
+        <NavLink to={`/`} className={'navbar-brand'}>
+          <Image
+            src={logoWinEng}
+            alt="Company logo"
+            width={50}
+            height={50}
+          />
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
