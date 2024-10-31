@@ -24,6 +24,7 @@ import {
 } from "react-router-dom"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 
 
 const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About/>
+      },
+      {
+        path: "/exam-library",
+        element: <ExamLibrary/>
       }
     ],
   },

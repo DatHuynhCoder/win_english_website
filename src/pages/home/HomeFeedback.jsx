@@ -13,7 +13,7 @@ const HomeFeedback = ({HomeFeedbackData}) => {
           HomeFeedbackData.map((item) => (
             <div className='HomeFeedback-content'>
               <div className='HomeFeedback-avatar-area'>
-                <img src={item.avatar} className='HomeFeedback-avatar' />
+                <img src={item.avatar} alt='avatar' className='HomeFeedback-avatar' />
               </div>
               <div className='HomeFeedback-name-area'>
                 <p className='HomeFeedback-name'>{item.name}</p>

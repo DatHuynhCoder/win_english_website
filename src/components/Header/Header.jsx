@@ -20,7 +20,7 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavLink to={`/users`} className={'nav-link'}>Khóa học</NavLink>
-            <NavLink to={`/admin`} className={'nav-link'}>Đề thi</NavLink>
+            <NavLink to={`/exam-library`} className={'nav-link'}>Đề thi</NavLink>
             <NavLink to={`/about`} className={'nav-link'}>About</NavLink>
             <NavLink to={`/admin`} className={'nav-link'}>Lộ trình</NavLink>
             <NavDropdown title="Hỗ trợ" id="basic-nav-dropdown">              
