@@ -1,0 +1,39 @@
+.result-title {
+    font-weight: bold;
+}
+
+.result-content {
+    margin-bottom: 24px;
+    .card {
+        text-align: center;
+        .title-1 {
+            color: green;
+        }
+        
+        .title-2 {
+            color: red;
+        }
+        
+        .title-3 {
+            color: purple;
+        }
+        
+        .title-4 {
+            color: gray;
+        }
+        
+        .title-5 {
+            color: yellow;
+        }
+        
+        .title-6 {
+            color: blue;
+        }
+    
+        .result{
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 0;
+        }
+    }
+}
