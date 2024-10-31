@@ -11,7 +11,9 @@ import './Banner.scss'
 const Banner = () => {
     return (
         <div className="banner-container">
-            <Image src={BannerPic} alt='Banner about' className='banner' fluid />
+    <div className="d-flex justify-content-center">
+      <Image src={BannerPic} alt="Banner about" className="banner" fluid />
+    </div>
             <div className="banner-content">
                 <div className="banner-title">WinEnglish</div>
                 <div className="banner-text">Nơi học tập tốt nhất cho người yêu thích tiếng anh</div>

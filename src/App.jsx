@@ -1,5 +1,6 @@
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header'
+import Header from './components/Header/Header';
+import ExamResult from './pages/ExamResult/ExamResult';
 
 import { 
   Outlet 
@@ -16,6 +17,10 @@ const App = () => {
       </div>
       <div className="footer-container">
         <Footer/>
+      </div>
+
+      <div>
+        <ExamResult />
       </div>
     </div>
   );
