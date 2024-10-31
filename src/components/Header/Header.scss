@@ -1,0 +1,14 @@
+.Header-container {
+  background-color: black;
+  font-size: 22px;
+  .nav-link {
+    &:hover {
+      color: white;
+    }
+  }
+  .bg-body-tertiary {
+    --bs-bg-opacity: 1;
+    background-color: rgba(65,157, 249, 0.9) !important;
+    z-index: 0;
+  }
+}
