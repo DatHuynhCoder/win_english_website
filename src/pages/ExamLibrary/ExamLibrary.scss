@@ -1,9 +1,34 @@
 .ExamLibrary-container {
-  padding: 0 200px;
+  padding: 0 20px;
   .table-container {
     padding: 0 50px;
   }
-  .searching-bar {
-    margin-top: 30px;
+  .ExamLibrary-head {
+    display: flex;
+    .ExamLibrary-SearchingBar {
+      flex: 3;
+      margin-top: 30px;
+      align-items: center;
+    }
+    .ExamLibrary-UserProfile {
+      flex: 1;
+      text-align: center;
+      margin-left: 40px;
+      margin-right: 100px;
+      .ExamLibrary-UserProfile-Avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+      .ExamLibrary-UserProfile-MyProfileBtn {
+        border-radius: 10px;
+        background-color: rgb(28, 1, 184);
+        color: white;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
   }
+  
 }

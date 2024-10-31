@@ -4,10 +4,16 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Card from 'react-bootstrap/Card';
 
 import { IoSearch } from "react-icons/io5";
 
+import ListExam from './ListExam'
+
 import './ExamLibrary.scss'
+import pic1 from '../../assets/pic1.jpg'
+
+import SearchButton from './SearchButton'
 
 const data = [{
   "id": 1,
@@ -191,22 +197,38 @@ const data = [{
   "phone": "3957569904"
 }]
 
+const UserProfile = {
+  name: "User",
+  avatar: pic1
+}
+
 function ResponsiveExample() {
   const [search, setSearch]  = useState('')
   return (
     <>
-      <InputGroup className="mb-3 searching-bar">
-        <Form.Control
-          placeholder="Search"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Button variant="outline-secondary" id="button-addon2">
-          <IoSearch size={25}/>
-        </Button>
-      </InputGroup>
+      <div className='ExamLibrary-head'>
+        <div className='ExamLibrary-SearchingBar'>
+          <InputGroup className="mb-3 searching-bar">
+            <Form.Control
+              placeholder="Search"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Button variant="outline-secondary" id="button-addon2">
+              <IoSearch size={25}/>
+            </Button>
+          </InputGroup>
 
+          <SearchButton/>
+
+        </div>
+        <div className='ExamLibrary-UserProfile'>
+          <img src={pic1} alt="avatar" className='ExamLibrary-UserProfile-Avatar'/>
+          <h5 className='ExamLibrary-UserProfile-Name'>{UserProfile.name}</h5>
+          <button className='ExamLibrary-UserProfile-MyProfileBtn' style={{borderRadius: '10px'}}>Hồ sơ của tôi</button>
+        </div>
+      </div>
       <Table responsive>
         <thead>
           <tr>
@@ -263,6 +285,7 @@ const ExamLibrary = () => {
       <h1 style={{textAlign: 'center'}}>Thư viện đề thi</h1>
       <div className='table-container'></div>
       <ResponsiveExample/>
+      <ListExam/>
     </div>
   )
 }
