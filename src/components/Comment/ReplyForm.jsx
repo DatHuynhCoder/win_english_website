@@ -6,6 +6,9 @@
 import React, { useState } from 'react';
 import { useReplyContext } from './Comment';
 import { mainUser } from './mainUser';
+
+import { FaPaperPlane } from "react-icons/fa";
+
 import './ReplyForm.scss'; // Import the SCSS file
 
 const ReplyForm = ({ isAddingAndParentId, closeForm, isEditingAndData }) => {
@@ -58,7 +61,7 @@ const ReplyForm = ({ isAddingAndParentId, closeForm, isEditingAndData }) => {
             )}
 
             <input
-            className='input-comment'
+                className='input-comment'
                 value={inputText}
                 onChange={({ target: { value } }) => setInputText(value)}
                 placeholder='Chia sẻ cảm nghĩ của bạn...'
@@ -70,6 +73,7 @@ const ReplyForm = ({ isAddingAndParentId, closeForm, isEditingAndData }) => {
                     className='reply-button'
                     type='submit'
                 >
+                    <FaPaperPlane color='white' style={{marginRight: '5px'}} />
                     {isEditingAndData ? 'Cập nhật' : 'Gửi'}
                 </button>
 
