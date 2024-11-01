@@ -3,6 +3,7 @@
  */
 
 import OverviewResult from "./OverviewResult";
+import Comment from "../../components/Comment/Comment";
 
 import './ExamResult.scss'
 
@@ -25,7 +26,10 @@ const ExamResult = () => {
     <div className="result-container">
       <div className="main-content">
         <OverviewResult resultData={resultData}/>
+      </div>
 
+      <div className="comment-contaner">
+        <Comment/>
       </div>
     </div>
   )

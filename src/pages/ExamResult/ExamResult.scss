@@ -1,7 +1,11 @@
 .result-container {
     background-color: #B0C9F1;
+    padding: 20px 0;
     .main-content {
-        margin: 0px 5%;
-        padding: 20px 0;
+        width: 95%;
+        margin: 0 auto;
+        padding: 20px 3%;
+        background-color: #fff;
+        border-radius: 16px;
     }
 }
