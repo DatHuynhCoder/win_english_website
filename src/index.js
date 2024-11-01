@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
+import User from './pages/User'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/exam-library",
         element: <ExamLibrary/>
+      },
+      {
+        path: "/user",
+        element: <User/>
       }
     ],
   },
