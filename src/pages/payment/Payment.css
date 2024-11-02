@@ -5,9 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     background-color: grey;
-    margin: 100px;
+    margin: 200px;
 }
-
 
 .payment-card {
     background-color: white;
@@ -16,7 +15,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 500px;
     text-align: center;
-    margin: 30px;
+    margin-bottom: 20px;
 }
 
 .payment-card h1 {
@@ -156,6 +155,6 @@ button:active{
 
 form label{
     text-align: left;
-    color: red;
-    
+    color: black;
+    font-weight: bold;
 }
