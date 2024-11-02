@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './Payment.css';
 
-function App() {
+function Payment() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [countdownTime, setCountdownTime] = useState(15 * 60); // 15 phút
 
@@ -82,4 +82,4 @@ function App() {
     );
 }
 
-export default App;
+export default Payment;
