@@ -27,11 +27,11 @@ const Payment= () => {
                 <li>{registeredStudents} học viên đã đăng ký</li>
                 <li>{topics}</li>
                 <li>{exercises}</li>
-                <li>Có thể học trên điện thoại và máy tính</li>
+                <li>Có thể học trên nhiều nền tản</li>
             </ul>
             
             <p className="consultation">
-                Chưa chắc chắn khóa học này dành cho bạn? <a href="#">Liên hệ để nhận tư vấn miễn phí!</a>
+                Nếu chưa chắc chắn khóa học này dành cho bạn có thể<a href="#">Liên hệ để nhận tư vấn miễn phí!</a>
             </p>
         </div>
     );
