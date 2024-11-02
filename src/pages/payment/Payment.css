@@ -4,17 +4,23 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    margin: 150px;
     background-color: #f7f7f7;
+}
+
+section {
+    padding: 150px;
+    margin: 100px;
 }
 
 .payment-card {
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     text-align: center;
+    margin: 50px;
 }
 
 .payment-card h1 {
@@ -53,7 +59,8 @@ body {
     margin-top: 5px;
 }
 
-.register-button, .trial-button {
+.register-button,
+.trial-button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -74,14 +81,16 @@ body {
     color: #555;
 }
 
-button:hover{
+button:hover {
     color: black;
     background-color: white;
 }
-button:active{
+
+button:active {
     color: black;
     background-color: #1976d2;
 }
+
 .course-info {
     list-style-type: none;
     padding: 0;
@@ -108,9 +117,4 @@ button:active{
 
 .consultation a:hover {
     text-decoration: underline;
-}
-
-div{
-    gap:10px;
-    margin: 50px;
 }
