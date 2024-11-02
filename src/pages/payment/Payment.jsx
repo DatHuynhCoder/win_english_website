@@ -18,7 +18,7 @@ const Payment = () => {
         alert('Thử gói trong 3 ngày!');
     }
     return (
-        <div>
+        <body>
             <section>
                 <div className="payment-card">
                     <h1>Gói đặc biệt theo tháng</h1>
@@ -91,7 +91,7 @@ const Payment = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </body>
     );
 }
 
