@@ -4,8 +4,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: white;
-    margin: 200px;
 }
 
 .payment-card {
@@ -17,144 +15,83 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-
+nav{
+    border-color: blue;
+    background-color: rgb(67, 67, 137);
+    padding: 25px;
+    margin: 50px;
+    border-radius: 20px;
+}
 .payment-card h1 {
     font-size: 24px;
     color: #d32f2f;
     margin-bottom: 10px;
 }
+section div button{
+    margin: center;
+}
 
-.payment-card p {
+p {
     font-size: 16px;
     margin: 5px 0;
 }
-
-.price {
-    margin: 10px 0;
-}
-
-.discounted-price {
-    font-size: 24px;
-    font-weight: bold;
-    color: green;
-}
-
-.original-price {
-    font-size: 14px;
-    text-decoration: line-through;
-    color: #888;
-    margin-top: 5px;
-    display: block;
-}
-
-.savings {
-    font-size: 14px;
-    color: red;
-    display: block;
-    margin-top: 5px;
-}
-
-.register-button, .trial-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.register-button {
-    background-color: #1976d2;
-    color: white;
-}
-
-.trial-button {
-    background-color: #e0e0e0;
-    color: #555;
-}
-
 button:hover{
     color: black;
-    background-color: white;
+    background-color: #1976d2;
 }
 button:active{
     color: black;
-    background-color: #1976d2;
-}
-.course-info {
-    list-style-type: none;
-    padding: 0;
-    margin: 15px 0;
-    text-align: left;
-    font-size: 14px;
-    color: #555;
+    background-color: blue;
 }
 
-.course-info li {
-    margin-bottom: 5px;
-}
-
-.consultation {
-    font-size: 14px;
-    color: #888;
-    margin-top: 20px;
-}
-
-.consultation a {
-    color: #1976d2;
-    text-decoration: none;
-}
-
-.consultation a:hover {
-    text-decoration: underline;
-}
 /* Make the body margin responsive */
-
+h1{
+    color:#1976d2
+}
 .modal {
-    display: none; /* Ẩn modal mặc định */
+    display: none; /* Ẩn modal */
     position: fixed;
-    z-index: 1;
-    left: 0;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    padding-right: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 15px;
+}
+
+/* Thêm lớp để hiện modal */
+.modal.show {
+    display: block;
+}
+
+/* Để làm mờ nền khi modal hiện */
+.overlay {
+    display: none;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+    z-index: 999;
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-    position: relative;
+.overlay.show {
+    display: block;
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    border-radius: 30px;
-    cursor: pointer;
-}
-.close-button:hover{
-    color: red;
-    background-color: black;
-    border-radius: 30px;
-}
-.BuyButton{
-    color: white;
-    background-color: #1976d2;
-    border-radius: 30px;
+div input{
+    margin: 10px;
+    padding: 10px;
+    margin: center;
 }
 
-form label{
-    text-align: left;
-    color: black;
-    font-weight: bold;
+.timer{
+color:white;
+background-color: red;
+padding: 10px;
 }
