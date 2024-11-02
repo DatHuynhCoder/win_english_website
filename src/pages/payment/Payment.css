@@ -109,3 +109,8 @@ button:active{
 .consultation a:hover {
     text-decoration: underline;
 }
+
+div{
+    gap:10px;
+    margin: 50px;
+}
