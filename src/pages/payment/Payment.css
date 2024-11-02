@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+.payment-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
+}
+
+.payment-card h1 {
+    font-size: 24px;
+    color: #d32f2f;
+    margin-bottom: 10px;
+}
+
+.payment-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.price {
+    margin: 10px 0;
+}
+
+.discounted-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+}
+
+.original-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: #888;
+    margin-top: 5px;
+    display: block;
+}
+
+.savings {
+    font-size: 14px;
+    color: red;
+    display: block;
+    margin-top: 5px;
+}
+
+.register-button, .trial-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register-button {
+    background-color: #1976d2;
+    color: white;
+}
+
+.trial-button {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+button:hover{
+    color: black;
+    background-color: white;
+}
+button:active{
+    color: black;
+    background-color: #1976d2;
+}
+.course-info {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+}
+
+.course-info li {
+    margin-bottom: 5px;
+}
+
+.consultation {
+    font-size: 14px;
+    color: #888;
+    margin-top: 20px;
+}
+
+.consultation a {
+    color: #1976d2;
+    text-decoration: none;
+}
+
+.consultation a:hover {
+    text-decoration: underline;
+}

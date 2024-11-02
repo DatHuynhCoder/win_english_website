@@ -4,4 +4,11 @@
     padding: 20px 3%;
     background-color: #fff;
     border-radius: 16px;
+    .comment-title {
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    .main-comment {
+        margin: 0.5rem 0 0 0;
+    }
 }
