@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
-
+import QR from './QRthanhtoan.png'
+import bank from './bank.png'
 function Payment() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [countdownTime, setCountdownTime] = useState(15 * 60); // 15 phút
+    const [countdownTime, setCountdownTime] = useState(15 * 60); // 15 minutes
 
     useEffect(() => {
         let countdownInterval;
@@ -24,18 +25,20 @@ function Payment() {
     }, [isModalOpen]);
 
     const handleOpenModal = () => {
+        console.log("Opening modal"); // Check if this is printed when the button is clicked
         setIsModalOpen(true);
-        setCountdownTime(15 * 60); // Đặt lại thời gian đếm ngược mỗi khi mở modal
+        setCountdownTime(15 * 60); // Reset countdown each time modal is opened
     };
 
     const handleCloseModal = () => {
+        console.log("Closing modal"); // Check if this is printed when modal is closed
         setIsModalOpen(false);
     };
 
     const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = time % 60;
-        return `${minutes} : ${seconds.toString().padStart(2, '0')}`;
+        const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+        const seconds = String(time % 60).padStart(2, '0');
+        return `${minutes}:${seconds}`;
     };
 
     return (
@@ -44,11 +47,11 @@ function Payment() {
                 <div className="payment-card">
                     <h2>Quét mã QR để thanh toán</h2>
                     <nav>
-                        <img src="./QRthanhtoan.png" alt="QR Code" />
+                        <img src={QR} alt="logo" />
                     </nav>
                     <p>Mở các ứng dụng có VietQR để thanh toán</p>
                     <br />
-                    <img src="./bank.png" alt="Bank Icons" />
+                    <img src={bank} alt="bank-img" />
                     <br />
                     <button id="payment-button" onClick={handleOpenModal}>
                         Hướng dẫn thanh toán
@@ -56,28 +59,26 @@ function Payment() {
                 </div>
             </section>
 
-            {isModalOpen && (
-                <>
-                    <div className="overlay" onClick={handleCloseModal}></div>
-                    <div className="modal">
-                        <h2>Thông tin đơn hàng</h2>
-                        <h1>Gói Premium nâng cấp</h1>
-                        <p>Giá trị đơn hàng: 3.999.999đ</p>
-                        <p>Số tiền thanh toán: 3.999.999đ</p>
-                        <br />
-                        <p>Mã giao dịch</p>
-                        <p>39568845698826597028776</p>
-                        <br />
-                        <p>Nội dung</p>
-                        <input type="text" />
-                        <div className="timer" id="countdown-timer">
-                            {countdownTime > 0
-                                ? `Giao dịch kết thúc sau ${formatTime(countdownTime)}`
-                                : "Giao dịch đã hết hạn"}
-                        </div>
-                    </div>
-                </>
-            )}
+            {/* Conditionally add "show" class based on isModalOpen */}
+            <div className={`overlay ${isModalOpen ? 'show' : ''}`} onClick={handleCloseModal}></div>
+            <div className={`modal ${isModalOpen ? 'show' : ''}`}>
+                <h2>Thông tin đơn hàng</h2>
+                <h1>Gói Premium nâng cấp</h1>
+                <p>Giá trị đơn hàng: 3.999.999đ</p>
+                <p>Số tiền thanh toán: 3.999.999đ</p>
+                <br />
+                <p>Mã giao dịch</p>
+                <p>39568845698826597028776</p>
+                <br />
+                <p>Nội dung</p>
+                <input type="text" />
+                <div className="timer" id="countdown-timer">
+                    {countdownTime > 0
+                        ? `Giao dịch kết thúc sau ${formatTime(countdownTime)}`
+                        : "Giao dịch đã hết hạn"}
+                </div>
+
+            </div>
         </div>
     );
 }

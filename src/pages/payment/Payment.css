@@ -4,6 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .payment-card {
@@ -15,60 +16,65 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-nav{
-    border-color: blue;
+
+nav {
     background-color: rgb(67, 67, 137);
     padding: 25px;
-    margin: 50px;
+    margin: 30px;
     border-radius: 20px;
 }
+
 .payment-card h1 {
     font-size: 24px;
     color: #d32f2f;
     margin-bottom: 10px;
 }
-section div button{
-    margin: center;
+
+h1{
+    color: blue;
+}
+section div button {
+    margin: auto;
+    display: block;
 }
 
 p {
     font-size: 16px;
     margin: 5px 0;
 }
-button:hover{
+
+button:hover {
     color: black;
     background-color: #1976d2;
 }
-button:active{
+
+button:active {
     color: black;
     background-color: blue;
 }
 
-/* Make the body margin responsive */
-h1{
-    color:#1976d2
-}
 .modal {
-    display: none; /* Ẩn modal */
+    display: none;
     position: fixed;
     top: 50%;
-    left: 75%;
+    left: 80%;
     transform: translate(-50%, -50%);
     padding: 40px;
-    padding-right: 10px;
     background-color: white;
     border: 1px solid #ddd;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
 }
 
-/* Thêm lớp để hiện modal */
+/* Add class to show modal */
 .modal.show {
     display: block;
 }
 
-/* Để làm mờ nền khi modal hiện */
+/* Overlay background */
 .overlay {
     display: none;
     position: fixed;
@@ -84,14 +90,16 @@ h1{
     display: block;
 }
 
-div input{
-    margin: 10px;
+div input {
+    margin: 10px 0;
     padding: 10px;
-    margin: center;
+    width: calc(100% - 20px); /* Responsive input */
 }
 
-.timer{
-color:white;
-background-color: red;
-padding: 10px;
+.timer {
+    color: white;
+    background-color: red;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
 }
