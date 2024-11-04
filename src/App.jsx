@@ -1,5 +1,6 @@
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import Exam from './pages/exam/Exam';
 import ExamResult from './pages/ExamResult/ExamResult';
 
 import { 
@@ -21,6 +22,9 @@ const App = () => {
 
       <div>
         <ExamResult />
+      </div>
+      <div>
+        <Exam />
       </div>
     </div>
   );
