@@ -35,7 +35,12 @@ h1{
 }
 section div button {
     margin: auto;
+    margin-top: 10px;
     display: block;
+    border-radius: 16px;
+    background-color: grey;
+    border:none;
+    color: blue;
 }
 
 p {
@@ -43,15 +48,13 @@ p {
     margin: 5px 0;
 }
 
-button:hover {
-    color: black;
-    background-color: #1976d2;
-}
-
+button:hover,
 button:active {
     color: black;
-    background-color: blue;
+    background-color: white;
 }
+
+
 
 .modal {
     display: none;
@@ -67,6 +70,7 @@ button:active {
     border-radius: 15px;
     max-width: 400px;
     width: 90%;
+    overflow: hidden;
 }
 
 /* Add class to show modal */
@@ -99,7 +103,25 @@ div input {
 .timer {
     color: white;
     background-color: red;
-    padding: 10px;
     text-align: center;
     border-radius: 5px;
+    padding: 20px;
+    margin: -45px;
+}
+
+.thongtin{
+    margin-bottom: 100px;
+    text-align: left;
+}
+.container{
+    display: flex;
+    gap: 20px;
+}
+.smallblock1
+{
+    font-weight: bold;
+}
+.smallblock2{
+    text-align: right;
+    font-weight: none;
 }
