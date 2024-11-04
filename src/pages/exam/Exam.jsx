@@ -6,6 +6,7 @@ import AudioPlayer from './AudioPlayer';
 import Tracking from './Tracking';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 import Examaudio from '../../assets/audio/Test_8.mp3'
 import './Exam.scss'
@@ -98,14 +99,19 @@ const qBank = [
 ]
 
 
+
 const Exam = () => {
   const [userAnswer, setUserAnswer] = useState(Array(qBank.length).fill(''));
+  const navigate = useNavigate();
+
+  const handleSumnit = () => {
+    navigate('/exam-result', {state: {userAnswer, qBank}});
+  }
 
   const handleAnswerChange = (option, index) => {
     const updatedAnswers = [...userAnswer];
     updatedAnswers[index] = option;
     setUserAnswer(updatedAnswers);
-    console.log(updatedAnswers);
   };
 
   return (
@@ -131,7 +137,7 @@ const Exam = () => {
             ))}
           </div>
         ))}
-        <Button variant='primary'>Nộp bài</Button>
+        <Button variant='primary' onClick={handleSumnit}>Nộp bài</Button>
       </div>
       <div className="tracking-content">
         <Tracking userAnswer={userAnswer} />
