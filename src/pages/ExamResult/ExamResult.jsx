@@ -8,6 +8,7 @@ import Comment from "../../components/Comment/Comment";
 import './ExamResult.scss'
 
 const ExamResult = () => {
+
   const resultData = {
     nameExam: 'Practice Set 2023 TOEIC Test 8', 
     numCorrect: 161,
@@ -17,9 +18,9 @@ const ExamResult = () => {
     accuracy: 80.5,
     totalScore: 815,
     listeningScore: 450,
-    numCorrectListen: 87,
+    numUserListen: 87,
     readingScore: 365,
-    numCorrectRead: 74, 
+    numUserRead: 74, 
   }
 
   return (
