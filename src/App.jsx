@@ -19,10 +19,6 @@ const App = () => {
       <div className="footer-container">
         <Footer/>
       </div>
-
-      <div>
-        <ExamResult />
-      </div>
       <div>
         <Exam />
       </div>
