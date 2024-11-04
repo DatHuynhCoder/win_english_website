@@ -1,5 +1,5 @@
 import React from 'react';
-import './User.css';
+import './User.scss';
 
 function User() {
     // Dữ liệu mẫu cho phần từ vựng, ngữ pháp, khóa học, và đề thi
@@ -56,6 +56,20 @@ function User() {
                     ))}
                 </div>
             </section>
+
+            <section className="section">
+                <h2>Các Gói Đã Đăng Ký</h2>
+                <div className="card-container">
+                    {userData.registeredCourses.map((course, index) => (
+                        <div key={index} className="card">
+                            <p>Tiêu đề: {course.title}</p>
+                            <p>Tiến độ: {course.progress}</p>
+                            <p>Ngày hoàn thành: {course.dateCompleted}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
             <section className="section">
                 <h2>Đề Thi Đã Làm</h2>
                 <div className="card-container">
