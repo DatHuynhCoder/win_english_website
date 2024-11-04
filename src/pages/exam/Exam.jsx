@@ -15,88 +15,89 @@ const qBank = [
   {
     id: 0,
     question: "Which word best fits in blank (1) to complete the sentence?",
-    options: ["being concerned", "concerned", "having concerned", "concerning"],
-    answer: "concerning"
+    options: ["A. being concerned", "B. concerned", "C. having concerned", "D. concerning"],
+    answer: "D. concerning" 
   },
   {
     id: 1,
     question: "Which phrase best fits in blank (2) to complete the sentence?",
-    options: ["like", "similar", "as well as", "such as"],
-    answer: "as well as"
+    options: ["A. like", "B. similar", "C. as well as", "D. such as"],
+    answer: "C. as well as"
   },
   {
     id: 2,
     question: "Which preposition best fits in blank (3) to complete the sentence?",
-    options: ["Under", "Among", "For", "Between"],
-    answer: "Under"
+    options: ["A. Under", "B. Among", "C. For", "D. Between"],
+    answer: "A. Under"
   },
   {
     id: 3,
     question: "Which phrase best fits in blank (4) to complete the sentence?",
-    options: ["only used", "to be used", "by using", "for using"],
-    answer: "by using"
+    options: ["A. only used", "B. to be used", "C. by using", "D. for using"],
+    answer: "C. by using"
   },
   {
     id: 4,
     question: "Which verb tense best fits in blank (5) to complete the sentence?",
-    options: ["has staged", "had been staged", "is staging", "was staged"],
-    answer: "was staged"
+    options: ["A. has staged", "B. had been staged", "C. is staging", "D. was staged"],
+    answer: "D. was staged"
   },
   {
     id: 5,
     question: "Which word best fits in blank (6) to complete the sentence?",
-    options: ["wish", "retaliate", "suggest", "deceive"],
-    answer: "suggest"
+    options: ["A. wish", "B. retaliate", "C. suggest", "D. deceive"],
+    answer: "C. suggest"
   },
   {
     id: 6,
     question: "Which word best fits in blank (7) to complete the sentence?",
-    options: ["price", "rent", "fee", "income"],
-    answer: "income"
+    options: ["A. price", "B. rent", "C. fee", "D. income"],
+    answer: "D. income"
   },
   {
     id: 7,
     question: "Which word or phrase best fits in blank (8) to complete the sentence?",
-    options: ["Yet", "For", "On the ground that", "Whereas"],
-    answer: "Yet"
+    options: ["A. Yet", "B. For", "C. On the ground that", "D. Whereas"],
+    answer: "A. Yet"
   },
   {
     id: 8,
     question: "Which word best fits in blank (9) to complete the sentence?",
-    options: ["little", "far", "many", "less"],
-    answer: "far"
+    options: ["A. little", "B. far", "C. many", "D. less"],
+    answer: "B. far"
   },
   {
     id: 9,
     question: "Which pronoun best fits in blank (10) to complete the sentence?",
-    options: ["where", "whose", "that", "who"],
-    answer: "who"
+    options: ["A. where", "B. whose", "C. that", "D. who"],
+    answer: "D. who"
   },
   {
     id: 10,
     question: "Which preposition best fits in blank (11) to complete the sentence?",
-    options: ["with", "from", "along", "into"],
-    answer: "into"
+    options: ["A. with", "B. from", "C. along", "D. into"],
+    answer: "D. into"
   },
   {
     id: 11,
     question: "Which verb tense best fits in blank (12) to complete the sentence?",
-    options: ["will undergo", "undergoing", "had undergone", "to be undergone"],
-    answer: "had undergone"
+    options: ["A. will undergo", "B. undergoing", "C. had undergone", "D. to be undergone"],
+    answer: "C. had undergone"
   },
   {
     id: 12,
     question: "Which phrase best fits in blank (13) to complete the sentence?",
-    options: ["much as", "most", "like", "same as"],
-    answer: "same as"
+    options: ["A. much as", "B. most", "C. like", "D. same as"],
+    answer: "D. same as"
   },
   {
     id: 13,
     question: "Which word best fits in blank (14) to complete the sentence?",
-    options: ["nothing", "everything", "something", "anything"],
-    answer: "nothing"
+    options: ["A. nothing", "B. everything", "C. something", "D. anything"],
+    answer: "A. nothing"
   }
-]
+];
+
 
 
 

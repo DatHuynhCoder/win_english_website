@@ -38,8 +38,10 @@ const ExamResult = () => {
     return numCorrect*5 - 5;
   }
 
-  const accuracy = parseFloat((numCorrect*100/qBank.length).toFixed(2));
-
+  const accuracy = qBank && qBank.length > 0 
+    ? parseFloat(((numCorrect / qBank.length) * 100).toFixed(2)) 
+    : 0;
+    
   const resultData = {
     nameExam: 'Practice Set 2023 TOEIC Test 8', 
     numCorrect,
@@ -59,7 +61,7 @@ const ExamResult = () => {
       <div className="main-content">
         <OverviewResult resultData={resultData}/>
         <hr />
-        <DetailResult />
+        <DetailResult userAnswer={userAnswer} qBank={qBank} />
       </div>
 
       <div className="comment-contaner">
