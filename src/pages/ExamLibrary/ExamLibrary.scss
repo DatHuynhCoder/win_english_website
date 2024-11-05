@@ -5,6 +5,8 @@
   }
   .ExamLibrary-head {
     display: flex;
+    margin-bottom: 100px;
+    margin-left: 200px;
     .ExamLibrary-SearchingBar {
       flex: 3;
       margin-top: 30px;
@@ -26,6 +28,10 @@
         color: white;
         &:hover {
           opacity: 0.7;
+        }
+        .ExamLibrary-UserProfile-MyProfileBtn-Text {
+          color: white;
+          text-decoration: none;
         }
       }
     }

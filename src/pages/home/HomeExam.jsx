@@ -18,10 +18,26 @@ const HomeExam = ({HomeExamData}) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <>
-      
+      <Modal 
+        show={show} 
+        onHide={handleClose}
+        backdrop='static'
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Thông tin đề thi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Bắt đầu thi
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <h1 style={{textAlign: 'center'}}>Đề thi mới nhất</h1>
       <div className="HomeExam-container">
         <Row className='g-5'>
@@ -29,20 +45,7 @@ const HomeExam = ({HomeExamData}) => {
           HomeExamData.map((item, index) => (
             <Col xs={12} sm={6} md={4} key={index}>
               <>
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Thông tin đề thi</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                      Save Changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                
                 <Card className='Exam' key={index}>
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>

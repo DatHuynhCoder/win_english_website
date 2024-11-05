@@ -7,6 +7,9 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
+import User from './pages/User'
+import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
+import ExamResult from './pages/ExamResult/ExamResult';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -24,7 +27,6 @@ import {
 } from "react-router-dom"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 
 
 const router = createBrowserRouter([
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/exam-library",
         element: <ExamLibrary/>
+      },
+      {
+        path: "/user",
+        element: <User/>
+      },
+      {
+        path: "/exam-result",
+        element: <ExamResult />
       }
     ],
   },
