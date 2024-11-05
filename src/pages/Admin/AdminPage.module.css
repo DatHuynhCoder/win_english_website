@@ -1,0 +1,143 @@
+.dashboard {
+    display:flex;
+
+}
+.dashboardcontent {
+    background: #fff;
+    flex:1;
+    border-radius: 20;
+
+}
+.ContentHeader {
+  display:flex;
+    font-weight: bold;
+    justify-content: space-between;
+    margin: 30px;
+}
+.ContentHeader .HeaderFunctional{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end; 
+  margin-left: auto; 
+  gap:20px;
+  
+}
+.ContentHeader .HeaderContentHeaderTitle {
+    color:#151D48;
+}
+.ContentHeader .customdropdowntoggle {
+    background-color: transparent; 
+    border: none;
+    color: #000000; 
+    border-radius: 5px; 
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+.ContentHeader .customdropdowntoggle:hover {
+    background-color: transparent; 
+    color: #000000; 
+}
+.customdropdownmenu {
+    background-color:transparent;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+  
+.ContentHeader .notificationcount {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white; 
+    border-radius: 50%; 
+    padding: 4px 8px;
+    font-size: 0.5rem;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+  }
+  .ContentHeader  .notificationbell {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .ContentHeader .bell {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+  .ProfileImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .ContentContainer .LeaderBoard {
+  font-size: 1.1rem;
+  width: 400px;
+  margin-left: auto; 
+  border: 5px solid #FFFFFF; 
+  border-radius: 5%;
+  padding: 10px 20px;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); 
+  position: relative;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  text-align: left;
+  margin-bottom: 2em;
+}
+.flex .item{
+  display: flex;
+  align-items: center;
+}
+
+.ContentContainer .ChartAndTop .StudyChart {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  border: 5px solid #FFFFFF; 
+  border-radius: 5%;
+  padding: 10px 20px;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); 
+  
+}
+.ContentContainer .ChartAndTop .TopCourse {
+  width: 600px;
+  height: 400px;
+  border: 5px solid #FFFFFF; 
+  border-radius: 5%;
+  padding: 10px 20px;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); 
+  margin-top: 30px;
+}
+.ContentContainer .ChartAndTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0;
+  margin-left: auto;
+}
+.ContentContainer {
+  display: flex;
+  align-items: flex-start; 
+}
+
+.ContentContainer td {
+  border: none;
+  
+}
+.ContentContainer th {
+  border: none;
+  
+}
