@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.payment-card {
+    background-color: grey;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav {
+    background-color: rgb(67, 67, 137);
+    padding: 25px;
+    margin: 30px;
+    border-radius: 20px;
+}
+
+.payment-card h1 {
+    font-size: 24px;
+    color: #d32f2f;
+    margin-bottom: 10px;
+}
+
+h1{
+    color: blue;
+}
+section div button {
+    margin: auto;
+    margin-top: 10px;
+    display: block;
+    border-radius: 16px;
+    background-color: grey;
+    border:none;
+    color: blue;
+}
+
+p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+button:hover,
+button:active {
+    color: black;
+    background-color: white;
+}
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    overflow: hidden;
+}
+
+/* Add class to show modal */
+.modal.show {
+    display: block;
+}
+
+/* Overlay background */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.overlay.show {
+    display: block;
+}
+
+div input {
+    margin: 10px 0;
+    padding: 10px;
+    width: calc(100% - 20px); /* Responsive input */
+}
+
+.timer {
+    color: white;
+    background-color: red;
+    text-align: center;
+    border-radius: 5px;
+    padding: 20px;
+    margin: -45px;
+}
+
+.thongtin{
+    margin-bottom: 100px;
+    text-align: left;
+}
+.container{
+    display: flex;
+    gap: 20px;
+}
+.smallblock1
+{
+    font-weight: bold;
+}
+.smallblock2{
+    text-align: right;
+    font-weight: none;
+}

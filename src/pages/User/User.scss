@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+    padding: 150px;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px; /* Thêm padding để tạo không gian xung quanh */
+    background-color: rgb(78, 78, 213); /* Màu nền cho hình chữ nhật */
+    border-radius: 8px; 
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.section h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.card-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 150px;
+    padding: 15px;
+    background-color: #c1c0c0;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+    margin: 5px 0;
+}
