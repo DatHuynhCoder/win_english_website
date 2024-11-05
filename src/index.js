@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import Home from './pages/home/Home'
-import Login from './pages/Login'
+import Login from './pages/SigninSignup/Login'
 import Admin from './pages/Admin'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
 import User from './pages/User'
 import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
+import Payment from './pages/Payment/Payment';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -68,6 +69,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>,
+    errorElement: <ErrorRoutes/>,
+  },
+  {
+    path: "/payment",
+    element: <Payment/>,
     errorElement: <ErrorRoutes/>,
   },
 ])
