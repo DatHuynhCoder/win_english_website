@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import Home from './pages/home/Home'
-import Login from './pages/Login'
-import Admin from './pages/Admin'
+import Login from './pages/SigninSignup/Login'
+import Admin from './pages/Admin/AdminPage'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
 import User from './pages/User'
