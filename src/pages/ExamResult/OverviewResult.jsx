@@ -49,7 +49,7 @@ const OverviewResult = ({ resultData }) => {
                                 <Card.Title className='title-3'>Thời gian làm</Card.Title>
                                 <FaClock color='purple' size={40} />
                                 <Card.Text className='result'>{resultData.duration}</Card.Text>
-                                <Card.Text>Bạn hoàn thành kịp lúc !</Card.Text>
+                                <Card.Text>Hoàn thành kịp thời !</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
