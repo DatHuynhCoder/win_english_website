@@ -4,7 +4,7 @@
 
 import AudioPlayer from './AudioPlayer';
 import Tracking from './Tracking';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -103,10 +103,17 @@ const qBank = [
 
 const Exam = () => {
   const [userAnswer, setUserAnswer] = useState(Array(qBank.length).fill(''));
+  const [startTime, setStartTime] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    setStartTime(Date.now());
+  }, []);
+
   const handleSumnit = () => {
-    navigate('/exam-result', {state: {userAnswer, qBank}});
+    const endTime = Date.now();
+    const duration = Math.floor((endTime - startTime) / 1000); //duration: seconds
+    navigate('/exam-result', {state: {userAnswer, qBank, duration}});
   }
 
   const handleAnswerChange = (option, index) => {
