@@ -10,6 +10,7 @@ import ErrorRoutes from './pages/ErrorRoutes';
 import User from './pages/User'
 import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
+import Exam from './pages/exam/Exam';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/exam-library",
         element: <ExamLibrary/>
+      },
+      {
+        path: "/exam",
+        element: <Exam />
       },
       {
         path: "/user",
