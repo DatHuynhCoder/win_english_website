@@ -54,12 +54,18 @@ const AudioPlayer = ({ audioSrc }) => {
     }
 
     useEffect(() => {
-        audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
+        const audioElement = audioRef.current;
+
+        if (audioElement) {
+            audioElement.addEventListener("timeupdate", handleTimeUpdate);
+        }
 
         return () => {
-            audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-        }
-    }, [])
+            if (audioElement) {
+                audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+            }
+        };
+    }, []);
 
     return (
         <div className="audio-container">

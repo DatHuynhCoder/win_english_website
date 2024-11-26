@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 import Modal from 'react-bootstrap/Modal'
@@ -58,9 +59,12 @@ const ListExamData = [
 
 const ListExam = ({search}) => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleTakeExam = () => navigate('/exam');
+
   return (
     <>
       <div className="ListExam-container">
@@ -77,7 +81,7 @@ const ListExam = ({search}) => {
             <Button variant="secondary" onClick={handleClose}>
               Đóng
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleTakeExam}>
               Bắt đầu thi
             </Button>
           </Modal.Footer>

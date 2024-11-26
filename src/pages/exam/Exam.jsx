@@ -27,10 +27,10 @@ const Exam = () => {
     //axios
     const getQuestion = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/');
+        const response = await axios.get('http://localhost:8081/getQbank');
         const formattedData = response.data.map((item) => ({
           ...item,
-          options: JSON.parse(item.options), // Parse options into an array
+          options: JSON.parse(item.options), // Xử lý kiểu dữ liệu JSON
         }));
         console.log(formattedData);
         setQBank(formattedData);
