@@ -53,7 +53,7 @@ const Header = () => {
         </Button>
       </Modal.Footer>
     </Modal>
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
         <NavLink to={`/`} className={'navbar-brand'}>
           <Image
@@ -68,7 +68,7 @@ const Header = () => {
           <Nav className="me-auto">
             <NavLink to={`/users`} className={'nav-link'}>Khóa học</NavLink>
             <NavLink to={`/exam-library`} className={'nav-link'}>Đề thi</NavLink>
-            <NavLink to={`/about`} className={'nav-link'}>About</NavLink>
+            <NavLink to={`/about`} className={'nav-link'}>Về chúng tôi</NavLink>
             <NavLink to={`/admin`} className={'nav-link'}>Lộ trình</NavLink>
           </Nav>
           <Nav>
