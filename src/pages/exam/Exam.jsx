@@ -6,7 +6,7 @@ import AudioPlayer from './AudioPlayer';
 import Tracking from './Tracking';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 //use axios
 import axios from 'axios'
 
@@ -18,6 +18,9 @@ const Exam = () => {
   const [startTime, setStartTime] = useState(null);
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const examid = location.state?.examId;
+
   //get question data from database
   const [qBank,setQBank] = useState([]);
 
@@ -27,7 +30,9 @@ const Exam = () => {
     //axios
     const getQuestion = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/getQbank');
+        const response = await axios.get('http://localhost:8081/get-qbank-by-id', {
+          params: { examid: examid}
+        });
         const formattedData = response.data.map((item) => ({
           ...item,
           options: JSON.parse(item.options), // Xử lý kiểu dữ liệu JSON
@@ -40,8 +45,9 @@ const Exam = () => {
         console.log('Co loi trong qua trinh them data: ', error);
       }
     };
-
-    getQuestion();
+    if (examid) {
+      getQuestion();
+    }
   }, []);
 
   const handleSumnit = () => {

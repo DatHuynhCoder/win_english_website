@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
@@ -19,62 +19,85 @@ import pic4 from '../../assets/pic4.jpg'
 import pic5 from '../../assets/pic5.jpg'
 import pic6 from '../../assets/pic6.jpg'
 
-const ListExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  },
-  {
-    title: 'Seventh slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic1
-  }
-]
+// const ListExamData = [
+//   {
+//     title: 'First slide label',
+//     content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+//     image: pic1
+//   },
+//   {
+//     title: 'Second slide label',
+//     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+//     image: pic2
+//   },
+//   {
+//     title: 'Third slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic3
+//   },
+//   {
+//     title: 'Fourth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic4
+//   },
+//   {
+//     title: 'Fifth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic5
+//   },
+//   {
+//     title: 'Sixth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic6
+//   },
+//   {
+//     title: 'Seventh slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic1
+//   }
+// ]
 
-const ListExam = ({search}) => {
+const ListExam = ({ search }) => {
   const [show, setShow] = useState(false);
+  const [selectedExam, setSelectedExam] = useState({});
   const navigate = useNavigate();
+  //get exam data from database
+  const [listExam, setListExam] = useState([]);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleTakeExam = () => navigate('/exam');
+  //use axios to request get exam
+  useEffect(() => {
+    const getExam = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/get-exam');
+        console.log(response.data);
+        setListExam(response.data);
+      } catch (error) {
+        console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+      }
+    }
+    getExam();
+  }, [])
+
+  const handleClose = () => {
+    setSelectedExam({});
+    setShow(false);
+  };
+  const handleShow = (exam_item) => {
+    setSelectedExam(exam_item);
+    setShow(true)
+  };
+  const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid}});
 
   return (
     <>
       <div className="ListExam-container">
-        <Modal 
-          show={show} 
-          onHide={handleClose} 
+        <Modal
+          show={show}
+          onHide={handleClose}
           backdrop='static'
         >
           <Modal.Header closeButton>
-            <Modal.Title>Thông tin đề thi</Modal.Title>
+            <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
           <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
           <Modal.Footer>
@@ -88,28 +111,28 @@ const ListExam = ({search}) => {
         </Modal>
         <Row className='g-5'>
           {
-            ListExamData.filter((item) => {
+            listExam.filter((item) => {
               return search.toLowerCase() === '' ? item
-              :
-              (
-                item.title.toLowerCase().includes(search.toLowerCase())
-              )
+                :
+                (
+                  item.examname.toLowerCase().includes(search.toLowerCase())
+                )
             }).map((item, index) => (
               <Col xs={12} sm={6} md={4} key={index}>
-                
+
                 <Card className='ListExam-child' key={index}>
                   <Card.Body>
-                    <Card.Title>{item.title}</Card.Title>
+                    <Card.Title>{item.examname}</Card.Title>
                     <Card.Text>
-                      <CiClock1 size={25}/>Thời gian làm bài - 100
+                      <CiClock1 size={25} />Thời gian làm bài - 120 phút
                       <br></br>
-                      <CiUser size={25}/>Số người tham gia - 100
+                      <CiUser size={25} />Số người tham gia - 100
                       <br></br>
-                      <AiOutlineComment size={25}/>Đánh giá - 100
+                      <AiOutlineComment size={25} />Đánh giá - 100
                       <br></br>
-                      4 phần thi - 90 câu hỏi
+                      4 phần thi - {item.totalquestions} câu hỏi
                     </Card.Text>
-                    <Button variant="primary" onClick={() => handleShow()}>Xem</Button>
+                    <Button variant="primary" onClick={() => handleShow(item)}>Xem</Button>
                   </Card.Body>
                 </Card>
               </Col>
