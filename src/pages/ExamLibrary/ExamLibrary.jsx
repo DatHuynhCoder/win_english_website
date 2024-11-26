@@ -20,81 +20,81 @@ import pic6 from '../../assets/pic6.jpg'
 import SearchButton from './SearchButton'
 import { Link } from 'react-router-dom';
 
-const RawListExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  },
-  {
-    title: 'Seventh slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic1
-  }
-]
+// const RawListExamData = [
+//   {
+//     title: 'First slide label',
+//     content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+//     image: pic1
+//   },
+//   {
+//     title: 'Second slide label',
+//     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+//     image: pic2
+//   },
+//   {
+//     title: 'Third slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic3
+//   },
+//   {
+//     title: 'Fourth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic4
+//   },
+//   {
+//     title: 'Fifth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic5
+//   },
+//   {
+//     title: 'Sixth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic6
+//   },
+//   {
+//     title: 'Seventh slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic1
+//   }
+// ]
 
-const ListExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  },
-  {
-    title: 'Seventh slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic1
-  }
-]
+// const ListExamData = [
+//   {
+//     title: 'First slide label',
+//     content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+//     image: pic1
+//   },
+//   {
+//     title: 'Second slide label',
+//     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+//     image: pic2
+//   },
+//   {
+//     title: 'Third slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic3
+//   },
+//   {
+//     title: 'Fourth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic4
+//   },
+//   {
+//     title: 'Fifth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic5
+//   },
+//   {
+//     title: 'Sixth slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic6
+//   },
+//   {
+//     title: 'Seventh slide label',
+//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
+//     image: pic1
+//   }
+// ]
 
 const UserProfile = {
   name: "User",
