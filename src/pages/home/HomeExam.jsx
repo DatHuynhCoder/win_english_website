@@ -1,8 +1,9 @@
 /**
  * @author Quynh Anh
  */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { ContextStore } from '../../context/Context';
 
 import './HomeExam.scss'
 
@@ -12,11 +13,14 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import Cookies from 'universal-cookie'
 
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
 
 const HomeExam = ({HomeExamData}) => {
+  const cookies = new Cookies()
+  const {accessToken, setAccessToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
   const navigate = useNavigate();
@@ -25,23 +29,30 @@ const HomeExam = ({HomeExamData}) => {
 
   //use axios to request get exam
   useEffect(() => {
-    const getExam = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/get-exam');
-        console.log(response.data);
-        setListExam(response.data);
-      } catch (error) {
-        console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+    setAccessToken(cookies.get("accessToken"))
+    if(accessToken) {
+      const getExam = async () => {
+        try {
+          const response = await axios.get('http://localhost:8081/get-exam', {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          });
+          console.log(response.data);
+          setListExam(response.data);
+        } catch (error) {
+          console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+        }
       }
+      getExam();
     }
-    getExam();
-  }, [])
+  }, [accessToken])
 
   const handleClose = () => {
     setSelectedExam({});
     setShow(false);
   };
-  const handleShow = (exam_item) => {
+  const handleShow = (exam_item) => { 
     setSelectedExam(exam_item);
     setShow(true)
   };

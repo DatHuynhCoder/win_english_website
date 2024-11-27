@@ -37,7 +37,7 @@ const Exam = () => {
           ...item,
           options: JSON.parse(item.options), // Xử lý kiểu dữ liệu JSON
         }));
-        console.log(formattedData);
+        console.log('check exam question: ', formattedData);
         setQBank(formattedData);
         setUserAnswer(Array(response.data.length).fill(''));
       }
