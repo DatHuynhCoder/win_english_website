@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal'
@@ -7,6 +7,8 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import { ContextStore } from '../../context/Context';
+import { useTokenRefresher } from '../../hooks/useTokenRefresher';
 
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
@@ -57,7 +59,8 @@ import pic6 from '../../assets/pic6.jpg'
 //   }
 // ]
 
-const ListExam = ({ search }) => {
+const ListExam = ({ search }) => { 
+  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
   const navigate = useNavigate();
@@ -66,17 +69,23 @@ const ListExam = ({ search }) => {
 
   //use axios to request get exam
   useEffect(() => {
-    const getExam = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/get-exam');
-        console.log(response.data);
-        setListExam(response.data);
-      } catch (error) {
-        console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+    if(accessToken) {
+      const getExam = async () => {
+        try {
+          const response = await axios.get('http://localhost:8081/get-exam',{
+            headers: {
+              Authorization: `Bearer ${accessToken}` // Thêm token vào header
+            }
+          });
+          console.log(response.data);
+          setListExam(response.data);
+        } catch (error) {
+          console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+        }
       }
+      getExam();
     }
-    getExam();
-  }, [])
+  }, [accessToken])
 
   const handleClose = () => {
     setSelectedExam({});
