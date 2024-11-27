@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ContextStore } from '../../context/Context';
 import styles from './LoginSignupStyles.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Login = () => {
   const navigate = useNavigate()
+  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(ContextStore)
   const [isActive, setIsActive] = useState(false);
   const [username, setUsername] = useState('')
   const [phonenumber, setPhonenumber] = useState('')
@@ -36,10 +38,13 @@ const Login = () => {
       console.log(res)
       if(res.data.Status === 'Success'){
         alert(res.data.Status)
+        setAccessToken(res.data.accessToken)
+        setRefreshToken(res.data.refreshToken)
         navigate('/')
       }
       else {
         alert(res.data.Error)
+        setAccessToken(null)
       }
     })
     .then(err => console.log(err))
