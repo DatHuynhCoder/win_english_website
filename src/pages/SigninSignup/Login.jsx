@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Login = () => {
   const navigate = useNavigate()
-  const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(ContextStore)
+  const {accessToken, setAccessToken, refreshToken, setRefreshToken, setUserid} = useContext(ContextStore)
   const [isActive, setIsActive] = useState(false);
   const [username, setUsername] = useState('')
   const [phonenumber, setPhonenumber] = useState('')
@@ -40,6 +40,7 @@ const Login = () => {
         alert(res.data.Status)
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
+        setUserid(res.data.userid);
         navigate('/')
       }
       else {
@@ -84,7 +85,7 @@ const Login = () => {
       <div className={`${styles.formcontainer} ${styles.signup}`}>
         <form>
           <h1 className={styles.h1}>Create Account</h1>
-          <input type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)}/>
+          <input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
           <input type="text" placeholder="Phone number" onChange={(e) => setPhonenumber(e.target.value)}/>
           <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
           <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />

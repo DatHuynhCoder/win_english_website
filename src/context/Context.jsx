@@ -4,10 +4,12 @@ const ContextStore = createContext()
 const ContextProvider = ({children}) => {
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
+  const [userid, setUserid] = useState(1);
   return (
     <ContextStore.Provider value={{
       accessToken, setAccessToken,
-      refreshToken, setRefreshToken
+      refreshToken, setRefreshToken,
+      userid, setUserid
     }}>
       {children}
     </ContextStore.Provider>
