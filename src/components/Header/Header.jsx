@@ -2,6 +2,7 @@
  * @author Quynh Anh
  * @documentation https://react-bootstrap.netlify.app/docs/components/navbar
  */
+import Cookies from 'universal-cookie'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -20,6 +21,7 @@ import logoWinEng from '../../assets/logoWinEng.svg'
 import { useState } from 'react'
 
 const Header = () => {
+  const cookies = new Cookies()
   const [isVip, setIsVip] = useState(false)
   const [show, setShow] = useState(false);
 
@@ -85,7 +87,11 @@ const Header = () => {
                 <NavLink to={`/login`} className={'dropdown-item'}>Log in</NavLink>
                 <NavLink to={`/signup`} className={'dropdown-item'}>Sign up</NavLink>
                 <NavDropdown.Divider />
-                <NavLink to={`/others`} className={'dropdown-item'}>Others</NavLink>
+                <NavLink to={`/login`} className={'dropdown-item'} onClick={() => {
+                  if(!cookies.get("accessToken")) alert("Login first !")
+                  cookies.remove("accessToken")
+                  cookies.remove("refreshToken")
+                }}>Log out</NavLink>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

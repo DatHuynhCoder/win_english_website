@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { ContextStore } from '../../context/Context';
 import { useTokenRefresher } from '../../hooks/useTokenRefresher';
 
@@ -60,6 +61,7 @@ import pic6 from '../../assets/pic6.jpg'
 // ]
 
 const ListExam = ({ search }) => { 
+  const cookies = new Cookies()
   const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
@@ -69,6 +71,7 @@ const ListExam = ({ search }) => {
 
   //use axios to request get exam
   useEffect(() => {
+    setAccessToken(cookies.get("accessToken"))
     if(accessToken) {
       const getExam = async () => {
         try {
