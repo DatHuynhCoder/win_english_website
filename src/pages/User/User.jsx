@@ -9,6 +9,9 @@ import {
   ListGroup,
   ProgressBar,
 } from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react';
+import { ContextStore } from '../../context/Context';
+import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
@@ -16,10 +19,10 @@ import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
 import './User.scss';
 
 const columns = [
-  { field: 'examName', headerName: 'Tên bài thi', width: 130 },
+  { field: 'examName', headerName: 'Tên bài thi', width: 150 },
   { field: 'grade', headerName: 'Điểm số', width: 70 },
-  { field: 'duration', headerName: 'Thời gian làm', width: 130 },
-  { field: 'detailResult', headerName: 'Chi tiết', width: 90 }
+  { field: 'duration', headerName: 'Thời gian làm', width: 150 },
+  { field: 'detailResult', headerName: 'Chi tiết', width: 130 }
 ];
 
 const rows = [
@@ -37,26 +40,58 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function User() {
+  const { accessToken, userid } = useContext(ContextStore);
+  //get user data
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(true);
+  //use axios to request get-user-by-id
+  useEffect(() => {
+    if (accessToken) {
+      const getUserById = async () => {
+        try {
+          const response = await axios.get('http://localhost:8081/get-user-by-id', {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            },
+            params: { userid: userid }
+          });
+          console.log(response.data);
+          if (response.data && response.data.length > 0) {
+            setUser(response.data);
+          }
+        } catch (error) {
+          console.log('Error fetching user by id:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getUserById();
+    }
+  }, [accessToken, userid]);
+
   return (
     <div className="user-profile">
       <Container className="my-4 container">
-        <Row>
-          <Col md={4}>
-            <Card>
-              <Card.Body className="text-center">
-                <Image
-                  src={UserImg}
-                  alt="User"
-                  roundedCircle
-                  width="150"
-                  height="150"
-                />
-                <div className="mt-3">
-                  <h4 className='user-name'>DatDaDat</h4>
-                </div>
-              </Card.Body>
-            </Card>
-            {/* <Card className="mt-3">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <Row>
+            <Col md={4}>
+              <Card>
+                <Card.Body className="text-center">
+                  <Image
+                    src={UserImg}
+                    alt="User"
+                    roundedCircle
+                    width="150"
+                    height="150"
+                  />
+                  <div className="mt-3">
+                    <h4 className='user-name'>{user[0].username}</h4>
+                  </div>
+                </Card.Body>
+              </Card>
+              {/* <Card className="mt-3">
               <ListGroup variant="flush">
                 <ListGroup.Item className="d-flex justify-content-between align-items-center">
                   <h6 className="mb-0">Website</h6>
@@ -80,76 +115,77 @@ export default function User() {
                 </ListGroup.Item>
               </ListGroup>
             </Card> */}
-          </Col>
+            </Col>
 
-          <Col md={8}>
-            {/* Thông tin cá nhân */}
-            <Card className="mb-3">
-              <Card.Body>
-                <Row className="mb-3">
-                  <Col sm={3}>
-                    <h6 className="mb-0">Tên người dùng</h6>
-                  </Col>
-                  <Col sm={9} className="text-secondary">
-                    DatDaDat
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={3}>
-                    <h6 className="mb-0">Họ và tên</h6>
-                  </Col>
-                  <Col sm={9} className="text-secondary">
-                    Huỳnh Tấn Đạt
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={3}>
-                    <h6 className="mb-0">Email</h6>
-                  </Col>
-                  <Col sm={9} className="text-secondary">
-                    htdat@gmail.com
-                  </Col>
-                </Row>
-                <Row className="mb-3">
-                  <Col sm={3}>
-                    <h6 className="mb-0">Phone</h6>
-                  </Col>
-                  <Col sm={9} className="text-secondary">
-                    0836759122
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={12}>
-                    <Button variant="success">
-                      Thay đổi
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+            <Col md={8}>
+              {/* Thông tin cá nhân */}
+              <Card className="mb-3">
+                <Card.Body>
+                  <Row className="mb-3">
+                    <Col sm={3}>
+                      <h6 className="mb-0">Tên người dùng</h6>
+                    </Col>
+                    <Col sm={9} className="text-secondary">
+                      {user[0].username}
+                    </Col>
+                  </Row>
+                  <Row className="mb-3">
+                    <Col sm={3}>
+                      <h6 className="mb-0">Họ và tên</h6>
+                    </Col>
+                    <Col sm={9} className="text-secondary">
+                      {user[0].username}
+                    </Col>
+                  </Row>
+                  <Row className="mb-3">
+                    <Col sm={3}>
+                      <h6 className="mb-0">Email</h6>
+                    </Col>
+                    <Col sm={9} className="text-secondary">
+                      {user[0].useremail}
+                    </Col>
+                  </Row>
+                  <Row className="mb-3">
+                    <Col sm={3}>
+                      <h6 className="mb-0">Phone</h6>
+                    </Col>
+                    <Col sm={9} className="text-secondary">
+                      {user[0].userphone}
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={12}>
+                      <Button variant="success">
+                        Thay đổi
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
 
-            {/* Danh sách kết quả thi */}
-            <Row>
-              <Col sm={12} className="mb-3">
-                <Card className="h-100">
-                  <Card.Body>
-                    <h6 className="d-flex align-items-center mb-3">Kết quả thi</h6>
-                    <Paper sx={{ height: 400, width: '100%' }}>
-                      <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        initialState={{ pagination: { paginationModel } }}
-                        pageSizeOptions={[5, 10]}
-                        sx={{ border: 0 }}
-                        getRowId={(row) => row.id}
-                      />
-                    </Paper>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+              {/* Danh sách kết quả thi */}
+              <Row>
+                <Col sm={12} className="mb-3">
+                  <Card className="h-100">
+                    <Card.Body>
+                      <h6 className="d-flex align-items-center mb-3">Kết quả thi</h6>
+                      <Paper sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                          rows={rows}
+                          columns={columns}
+                          initialState={{ pagination: { paginationModel } }}
+                          pageSizeOptions={[5, 10]}
+                          sx={{ border: 0 }}
+                          getRowId={(row) => row.id}
+                        />
+                      </Paper>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        )}
       </Container>
     </div>
   );
