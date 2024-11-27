@@ -7,7 +7,7 @@ import Login from './pages/SigninSignup/Login'
 import Admin from './pages/Admin/AdminPage'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
-import User from './pages/User'
+import User from './pages/User/User'
 import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
 import Exam from './pages/exam/Exam';
