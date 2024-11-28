@@ -82,6 +82,13 @@ export default function User() {
       setLoading(false);
     }
   };
+  //load image 
+  const handleUploadAvatar = (e) => {
+    if (e.target && e.target.files && e.target.files[0]) {
+      setPreviewAvatar(URL.createObjectURL(e.target.files[0]));
+      setUserAvatarUrl(URL.createObjectURL(e.target.files[0]));
+    }
+  }
 
   //update user
   const handleUpdateUser = () => {
@@ -93,7 +100,8 @@ export default function User() {
             userid: userid,
             username: userName,
             userfullname: userFullName,
-            userphone: userPhone
+            userphone: userPhone,
+            useravatarurl: userAvatarUrl
           }
           const respone = await axios.put('http://localhost:8081/update-user-info', info);
           console.log(respone.data);
@@ -107,12 +115,13 @@ export default function User() {
       getUserById();
     }
   }
-  //update user effect
+  //update user for modal
   useEffect(() => {
     if (user.length > 0) {
       setUserName(user[0].username);
       setUserFullName(user[0].userfullname);
       setUserPhone(user[0].userphone);
+      setUserAvatarUrl(user[0].useravatarurl);
     }
   }, [user]);
 
@@ -172,10 +181,10 @@ export default function User() {
                       onChange={(e) => setUserPhone(e.target.value)}
                     />
                   </div>
-                  {/* <div className="avatar-container">
+                  <div className="avatar-container">
                     <label className='form-label label-upload' htmlFor='labelUpload'>
                       <FcPlus />
-                      Upload File Image</label>
+                      Upload ảnh đại diện</label>
                     <input
                       type="file"
                       hidden
@@ -189,7 +198,7 @@ export default function User() {
                       :
                       <span>Preview Avatar</span>
                     }
-                  </div> */}
+                  </div>
                 </form>
               </Modal.Body>
               <Modal.Footer>
@@ -205,7 +214,7 @@ export default function User() {
               <Card>
                 <Card.Body className="text-center">
                   <Image
-                    src={UserImg}
+                    src={user[0].useravatarurl === '' ? UserImg : userAvatarUrl}
                     alt="User"
                     roundedCircle
                     width="150"
