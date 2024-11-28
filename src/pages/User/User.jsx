@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 
 import { FcPlus } from "react-icons/fc";
 
-import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
+import DefaultAvatar from '../../assets/galaxy_slayer_Zed.jpg'
 
 import { jwtDecode } from "jwt-decode";
 
@@ -214,7 +214,7 @@ export default function User() {
               <Card>
                 <Card.Body className="text-center">
                   <Image
-                    src={user[0].useravatarurl === '' ? UserImg : userAvatarUrl}
+                    src={user[0].useravatarurl|| DefaultAvatar}
                     alt="User"
                     roundedCircle
                     width="150"
