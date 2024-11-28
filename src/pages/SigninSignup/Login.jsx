@@ -53,7 +53,7 @@ const Login = () => {
         cookies.set("refreshToken", res.data.refreshToken, {
           
         })
-        setUserid(res.data.userid);
+        setUserid(decodedAccessToken.userid);
         navigate('/')
       }
       else {
