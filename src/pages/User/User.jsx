@@ -19,6 +19,8 @@ import Paper from '@mui/material/Paper';
 import { toast } from 'react-toastify';
 import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
 
+import { jwtDecode } from "jwt-decode";
+
 import './User.scss';
 
 const columns = [
@@ -44,7 +46,7 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function User() {
   const cookies = new Cookies()
-  const { accessToken, setAccessToken, userid } = useContext(ContextStore);
+  const { accessToken, setAccessToken, userid, setUserid } = useContext(ContextStore);
 
   const [userName, setUserName] = useState('');
   const [userFullName, setUserFullName] = useState('');
@@ -78,6 +80,7 @@ export default function User() {
 
   //update user
   const handleUpdateUser = () => {
+    console.log("update click")
     if (accessToken) {
       const changeUser = async () => {
         try {
@@ -111,10 +114,14 @@ export default function User() {
   //use axios to request get-user-by-id
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
+    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+    console.log('check decoded accessToken in user page: ', decodedAccessToken)
+    console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
+    setUserid(decodedAccessToken.userid)
     if (accessToken) {
       getUserById();
     }
-  }, [accessToken, userid]);
+  }, [accessToken]);
 
   return (
     <div className="user-profile">
