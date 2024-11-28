@@ -4,7 +4,7 @@ const ContextStore = createContext()
 const ContextProvider = ({children}) => {
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
-  const [userid, setUserid] = useState(1);
+  const [userid, setUserid] = useState();
   return (
     <ContextStore.Provider value={{
       accessToken, setAccessToken,

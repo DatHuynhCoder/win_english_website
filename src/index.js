@@ -13,6 +13,9 @@ import ExamResult from './pages/ExamResult/ExamResult';
 import Exam from './pages/exam/Exam';
 
 import { ContextProvider } from './context/Context';
+//use toast
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -84,6 +87,7 @@ root.render(
   <React.StrictMode>
     <ContextProvider>
       <RouterProvider router={router}/>
+      <ToastContainer />
     </ContextProvider>
   </React.StrictMode>
 );
