@@ -11,6 +11,7 @@ import User from './pages/User/User'
 import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
 import Exam from './pages/exam/Exam';
+import Payment from './pages/Payment/Payment';
 
 import { ContextProvider } from './context/Context';
 
@@ -77,6 +78,11 @@ const router = createBrowserRouter([
     element: <Login/>,
     errorElement: <ErrorRoutes/>,
   },
+  {
+    path: "/payment",
+    element: <Payment/>,
+    errorElement: <ErrorRoutes/>
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -11,7 +11,7 @@ import { Image } from "react-bootstrap"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { FaUser } from "react-icons/fa"
 import { LuCrown } from "react-icons/lu"
@@ -22,6 +22,7 @@ import { useState } from 'react'
 
 const Header = () => {
   const cookies = new Cookies()
+  const navigate = useNavigate()
   const [isVip, setIsVip] = useState(false)
   const [show, setShow] = useState(false);
 
@@ -47,7 +48,7 @@ const Header = () => {
           <Button
             variant="primary"
             onClick={() => {
-              setIsVip(!isVip)
+              navigate('/payment')
               handleClose()
             }}
             style={{ background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(245,255,0,1) 100%, rgba(0,212,255,1) 100%)', border: 'none' }}>
