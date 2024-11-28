@@ -9,11 +9,14 @@ import {
   ListGroup,
   ProgressBar,
 } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '../../context/Context';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
+import { toast } from 'react-toastify';
 import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
 
 import './User.scss';
@@ -40,31 +43,75 @@ const rows = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function User() {
-  const { accessToken, userid } = useContext(ContextStore);
+  const cookies = new Cookies()
+  const { accessToken, setAccessToken, userid } = useContext(ContextStore);
+
+  const [userName, setUserName] = useState('');
+  const [userFullName, setUserFullName] = useState('');
+  const [userPhone, setUserPhone] = useState();
+  const [showModal, setShowModal] = useState(false);
   //get user data
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  //close modal
+  const handleCloseModal = () => setShowModal(false);
+  // get user by id
+  const getUserById = async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/get-user-by-id', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        params: { userid: userid }
+      });
+      console.log("Get user by id = ", userid, ": ", response.data);
+      if (response.data && response.data.length > 0) {
+        setUser(response.data);
+      }
+    } catch (error) {
+      console.log('Error fetching user by id:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //update user
+  const handleUpdateUser = () => {
+    if (accessToken) {
+      const changeUser = async () => {
+        try {
+          const info = {
+            userid: userid,
+            username: userName,
+            userfullname: userFullName,
+            userphone: userPhone
+          }
+          const respone = await axios.put('http://localhost:8081/update-user-info', info);
+          console.log(respone.data);
+          toast.success('Cập nhật thông tin người dùng thành công');
+          setShowModal(false);
+        } catch (error) {
+          console.log("Can't update user:", error)
+        }
+      }
+      changeUser();
+      getUserById();
+    }
+  }
+  //update user effect
+  useEffect(() => {
+    if (user.length > 0) {
+      setUserName(user[0].username);
+      setUserFullName(user[0].userfullname);
+      setUserPhone(user[0].userphone);
+    }
+  }, [user]);
+
   //use axios to request get-user-by-id
   useEffect(() => {
+    setAccessToken(cookies.get("accessToken"))
     if (accessToken) {
-      const getUserById = async () => {
-        try {
-          const response = await axios.get('http://localhost:8081/get-user-by-id', {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            },
-            params: { userid: userid }
-          });
-          console.log(response.data);
-          if (response.data && response.data.length > 0) {
-            setUser(response.data);
-          }
-        } catch (error) {
-          console.log('Error fetching user by id:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
       getUserById();
     }
   }, [accessToken, userid]);
@@ -76,6 +123,72 @@ export default function User() {
           <div>Loading...</div>
         ) : (
           <Row>
+            <Modal show={showModal}
+              onHide={handleCloseModal}
+              size='xl'
+              backdrop='static'
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Thay đổi thông tin người dùng</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <form className="row g-3">
+                  <div className="col-md-6">
+                    <label className="form-label">Tên người dùng</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label className="form-label">Họ và tên</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={userFullName}
+                      onChange={(e) => setUserFullName(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label className="form-label">Số điện thoại</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={userPhone}
+                      onChange={(e) => setUserPhone(e.target.value)}
+                    />
+                  </div>
+                  {/* <div className="avatar-container">
+                    <label className='form-label label-upload' htmlFor='labelUpload'>
+                      <FcPlus />
+                      Upload File Image</label>
+                    <input
+                      type="file"
+                      hidden
+                      id='labelUpload'
+                      onChange={(e) => handleUploadImage(e)}
+                    />
+                  </div>
+                  <div className='col-md-12 img-preview'>
+                    {previewimg ?
+                      <img src={previewimg} alt="avatar" />
+                      :
+                      <span>Preview Image</span>
+                    }
+                  </div> */}
+                </form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModal}>
+                  Đóng
+                </Button>
+                <Button variant="primary" onClick={() => handleUpdateUser()}>
+                  Thay đổi
+                </Button>
+              </Modal.Footer>
+            </Modal>
             <Col md={4}>
               <Card>
                 <Card.Body className="text-center">
@@ -134,7 +247,7 @@ export default function User() {
                       <h6 className="mb-0">Họ và tên</h6>
                     </Col>
                     <Col sm={9} className="text-secondary">
-                      {user[0].username}
+                      {user[0].userfullname}
                     </Col>
                   </Row>
                   <Row className="mb-3">
@@ -155,7 +268,10 @@ export default function User() {
                   </Row>
                   <Row>
                     <Col sm={12}>
-                      <Button variant="success">
+                      <Button
+                        variant="success"
+                        onClick={() => setShowModal(true)}
+                      >
                         Thay đổi
                       </Button>
                     </Col>
