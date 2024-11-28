@@ -17,6 +17,9 @@ import Cookies from 'universal-cookie';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { toast } from 'react-toastify';
+
+import { FcPlus } from "react-icons/fc";
+
 import UserImg from '../../assets/galaxy_slayer_Zed.jpg'
 
 import { jwtDecode } from "jwt-decode";
@@ -52,6 +55,8 @@ export default function User() {
   const [userFullName, setUserFullName] = useState('');
   const [userPhone, setUserPhone] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [userAvatarUrl, setUserAvatarUrl] = useState('');
+  const [previewAvatar, setPreviewAvatar] = useState('');
   //get user data
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -175,14 +180,14 @@ export default function User() {
                       type="file"
                       hidden
                       id='labelUpload'
-                      onChange={(e) => handleUploadImage(e)}
+                      onChange={(e) => handleUploadAvatar(e)}
                     />
                   </div>
                   <div className='col-md-12 img-preview'>
-                    {previewimg ?
-                      <img src={previewimg} alt="avatar" />
+                    {previewAvatar ?
+                      <img src={previewAvatar} alt="avatar" />
                       :
-                      <span>Preview Image</span>
+                      <span>Preview Avatar</span>
                     }
                   </div> */}
                 </form>
