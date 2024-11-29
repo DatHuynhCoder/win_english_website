@@ -6,15 +6,24 @@ import { useLocation } from "react-router-dom";
 import OverviewResult from "./OverviewResult";
 import Comment from "../../components/Comment/Comment";
 import DetailResult from "./DetailResult";
+import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+import Cookies from 'universal-cookie';
+import { ContextStore } from '../../context/Context';
+import { useState, useEffect, useContext } from "react";
 
 import './ExamResult.scss'
 
 const ExamResult = () => {
+  const cookies = new Cookies()
+  const { accessToken, setAccessToken, userid, setUserid } = useContext(ContextStore);
 
   const location = useLocation();
   const userAnswer = location.state?.userAnswer;
   const qBank = location.state?.qBank;
   const duration = location.state?.duration;
+  const examid = location.state?.examid;
+  const examname = location.state?.examname;
 
   let numCorrect = 0;
   let numWrong = 0;
@@ -51,9 +60,8 @@ const ExamResult = () => {
     return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
   };
 
-
   const resultData = {
-    nameExam: 'Practice Set 2023 TOEIC Test 8',
+    nameExam: examname,
     numCorrect,
     numWrong,
     duration: formatTime(duration),
@@ -65,6 +73,54 @@ const ExamResult = () => {
     readingScore: 365,
     numUserRead: 74,
   }
+
+  //xac thuc voi accesstoken va cookies va store examresult
+  useEffect(() => {
+    setAccessToken(cookies.get("accessToken"))
+    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+    console.log('check decoded accessToken in user page: ', decodedAccessToken)
+    console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
+    setUserid(decodedAccessToken.userid)
+    console.log(resultData);
+    if (accessToken) {
+      //create date take exam
+      const date = new Date();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const datetakeexam = `${day} / ${month} / ${year}`;
+
+      const storeExamResult = async () => {
+        try {
+          const response = await axios.post('http://localhost:8081/store-exam-result', {
+            examname: resultData.nameExam,
+            numscorrect: resultData.numCorrect,
+            numswrong: resultData.numWrong,
+            numsskip: resultData.numSkip,
+            duration: resultData.duration,
+            accuracy: resultData.accuracy,
+            totalscore: resultData.totalScore,
+            listeningscore: resultData.listeningScore,
+            numslisteningcorrect: resultData.numUserListen,
+            readingscore: resultData.readingScore,
+            numsreadingcorrect: resultData.numUserRead,
+            examid: examid,
+            userid: userid,
+            datetakeexam,
+          }, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.log('Error saving exam result:', error);
+        }
+      };
+
+      storeExamResult();
+    }
+  }, [accessToken]);
 
   return (
     <div className="result-container">

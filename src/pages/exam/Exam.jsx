@@ -20,6 +20,7 @@ const Exam = () => {
 
   const location = useLocation();
   const examid = location.state?.examId;
+  const examname = location.state?.examname;
 
   //get question data from database
   const [qBank,setQBank] = useState([]);
@@ -53,7 +54,7 @@ const Exam = () => {
   const handleSumnit = () => {
     const endTime = Date.now();
     const duration = Math.floor((endTime - startTime) / 1000); //duration: seconds
-    navigate('/exam-result', {state: {userAnswer, qBank, duration}});
+    navigate('/exam-result', {state: {userAnswer, qBank, duration, examid, examname}});
   }
 
   const handleAnswerChange = (option, index) => {
