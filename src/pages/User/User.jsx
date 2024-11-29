@@ -6,6 +6,7 @@ import {
   Card,
   Button,
   Image,
+  Table,
   ListGroup,
   ProgressBar,
 } from 'react-bootstrap';
@@ -14,8 +15,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ContextStore } from '../../context/Context';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
+
 import { toast } from 'react-toastify';
 
 import { FcPlus } from "react-icons/fc";
@@ -25,27 +25,6 @@ import DefaultAvatar from '../../assets/galaxy_slayer_Zed.jpg'
 import { jwtDecode } from "jwt-decode";
 
 import './User.scss';
-
-const columns = [
-  { field: 'examName', headerName: 'Tên bài thi', width: 150 },
-  { field: 'grade', headerName: 'Điểm số', width: 70 },
-  { field: 'duration', headerName: 'Thời gian làm', width: 150 },
-  { field: 'detailResult', headerName: 'Chi tiết', width: 130 }
-];
-
-const rows = [
-  { id: 1, examName: 'Toiec test 1', duration: '1:53:20', grade: 730, detailResult: 'Xem chi tiết' },
-  { id: 2, examName: 'Toiec test 2', duration: '2:00:00', grade: 300, detailResult: 'Xem chi tiết' },
-  { id: 3, examName: 'Toiec test 3', duration: '1:40:21', grade: 990, detailResult: 'Xem chi tiết' },
-  { id: 4, examName: 'Toiec test 4', duration: '1:52:11', grade: 5, detailResult: 'Xem chi tiết' },
-  { id: 5, examName: 'Toiec test 5', duration: '1:45:56', grade: 135, detailResult: 'Xem chi tiết' },
-  { id: 6, examName: 'Toiec test 6', duration: '1:30:23', grade: 450, detailResult: 'Xem chi tiết' },
-  { id: 7, examName: 'Toiec test 7', duration: '1:58:59', grade: 655, detailResult: 'Xem chi tiết' },
-  { id: 8, examName: 'Toiec test 8', duration: '1:54:45', grade: 850, detailResult: 'Xem chi tiết' },
-  { id: 9, examName: 'Toiec test 9', duration: '1:45:45', grade: 910, detailResult: 'Xem chi tiết' },
-];
-
-const paginationModel = { page: 0, pageSize: 5 };
 
 export default function User() {
   const cookies = new Cookies()
@@ -59,6 +38,8 @@ export default function User() {
   const [previewAvatar, setPreviewAvatar] = useState('');
   //get user data
   const [user, setUser] = useState([]);
+  //get exam result data
+  const [listExamresult, setListExamResult] = useState([]);
   const [loading, setLoading] = useState(true);
 
   //close modal
@@ -82,6 +63,23 @@ export default function User() {
       setLoading(false);
     }
   };
+  //get exam result by id
+  const getExamResultById = async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/get-exam-result-by-id', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        params: { userid: userid }
+      });
+      console.log('ket qua de thi:', response.data);
+      if (response.data && response.data.length > 0) {
+        setListExamResult(response.data);
+      }
+    } catch (error) {
+      console.log('Error fetching exam result by userid:', error);
+    }
+  }
   //load image 
   const handleUploadAvatar = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
@@ -122,10 +120,11 @@ export default function User() {
       setUserFullName(user[0].userfullname);
       setUserPhone(user[0].userphone);
       setUserAvatarUrl(user[0].useravatarurl);
+      setPreviewAvatar(user[0].useravatarurl);
     }
   }, [user]);
 
-  //use axios to request get-user-by-id
+  //use axios to request get-user-by-id và get-exam-result-by-id
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
     const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
@@ -134,6 +133,7 @@ export default function User() {
     setUserid(decodedAccessToken.userid)
     if (accessToken) {
       getUserById();
+      getExamResultById();
     }
   }, [accessToken]);
 
@@ -194,7 +194,11 @@ export default function User() {
                   </div>
                   <div className='col-md-12 img-preview'>
                     {previewAvatar ?
-                      <img src={previewAvatar} alt="avatar" />
+                      <img
+                        src={previewAvatar}
+                        alt="avatar"
+                        style={{ maxWidth: '100%', maxHeight: '100%' }}
+                      />
                       :
                       <span>Preview Avatar</span>
                     }
@@ -214,7 +218,7 @@ export default function User() {
               <Card>
                 <Card.Body className="text-center">
                   <Image
-                    src={user[0].useravatarurl|| DefaultAvatar}
+                    src={user[0].useravatarurl || DefaultAvatar}
                     alt="User"
                     roundedCircle
                     width="150"
@@ -306,16 +310,30 @@ export default function User() {
                   <Card className="h-100">
                     <Card.Body>
                       <h6 className="d-flex align-items-center mb-3">Kết quả thi</h6>
-                      <Paper sx={{ height: 400, width: '100%' }}>
-                        <DataGrid
-                          rows={rows}
-                          columns={columns}
-                          initialState={{ pagination: { paginationModel } }}
-                          pageSizeOptions={[5, 10]}
-                          sx={{ border: 0 }}
-                          getRowId={(row) => row.id}
-                        />
-                      </Paper>
+                      <Table striped bordered hover variant="light">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Tên bài thi</th>
+                            <th>Thời gian làm</th>
+                            <th>Kết quả</th>
+                            <th>Xem</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {listExamresult.length ? listExamresult.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>{item.examname}</td>
+                              <td>{item.duration}</td>
+                              <td>{item.totalscore}</td>
+                              <td>Xem chi tiết</td>
+                            </tr>
+                          ))
+                          : <tr><td colSpan={5} align='center'>Bạn chưa thi bài nào</td></tr>
+                        }
+                        </tbody>
+                      </Table>
                     </Card.Body>
                   </Card>
                 </Col>

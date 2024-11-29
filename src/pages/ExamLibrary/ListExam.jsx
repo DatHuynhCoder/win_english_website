@@ -98,7 +98,7 @@ const ListExam = ({ search }) => {
     setSelectedExam(exam_item);
     setShow(true)
   };
-  const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid}});
+  const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid, examname: selectedExam.examname}});
 
   return (
     <>
