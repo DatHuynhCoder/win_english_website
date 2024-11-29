@@ -2,6 +2,7 @@
  * @author Quynh Anh
  * @documentation https://react-bootstrap.netlify.app/docs/components/navbar
  */
+import { useContext } from 'react'
 import Cookies from 'universal-cookie'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
@@ -10,6 +11,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Image } from "react-bootstrap"
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import axios from 'axios'
+import { ContextStore } from '../../context/Context'
 
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -21,6 +24,7 @@ import logoWinEng from '../../assets/logoWinEng.svg'
 import { useState } from 'react'
 
 const Header = () => {
+  const {accessToken} = useContext(ContextStore)
   const cookies = new Cookies()
   const navigate = useNavigate()
   const [isVip, setIsVip] = useState(false)
@@ -47,9 +51,8 @@ const Header = () => {
           </Button>
           <Button
             variant="primary"
-            onClick={() => {
+            onClick={async () => {
               navigate('/payment')
-              handleClose()
             }}
             style={{ background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(245,255,0,1) 100%, rgba(0,212,255,1) 100%)', border: 'none' }}>
             Nâng cấp ngay
