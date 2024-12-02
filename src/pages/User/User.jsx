@@ -127,13 +127,15 @@ export default function User() {
   //use axios to request get-user-by-id và get-exam-result-by-id
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
-    console.log('check decoded accessToken in user page: ', decodedAccessToken)
-    console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
-    setUserid(decodedAccessToken.userid)
-    if (accessToken) {
-      getUserById();
-      getExamResultById();
+    if(accessToken) {
+      const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+      console.log('check decoded accessToken in user page: ', decodedAccessToken)
+      console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
+      setUserid(decodedAccessToken.userid)
+      if (accessToken) {
+        getUserById();
+        getExamResultById();
+      }
     }
   }, [accessToken]);
 
