@@ -16,7 +16,7 @@ import './ExamResult.scss'
 
 const ExamResult = () => {
   const cookies = new Cookies()
-  const { accessToken, setAccessToken, userid, setUserid } = useContext(ContextStore);
+  const { accessToken, setAccessToken, userid, setUserid, ispremium } = useContext(ContextStore);
 
   const location = useLocation();
   const userAnswer = location.state?.userAnswer;
@@ -127,7 +127,7 @@ const ExamResult = () => {
       <div className="main-content">
         <OverviewResult resultData={resultData} />
         <hr />
-        <DetailResult userAnswer={userAnswer} qBank={qBank} />
+        <DetailResult userAnswer={userAnswer} qBank={qBank} ispremium={ispremium}/>
       </div>
 
       <div className="comment-contaner">
