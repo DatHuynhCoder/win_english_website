@@ -11,7 +11,7 @@ const IntroductionCarousel = ({IntroductionCarouselData}) => {
       <Carousel data-bs-theme="dark">
         {
           IntroductionCarouselData.map((item, index) => (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <div style={{ width: '70%', margin: '0 auto' }}>
                 <img
                   className="image-style d-block w-100 ta-c"
