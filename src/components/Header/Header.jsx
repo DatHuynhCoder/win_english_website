@@ -27,7 +27,7 @@ import { jwtDecode } from "jwt-decode";
 const Header = () => {
   const {accessToken, setAccessToken, userid, setUserid} = useContext(ContextStore)
   const cookies = new Cookies()
-  const [isPre, setIsPre] = useState(jwtDecode(cookies.get('accessToken')).ispremium)
+  const [isPre, setIsPre] = useState()
   const navigate = useNavigate()
   const [isVip, setIsVip] = useState(false)
   const [show, setShow] = useState(false);
@@ -36,10 +36,13 @@ const Header = () => {
   const handleShow = () => setShow(true);
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
-    console.log('check decoded accessToken in header: ', decodedAccessToken)
-    console.log('===> check userid in decoded token in header: ', decodedAccessToken.userid)
-    setUserid(decodedAccessToken.userid)
+    if(accessToken) {
+      const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+      setIsPre(decodedAccessToken.ispremium)
+      console.log('check decoded accessToken in header: ', decodedAccessToken)
+      console.log('===> check userid in decoded token in header: ', decodedAccessToken.userid)
+      setUserid(decodedAccessToken.userid)
+    }
   }, [accessToken])
   return (
     <>
