@@ -4,13 +4,13 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, Modal } from 'react-bootstrap';
-
+import { toast } from 'react-toastify';
 import { CgSearchLoading } from "react-icons/cg";
 
 import './DetailResult.scss';
 import { useState } from 'react';
 
-const DetailResult = ({ userAnswer = [], qBank = [] }) => {
+const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState({});
 
@@ -21,7 +21,13 @@ const DetailResult = ({ userAnswer = [], qBank = [] }) => {
   const handleShowModal = (question_item) => {
     setSelectedQuestion(question_item);
     setShowModal(true);
+    console.log("Co phai vip ko",ispremium)
   }
+
+  const handleNotPremium = () => {
+    toast.error('Nộp đi Bruv, Ko nạp mà đòi hỏi quá !');
+  }
+
   return (
     <div className='container'>
       <h2 className="detail-result-title">Đáp án</h2>
@@ -37,8 +43,8 @@ const DetailResult = ({ userAnswer = [], qBank = [] }) => {
               const answerColor = isCorrect ? 'green' : 'red';
 
               return (
-                <Col xs={12} sm={6} md={3} key={index} onClick={() => handleShowModal(item, index)}>
-                  <div className="answer-container">
+                <Col xs={12} sm={6} md={3} key={index}>
+                  <div className="answer-container" onClick={ispremium === 0 ? handleNotPremium : () => handleShowModal(item)}>
                     <Button variant="primary" className="answer-btn">{index + 1}</Button>
                     <div className="answer-text">
                       {item.answer[0]} : <span style={{ color: answerColor }}>{userAnswer[index]?.[0]}</span>
