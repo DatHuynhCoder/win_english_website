@@ -2,7 +2,7 @@
  * @author Quynh Anh
  * @documentation https://react-bootstrap.netlify.app/docs/components/navbar
  */
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import Cookies from 'universal-cookie'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
@@ -22,16 +22,25 @@ import { LuCrown } from "react-icons/lu"
 import './Header.scss'
 import logoWinEng from '../../assets/logoWinEng.svg'
 import { useState } from 'react'
+import { jwtDecode } from "jwt-decode";
 
 const Header = () => {
-  const {accessToken} = useContext(ContextStore)
+  const {accessToken, setAccessToken, userid, setUserid} = useContext(ContextStore)
   const cookies = new Cookies()
+  const [isPre, setIsPre] = useState(jwtDecode(cookies.get('accessToken')).ispremium)
   const navigate = useNavigate()
   const [isVip, setIsVip] = useState(false)
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  useEffect(() => {
+    setAccessToken(cookies.get("accessToken"))
+    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+    console.log('check decoded accessToken in header: ', decodedAccessToken)
+    console.log('===> check userid in decoded token in header: ', decodedAccessToken.userid)
+    setUserid(decodedAccessToken.userid)
+  }, [accessToken])
   return (
     <>
       <Modal
@@ -51,8 +60,32 @@ const Header = () => {
           </Button>
           <Button
             variant="primary"
-            onClick={async () => {
-              navigate('/payment')
+            onClick={() => {
+              // navigate('/payment')
+              axios.post('http://localhost:8081/payment', {
+                userid: userid
+              }).then(res => {
+                console.log(res.data)
+                if(res.data.return_code === 1) {
+                  console.log('check userid in context: ', userid)
+                  console.log('check accessToken in context: ', accessToken)
+                  axios.post('http://localhost:8081/set-premium', {
+                    userid: userid
+                  }, {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`
+                    }
+                  }).then(res => {
+                    if(res.data.Status === 'Success') {
+                      console.log('set premium successfully !')
+                      navigate('/payment')
+                    }
+                    else {
+                      console.log('set premium failed !')
+                    }
+                  })
+                }
+              })
             }}
             style={{ background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(245,255,0,1) 100%, rgba(0,212,255,1) 100%)', border: 'none' }}>
             Nâng cấp ngay
@@ -78,14 +111,25 @@ const Header = () => {
               <NavLink to={`/admin`} className={'nav-link'}>Lộ trình</NavLink>
             </Nav>
             <Nav>
-              <NavLink to={`/`} className={'nav-link'} onClick={handleShow}>
-                <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'gold' }}>
-                  <LuCrown color='gold' size={25} />
-                  {
-                    isVip === false ? <span>&nbsp;GET PRO</span> : <span>&nbsp;You are pro !</span>
-                  }
-                </span>
-              </NavLink>
+              {isPre === 1 ? 
+                <NavLink to={`/`} className={'nav-link'}>
+                  <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'gold' }}>
+                    <LuCrown color='gold' size={25} />
+                    {
+                      <span>You are VIP !</span>
+                    }
+                  </span>
+                </NavLink>
+                : 
+                <NavLink to={`/`} className={'nav-link'} onClick={handleShow}>
+                  <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'gold' }}>
+                    <LuCrown color='gold' size={25} />
+                    {
+                      <span>&nbsp;GET PRO</span>
+                    }
+                  </span>
+                </NavLink>
+              }
               <NavDropdown title={<FaUser />} id="basic-nav-dropdown">
                 <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>
                 <NavLink to={`/login`} className={'dropdown-item'}>Log in</NavLink>

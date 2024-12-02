@@ -25,8 +25,8 @@ const HomeExam = ({HomeExamData}) => {
   const [selectedExam, setSelectedExam] = useState({});
   const navigate = useNavigate();
   //get exam data from database
-  const [listExam, setListExam] = useState([]);
-
+  const [listExam, setListExam] = useState([{}, {}, {}]);
+  const [isLoaded, setIsLoaded] = useState(false)
   //use axios to request get exam
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
@@ -37,11 +37,13 @@ const HomeExam = ({HomeExamData}) => {
             headers: {
               Authorization: `Bearer ${accessToken}`
             }
-          });
+          }); 
           console.log(response.data);
           setListExam(response.data);
         } catch (error) {
           console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+        } finally {
+          setIsLoaded(true)
         }
       }
       getExam();
@@ -87,7 +89,7 @@ const HomeExam = ({HomeExamData}) => {
 
                 <Card className='ListExam-child' key={index}>
                   <Card.Body>
-                    <Card.Title>{item.examname}</Card.Title>
+                    <Card.Title>{isLoaded ? item.examname : 'Loading ...'}</Card.Title>
                     <Card.Text>
                       <CiClock1 size={25} />Thời gian làm bài - 120 phút
                       <br></br>
@@ -95,7 +97,7 @@ const HomeExam = ({HomeExamData}) => {
                       <br></br>
                       <AiOutlineComment size={25} />Đánh giá - 100
                       <br></br>
-                      4 phần thi - {item.totalquestions} câu hỏi
+                      4 phần thi - {isLoaded ? item.totalquestions : '...'} câu hỏi
                     </Card.Text>
                     <Button variant="primary" onClick={() => handleShow(item)}>Xem</Button>
                   </Card.Body>

@@ -10,8 +10,8 @@ const HomeFeedback = ({HomeFeedbackData}) => {
       <h1 className="HomeFeedback-title">Feedback</h1>
       <div className='HomeFeedback-main'>
         {
-          HomeFeedbackData.map((item) => (
-            <div className='HomeFeedback-content'>
+          HomeFeedbackData.map((item, index) => (
+            <div className='HomeFeedback-content' key={index}>
               <div className='HomeFeedback-avatar-area'>
                 <img src={item.avatar} alt='avatar' className='HomeFeedback-avatar' />
               </div>

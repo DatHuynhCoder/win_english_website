@@ -5,24 +5,42 @@
  * Ngày hết hạn	01/25
  * Mã CVV	123
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Payment.css';
 // import QR from './QRthanhtoan.png';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import QR from '../../assets/QRthanhtoan.png'
 import bank from '../../assets/bank.png';
 import { CgCheck } from 'react-icons/cg';
+import { ContextStore } from '../../context/Context';
+import { jwtDecode } from 'jwt-decode';
 
 function Payment() {
+  const cookies = new Cookies()
+  const {accessToken, setAccessToken} = useContext(ContextStore)
   const [payURL, setPayURL] = useState(null)
   const [isOk, setIsOk] = useState(false)
   const [countdownTime, setCountdownTime] = useState(15 * 60); // 15 minutes
 
   useEffect(() => {
+    setAccessToken(cookies.get("accessToken"))
     async function getPayURL() {
       try {
         const res = await axios.post('http://localhost:8081/payment')
         setPayURL(res.data.order_url)
+        try {
+          if(res.data.return_code === 1) {
+            await axios.post('http://localhost:8081/set-premium', {
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              },
+              userid: jwtDecode(cookies.get("accessToken")).userid
+            })
+          }
+        } catch (err) {
+          console.log('Error when trying to call set-premium api')
+        }
       }
       catch(error) {
         console.log(error)
@@ -35,18 +53,18 @@ function Payment() {
     getPayURL()
     // window.location.href = payURL;
     // Thiết lập bộ đếm ngược khi component được render
-    const countdownInterval = setInterval(() => {
-      setCountdownTime((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(countdownInterval);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
+    // const countdownInterval = setInterval(() => {
+    //   setCountdownTime((prevTime) => {
+    //     if (prevTime <= 0) {
+    //       clearInterval(countdownInterval);
+    //       return 0;
+    //     }
+    //     return prevTime - 1;  
+    //   });
+    // }, 1000);
 
     // Xóa interval khi component unmount
-    return () => clearInterval(countdownInterval);
+    // return () => clearInterval(countdownInterval);
   }, []);
 
   useEffect(() => {
