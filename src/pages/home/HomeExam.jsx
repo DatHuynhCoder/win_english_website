@@ -18,7 +18,7 @@ import Cookies from 'universal-cookie'
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
 
-const HomeExam = ({HomeExamData}) => {
+const HomeExam = () => {
   const cookies = new Cookies()
   const {accessToken, setAccessToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
