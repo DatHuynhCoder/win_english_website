@@ -110,7 +110,8 @@ const HomeExam = () => {
                 {
                   accessToken ? topComment.map((comment) => {
                     return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
-                    <p style={{marginBottom: -5, fontWeight: 'bold'}}>{comment.username}</p>
+                    <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
+                    <p style={{marginBottom: -2}}>{comment.commentdate}</p>
                     <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
                       <Rating
                         name="hover-feedback"
@@ -124,7 +125,7 @@ const HomeExam = () => {
                       />
                       
                     </Box>
-                    <p>{comment.commenttext}</p>
+                    <textarea style={{width: '100%'}} value={comment.commenttext} disabled></textarea>
                     </div>
                   })
                   : 'Loading ...'
