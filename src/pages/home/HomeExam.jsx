@@ -18,13 +18,34 @@ import Cookies from 'universal-cookie'
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
 
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
+
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
 const HomeExam = () => {
   const cookies = new Cookies()
   const {accessToken, setAccessToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
+  const [topComment, setTopComment] = useState([])
   const navigate = useNavigate();
   //get exam data from database
+  const [rate, setRate] = useState(2);
+  const [hover, setHover] = useState(-1);
+
   const [listExam, setListExam] = useState([{}, {}, {}]);
   const [isLoaded, setIsLoaded] = useState(false)
   //use axios to request get exam
@@ -56,9 +77,19 @@ const HomeExam = () => {
   };
   const handleShow = (exam_item) => { 
     setSelectedExam(exam_item);
-    setShow(true)
+    console.log('check examid: ', exam_item.examid)
+    axios.get('http://localhost:8081/get-comment-by-id?examid=' + exam_item.examid).then(res => {
+      console.log('check data after get comment: ', res.data)
+      setTopComment(res.data)
+      setShow(true)
+    })
+    
   };
   const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid}});
+
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  }
 
   return (
     <>
@@ -68,9 +99,38 @@ const HomeExam = () => {
           backdrop='static'
         >
           <Modal.Header closeButton>
-            <Modal.Title>{selectedExam.examname}</Modal.Title>
+            <Modal.Title>{accessToken ? selectedExam.examname : 'Loading...'}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            Thi đi bạn sợ à ?
+            <br />
+            <br />
+            <p style={{fontWeight: 'bold'}}>Các đánh giá tốt nhất</p>
+            <div>
+                {
+                  accessToken ? topComment.map((comment) => {
+                    return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
+                    <p style={{marginBottom: -5, fontWeight: 'bold'}}>{comment.username}</p>
+                    <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
+                      <Rating
+                        name="hover-feedback"
+                        value={comment.rate}
+                        precision={0.5}
+                        getLabelText={getLabelText}
+                        onChangeActive={(event, newHover) => {
+                          setHover(newHover);
+                        }}
+                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                      />
+                      
+                    </Box>
+                    <p>{comment.commenttext}</p>
+                    </div>
+                  })
+                  : 'Loading ...'
+                }
+            </div>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Đóng
