@@ -12,12 +12,34 @@ import Cookies from 'universal-cookie';
 import { ContextStore } from '../../context/Context';
 import { useState, useEffect, useContext } from "react";
 
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
 import './ExamResult.scss'
+
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
+function getLabelText(value) {
+  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+}
 
 const ExamResult = () => {
   const cookies = new Cookies()
   const { accessToken, setAccessToken, userid, setUserid, ispremium } = useContext(ContextStore);
-
+  const [comment, setComment] = useState('')
+  const [rate, setRate] = useState(2);
+  const [hover, setHover] = useState(-1);
   const location = useLocation();
   const userAnswer = location.state?.userAnswer;
   const qBank = location.state?.qBank;
@@ -130,8 +152,79 @@ const ExamResult = () => {
         <DetailResult userAnswer={userAnswer} qBank={qBank} ispremium={ispremium}/>
       </div>
 
-      <div className="comment-contaner">
-        <Comment />
+      <div className="comment-container">
+        {/* <Comment /> */}
+        <div class="comment-input-container">
+          <input 
+            placeholder="Nhập đánh giá của bạn tại đây" 
+            class="comment-input-field" type="text"
+            style={{border: '1px solid black'}}
+            onChange={(e) => setComment(e.target.value)}
+            />
+          <label 
+            for="comment-input-field" 
+            class="comment-input-label"
+          >
+            Nhập đánh giá của bạn tại đây
+          </label>
+          <span class="comment-input-highlight"></span>
+        </div>
+        <div style={{display:'flex', width: '600px', padding: '20px'}}>
+          <span>Đánh giá: &nbsp;</span>
+          <div style={{width: '200px', height: '25px'}}>
+            <Box sx={{ width: 200, display: 'flex', alignItems: 'center', height :30 }}>
+              <Rating
+                name="hover-feedback"
+                value={rate}
+                precision={0.5}
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setRate(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+              />
+              {rate !== null && (
+                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : rate]}</Box>
+              )}
+            </Box>
+          </div>
+        </div>
+        <div style={{padding: 20}}>
+          <button 
+            style={{paddingLeft: 10, paddingRight: 10, borderRadius: 10}}
+            onClick={() => {
+              if(comment === '') {
+                alert('Phần comment không được để trống')
+              }
+              else {
+                const date = new Date();
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const commentdate = `${day} / ${month} / ${year}`;
+                axios.post('http://localhost:8081/add-comment', {
+                  userid,
+                  examid,
+                  comment,
+                  rate,
+                  commentdate
+                }).then(res => {
+                  if(res.data.Status === 'Success') {
+                    alert('Đánh giá thành công')
+                    console.log('insert comment successfully !')
+                  }
+                  else {
+                    console.log('error when trying to insert comment')
+                  }
+                })
+              }
+            }}
+          >Gửi</button>
+        </div>
+        
       </div>
     </div>
   )

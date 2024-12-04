@@ -29,7 +29,6 @@ const Header = () => {
   const cookies = new Cookies()
   const [isPre, setIsPre] = useState()
   const navigate = useNavigate()
-  const [isVip, setIsVip] = useState(false)
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -65,30 +64,37 @@ const Header = () => {
             variant="primary"
             onClick={() => {
               // navigate('/payment')
-              axios.post('http://localhost:8081/payment', {
-                userid: userid
-              }).then(res => {
-                console.log(res.data)
-                if(res.data.return_code === 1) {
-                  console.log('check userid in context: ', userid)
-                  console.log('check accessToken in context: ', accessToken)
-                  axios.post('http://localhost:8081/set-premium', {
-                    userid: userid
-                  }, {
-                    headers: {
-                      Authorization: `Bearer ${accessToken}`
-                    }
-                  }).then(res => {
-                    if(res.data.Status === 'Success') {
-                      console.log('set premium successfully !')
-                      navigate('/payment')
-                    }
-                    else {
-                      console.log('set premium failed !')
-                    }
-                  })
-                }
-              })
+              if(!accessToken) {
+                alert('Login first !')
+                navigate('/login')
+              }
+              else {
+                axios.post('http://localhost:8081/payment', {
+                  userid: userid
+                }).then(res => {
+                  console.log(res.data)
+                  if(res.data.return_code === 1) {
+                    console.log('check userid in context: ', userid)
+                    console.log('check accessToken in context: ', accessToken)
+                    axios.post('http://localhost:8081/set-premium', {
+                      userid: userid
+                    }, {
+                      headers: {
+                        Authorization: `Bearer ${accessToken}`
+                      }
+                    }).then(res => {
+                      if(res.data.Status === 'Success') {
+                        console.log('set premium successfully !')
+                        navigate('/payment')
+                      }
+                      else {
+                        console.log('set premium failed !')
+                      }
+                    })
+                  }
+                })
+              }
+              
             }}
             style={{ background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(245,255,0,1) 100%, rgba(0,212,255,1) 100%)', border: 'none' }}>
             Nâng cấp ngay
@@ -135,14 +141,13 @@ const Header = () => {
               }
               <NavDropdown title={<FaUser />} id="basic-nav-dropdown">
                 <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>
-                <NavLink to={`/login`} className={'dropdown-item'}>Log in</NavLink>
-                <NavLink to={`/signup`} className={'dropdown-item'}>Sign up</NavLink>
+                <NavLink to={`/login`} className={'dropdown-item'}>Đăng nhập<br></br>hoặc<br></br> đăng ký</NavLink>
                 <NavDropdown.Divider />
                 <NavLink to={`/login`} className={'dropdown-item'} onClick={() => {
                   if(!cookies.get("accessToken")) alert("Login first !")
                   cookies.remove("accessToken")
                   cookies.remove("refreshToken")
-                }}>Log out</NavLink>
+                }}>Đăng xuất</NavLink>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
