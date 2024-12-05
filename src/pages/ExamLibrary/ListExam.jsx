@@ -45,6 +45,7 @@ const ListExam = ({ search }) => {
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
   const [topComment, setTopComment] = useState([])
+  const [totalparticipants, setTotalparticipants] = useState(0)
   const navigate = useNavigate();
   //get exam data from database
   const [rate, setRate] = useState(2);
@@ -56,14 +57,10 @@ const ListExam = ({ search }) => {
   //use axios to request get exam
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    if(accessToken) {
+    // if(accessToken) {
       const getExam = async () => {
         try {
-          const response = await axios.get('http://localhost:8081/get-exam',{
-            headers: {
-              Authorization: `Bearer ${accessToken}` // Thêm token vào header
-            }
-          });
+          const response = await axios.get('http://localhost:8081/get-exam');
           console.log(response.data);
           setListExam(response.data);
         } catch (error) {
@@ -72,8 +69,9 @@ const ListExam = ({ search }) => {
           setIsLoaded(true)
         }
       }
+      
       getExam();
-    }
+    // }
   }, [accessToken])
 
   const handleClose = () => {
@@ -83,6 +81,18 @@ const ListExam = ({ search }) => {
   const handleShow = (exam_item) => {
     setSelectedExam(exam_item);
     console.log('check examid: ', exam_item.examid)
+    const getTotalparticipants = async (examid) => {
+      try {
+        const response = await axios.get('http://localhost:8081/count-comment-by-id?examid=' + examid);
+        console.log('check total participants: ',response.data[0].totalparticipants);
+        setTotalparticipants(response.data[0].totalparticipants);
+      } catch (error) {
+        console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+      } finally {
+        setIsLoaded(true)
+      }
+    }
+    getTotalparticipants(exam_item.examid)
     axios.get('http://localhost:8081/get-comment-by-id?examid=' + exam_item.examid).then(res => {
       console.log('check data after get comment: ', res.data)
       setTopComment(res.data)
@@ -94,7 +104,8 @@ const ListExam = ({ search }) => {
       state: {
         examId: selectedExam.examid, 
         examname: selectedExam.examname, 
-        examaudio: selectedExam.examaudio
+        examaudio: selectedExam.examaudio,
+        examtotalparticipants: selectedExam.examtotalparticipants
       }});
   }
 
@@ -116,11 +127,13 @@ const ListExam = ({ search }) => {
           <Modal.Body>
             Thi đi bạn sợ à ?
             <br />
+            <b>Số lượt đánh giá: </b>{totalparticipants}
+            <br />
             <br />
             <p style={{fontWeight: 'bold'}}>Các đánh giá tốt nhất</p>
             <div>
                 {
-                  accessToken ? topComment.map((comment) => {
+                  topComment.map((comment) => {
                     return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
                     <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
                     <p style={{marginBottom: -2}}>{comment.commentdate}</p>
@@ -140,7 +153,6 @@ const ListExam = ({ search }) => {
                     <textarea style={{width: '100%'}} value={comment.commenttext} disabled></textarea>
                     </div>
                   })
-                  : 'Loading ...'
                 }
             </div>
           </Modal.Body>

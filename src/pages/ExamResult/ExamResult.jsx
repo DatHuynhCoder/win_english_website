@@ -46,6 +46,7 @@ const ExamResult = () => {
   const duration = location.state?.duration;
   const examid = location.state?.examid;
   const examname = location.state?.examname;
+  const examtotalparticipants = location.state?.examtotalparticipants;
 
   let numCorrect = 0;
   let numWrong = 0;
@@ -129,6 +130,7 @@ const ExamResult = () => {
             examid: examid,
             userid: userid,
             datetakeexam,
+            examtotalparticipants
           }, {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -196,30 +198,35 @@ const ExamResult = () => {
           <button 
             style={{paddingLeft: 10, paddingRight: 10, borderRadius: 10}}
             onClick={() => {
-              if(comment === '') {
-                alert('Phần comment không được để trống')
+              if(!accessToken) {
+                alert('Đăng nhập để để lại đánh giá !')
               }
               else {
-                const date = new Date();
-                const day = date.getDate();
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const commentdate = `${day} / ${month} / ${year}`;
-                axios.post('http://localhost:8081/add-comment', {
-                  userid,
-                  examid,
-                  comment,
-                  rate,
-                  commentdate
-                }).then(res => {
-                  if(res.data.Status === 'Success') {
-                    alert('Đánh giá thành công')
-                    console.log('insert comment successfully !')
-                  }
-                  else {
-                    console.log('error when trying to insert comment')
-                  }
-                })
+                if(comment === '') {
+                  alert('Phần comment không được để trống')
+                }
+                else {
+                  const date = new Date();
+                  const day = date.getDate();
+                  const month = date.getMonth() + 1;
+                  const year = date.getFullYear();
+                  const commentdate = `${day} / ${month} / ${year}`;
+                  axios.post('http://localhost:8081/add-comment', {
+                    userid,
+                    examid,
+                    comment,
+                    rate,
+                    commentdate
+                  }).then(res => {
+                    if(res.data.Status === 'Success') {
+                      alert('Đánh giá thành công')
+                      console.log('insert comment successfully !')
+                    }
+                    else {
+                      console.log('error when trying to insert comment')
+                    }
+                  })
+                }
               }
             }}
           >Gửi</button>

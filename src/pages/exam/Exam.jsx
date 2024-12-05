@@ -22,6 +22,7 @@ const Exam = () => {
   const examid = location.state?.examId;
   const examname = location.state?.examname;
   const examaudio = location.state?.examaudio;
+  const examtotalparticipants = location.state?.examtotalparticipants;
 
   //get question data from database
   const [qBank,setQBank] = useState([]);
@@ -55,7 +56,16 @@ const Exam = () => {
   const handleSumnit = () => {
     const endTime = Date.now();
     const duration = Math.floor((endTime - startTime) / 1000); //duration: seconds
-    navigate('/exam-result', {state: {userAnswer, qBank, duration, examid, examname}});
+    navigate('/exam-result', {
+      state: {
+        userAnswer, 
+        qBank, 
+        duration, 
+        examid, 
+        examname,
+        examtotalparticipants
+      }
+    });
   }
 
   const handleAnswerChange = (option, index) => {
