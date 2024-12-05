@@ -1,15 +1,24 @@
-.timer-title {
-    color: #5e5a5a;
-}
+.container {
+    .timer-title {
+        color: #5e5a5a;
+    }
 
-.timer-countdown {
-    margin: 10px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+    .timer-countdown {
+        margin: 10px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
-.tracking-btn {
-    margin: 2px;
+    .parttxt {
+        font-weight: bold;
+        font-size: 24px;
+        margin: 10px 0;
+    }
+
+    .tracking-btn {
+        margin: 2px;
+    }
+
 }
