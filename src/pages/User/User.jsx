@@ -81,12 +81,25 @@ export default function User() {
     }
   }
   //load image 
-  const handleUploadAvatar = (e) => {
+  const handleUploadAvatar = async (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
-      setPreviewAvatar(URL.createObjectURL(e.target.files[0]));
-      setUserAvatarUrl(URL.createObjectURL(e.target.files[0]));
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('avatar', file);
+  
+      try {
+        const response = await axios.post('http://localhost:8081/upload-avatar', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+  
+        setPreviewAvatar(URL.createObjectURL(file));
+        setUserAvatarUrl(response.data.avatarUrl);
+      } catch (error) {
+        console.error('Error uploading avatar:', error);
+        toast.error('Failed to upload avatar!');
+      }
     }
-  }
+  };
 
   //update user
   const handleUpdateUser = () => {
