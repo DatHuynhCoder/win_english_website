@@ -20,9 +20,10 @@ import "./Footer.scss"
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className='footer-container'>
       <Container fluid>
         <Row
+          className='row-footer'
           style={{ backgroundColor: '#385986', color: '#fff', padding: 50 }}
         >
           <Col>
@@ -40,7 +41,7 @@ const Footer = () => {
               <p className="fw-bold">Về chúng tôi</p>
               <NavLink className="nav-link">Giới thiệu</NavLink>
               <NavLink className="nav-link">Liên hệ</NavLink>
-              <NavLink className="nav-link">FAQ</NavLink>
+              <NavLink to="/about" className="nav-link">FAQ</NavLink>
             </Nav>
           </Col>
           <Col>
@@ -50,8 +51,8 @@ const Footer = () => {
                 <Image
                   src={FacebookIcon}
                   alt="Facebook icon"
-                  width={48}
-                  height={48}
+                  width={58}
+                  height={58}
                   className="icon"
                 />
                 Facebook</NavLink>
@@ -59,8 +60,8 @@ const Footer = () => {
                 <Image
                   src={InstagramIcon}
                   alt="Instagram icon"
-                  width={48}
-                  height={48}
+                  width={58}
+                  height={58}
                   className="icon"
                 />
                 Intagram</NavLink>
@@ -68,8 +69,8 @@ const Footer = () => {
                 <Image
                   src={TiktokIcon}
                   alt="Tiktok icon"
-                  width={48}
-                  height={48}
+                  width={58}
+                  height={58}
                   className="icon"
                 />
                 TikTok</NavLink>
@@ -77,8 +78,8 @@ const Footer = () => {
                 <Image
                   src={YoutubeIcon}
                   alt="Youtube icon"
-                  width={48}
-                  height={48}
+                  width={58}
+                  height={58}
                   className="icon"
                 />
                 Youtube</NavLink>
@@ -86,8 +87,8 @@ const Footer = () => {
                 <Image
                   src={TelegramIcon}
                   alt="Telegram icon"
-                  width={48}
-                  height={48}
+                  width={58}
+                  height={58}
                   className="icon"
                 />
                 Telegram</NavLink>
