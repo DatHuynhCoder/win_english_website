@@ -1,4 +1,8 @@
-
+// {
+//   headers: {
+//     Authorization: `Bearer ${accessToken}`
+//   }
+// }
 import { useContext, useEffect, useState } from "react";
 import { ContextStore } from "../../context/Context";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -39,14 +43,10 @@ const HomeCourse = () => {
   const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid}});
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    if(accessToken) {
+    // if(accessToken) {
       const getExam = async () => {
         try {
-          const response = await axios.get('http://localhost:8081/get-exam', {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
-          });
+          const response = await axios.get('http://localhost:8081/get-exam');
           console.log(response.data);
           setExamList(response.data);
         } catch (error) {
@@ -57,7 +57,7 @@ const HomeCourse = () => {
         }
       }
       getExam();
-    }
+    // }
   }, [accessToken])
   return (
     <>

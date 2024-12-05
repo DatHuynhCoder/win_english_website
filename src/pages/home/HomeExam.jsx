@@ -1,6 +1,11 @@
 /**
  * @author Quynh Anh
  */
+// {
+//   headers: {
+//     Authorization: `Bearer ${accessToken}`
+//   }
+// }
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ContextStore } from '../../context/Context';
@@ -52,14 +57,10 @@ const HomeExam = () => {
   //use axios to request get exam
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    if(accessToken) {
+    // if(accessToken) {
       const getExam = async () => {
         try {
-          const response = await axios.get('http://localhost:8081/get-exam', {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
-          }); 
+          const response = await axios.get('http://localhost:8081/get-exam'); 
           console.log(response.data);
           setListExam(response.data);
         } catch (error) {
@@ -69,7 +70,7 @@ const HomeExam = () => {
         }
       }
       getExam();
-    }
+    // }
   }, [accessToken])
 
   const handleClose = () => {
@@ -117,8 +118,8 @@ const HomeExam = () => {
             <p style={{fontWeight: 'bold'}}>Các đánh giá tốt nhất</p>
             <div>
                 {
-                  accessToken ? topComment.map((comment) => {
-                    return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
+                  topComment.map((comment, index) => {
+                    return <div key={index} style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
                     <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
                     <p style={{marginBottom: -2}}>{comment.commentdate}</p>
                     <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
@@ -137,7 +138,6 @@ const HomeExam = () => {
                     <textarea style={{width: '100%'}} value={comment.commenttext} disabled></textarea>
                     </div>
                   })
-                  : 'Loading ...'
                 }
             </div>
           </Modal.Body>
