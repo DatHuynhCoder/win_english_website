@@ -10,7 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 //use axios
 import axios from 'axios'
 
-import Examaudio from '../../assets/audio/Test_8.mp3'
+// import Examaudio from 'http://localhost:8081/audio/Test_8.mp3'
 import './Exam.scss'
 
 const Exam = () => {
@@ -21,6 +21,7 @@ const Exam = () => {
   const location = useLocation();
   const examid = location.state?.examId;
   const examname = location.state?.examname;
+  const examaudio = location.state?.examaudio;
 
   //get question data from database
   const [qBank,setQBank] = useState([]);
@@ -66,7 +67,7 @@ const Exam = () => {
   return (
     <div className="exam-container">
       <div className="main-content">
-        <AudioPlayer audioSrc={Examaudio} />
+        <AudioPlayer audioSrc={examaudio} />
         {qBank.map((item, index) => (
           <div key={item.questionid} >
             <h3 className='question-number'>{index + 1}</h3>

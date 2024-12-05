@@ -22,52 +22,36 @@ import pic4 from '../../assets/pic4.jpg'
 import pic5 from '../../assets/pic5.jpg'
 import pic6 from '../../assets/pic6.jpg'
 
-// const ListExamData = [
-//   {
-//     title: 'First slide label',
-//     content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-//     image: pic1
-//   },
-//   {
-//     title: 'Second slide label',
-//     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//     image: pic2
-//   },
-//   {
-//     title: 'Third slide label',
-//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-//     image: pic3
-//   },
-//   {
-//     title: 'Fourth slide label',
-//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-//     image: pic4
-//   },
-//   {
-//     title: 'Fifth slide label',
-//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-//     image: pic5
-//   },
-//   {
-//     title: 'Sixth slide label',
-//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-//     image: pic6
-//   },
-//   {
-//     title: 'Seventh slide label',
-//     content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-//     image: pic1
-//   }
-// ]
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
+
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
 
 const ListExam = ({ search }) => { 
   const cookies = new Cookies()
   const {accessToken, setAccessToken, refreshToken, setRefreshToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
+  const [topComment, setTopComment] = useState([])
   const navigate = useNavigate();
   //get exam data from database
+  const [rate, setRate] = useState(2);
+  const [hover, setHover] = useState(-1);
+
   const [listExam, setListExam] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false)
 
   //use axios to request get exam
   useEffect(() => {
@@ -84,6 +68,8 @@ const ListExam = ({ search }) => {
           setListExam(response.data);
         } catch (error) {
           console.log('Co loi trong qua trinh yeu cau get exam: ', error);
+        } finally {
+          setIsLoaded(true)
         }
       }
       getExam();
@@ -96,9 +82,25 @@ const ListExam = ({ search }) => {
   };
   const handleShow = (exam_item) => {
     setSelectedExam(exam_item);
-    setShow(true)
+    console.log('check examid: ', exam_item.examid)
+    axios.get('http://localhost:8081/get-comment-by-id?examid=' + exam_item.examid).then(res => {
+      console.log('check data after get comment: ', res.data)
+      setTopComment(res.data)
+      setShow(true)
+    })
   };
-  const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid, examname: selectedExam.examname}});
+  const handleTakeExam = () => {
+    navigate('/exam', {
+      state: {
+        examId: selectedExam.examid, 
+        examname: selectedExam.examname, 
+        examaudio: selectedExam.examaudio
+      }});
+  }
+
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  }
 
   return (
     <>
@@ -111,7 +113,37 @@ const ListExam = ({ search }) => {
           <Modal.Header closeButton>
             <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            Thi đi bạn sợ à ?
+            <br />
+            <br />
+            <p style={{fontWeight: 'bold'}}>Các đánh giá tốt nhất</p>
+            <div>
+                {
+                  accessToken ? topComment.map((comment) => {
+                    return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
+                    <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
+                    <p style={{marginBottom: -2}}>{comment.commentdate}</p>
+                    <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
+                      <Rating
+                        name="hover-feedback"
+                        value={comment.rate}
+                        precision={0.5}
+                        getLabelText={getLabelText}
+                        onChangeActive={(event, newHover) => {
+                          setHover(newHover);
+                        }}
+                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                      />
+                      
+                    </Box>
+                    <textarea style={{width: '100%'}} value={comment.commenttext} disabled></textarea>
+                    </div>
+                  })
+                  : 'Loading ...'
+                }
+            </div>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Đóng

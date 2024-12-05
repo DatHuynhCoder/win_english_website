@@ -48,6 +48,7 @@ const HomeExam = () => {
 
   const [listExam, setListExam] = useState([{}, {}, {}]);
   const [isLoaded, setIsLoaded] = useState(false)
+  
   //use axios to request get exam
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
@@ -85,7 +86,15 @@ const HomeExam = () => {
     })
     
   };
-  const handleTakeExam = () => navigate('/exam', {state: {examId: selectedExam.examid}});
+  const handleTakeExam = () => {
+    navigate('/exam', {
+      state: {
+        examId: selectedExam.examid,
+        examname: selectedExam.examname, 
+        examaudio: selectedExam.examaudio
+      }
+    });
+  }
 
   function getLabelText(value) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
