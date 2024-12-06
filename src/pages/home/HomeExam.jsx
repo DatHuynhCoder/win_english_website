@@ -18,7 +18,7 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-import Cookies from 'universal-cookie'
+// import Cookies from 'universal-cookie'
 
 import { CiClock1, CiUser } from "react-icons/ci"
 import { AiOutlineComment } from "react-icons/ai"
@@ -41,22 +41,20 @@ const labels = {
 };
 
 const HomeExam = () => {
-  const cookies = new Cookies()
-  const {accessToken, setAccessToken} = useContext(ContextStore)
+  const {accessToken} = useContext(ContextStore)
   const [show, setShow] = useState(false);
   const [selectedExam, setSelectedExam] = useState({});
   const [topComment, setTopComment] = useState([])
+  const [totalcomments, setTotalcomments] = useState(0)
   const navigate = useNavigate();
   //get exam data from database
-  const [rate, setRate] = useState(2);
-  const [hover, setHover] = useState(-1);
 
   const [listExam, setListExam] = useState([{}, {}, {}]);
-  const [isLoaded, setIsLoaded] = useState(false)
+  // const [isLoaded, setIsLoaded] = useState(false)
   
   //use axios to request get exam
   useEffect(() => {
-    setAccessToken(cookies.get("accessToken"))
+    // setAccessToken(cookies.get("accessToken"))
     // if(accessToken) {
       const getExam = async () => {
         try {
@@ -66,7 +64,7 @@ const HomeExam = () => {
         } catch (error) {
           console.log('Co loi trong qua trinh yeu cau get exam: ', error);
         } finally {
-          setIsLoaded(true)
+          // setIsLoaded(true)
         }
       }
       getExam();
@@ -80,19 +78,32 @@ const HomeExam = () => {
   const handleShow = (exam_item) => { 
     setSelectedExam(exam_item);
     console.log('check examid: ', exam_item.examid)
+    const getTotalcommments = async (examid) => {
+      try {
+        axios.get('http://localhost:8081/count-comment-by-id?examid=' + examid).then(res => {
+          console.log('check total commments: ',res.data[0].totalcomments);
+          setTotalcomments(res.data[0].totalcomments);
+        })
+      } catch (error) {
+        console.log('Co loi trong qua trinh dem so comment: ', error);
+      } finally {
+        // setIsLoaded(true)
+      }
+    }
+    getTotalcommments(exam_item.examid)
     axios.get('http://localhost:8081/get-comment-by-id?examid=' + exam_item.examid).then(res => {
       console.log('check data after get comment: ', res.data)
       setTopComment(res.data)
       setShow(true)
     })
-    
   };
   const handleTakeExam = () => {
     navigate('/exam', {
       state: {
         examId: selectedExam.examid,
         examname: selectedExam.examname, 
-        examaudio: selectedExam.examaudio
+        examaudio: selectedExam.examaudio,
+        examtotalparticipants: selectedExam.examtotalparticipants
       }
     });
   }
@@ -109,11 +120,12 @@ const HomeExam = () => {
           backdrop='static'
         >
           <Modal.Header closeButton>
-            <Modal.Title>{accessToken ? selectedExam.examname : 'Loading...'}</Modal.Title>
+            <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             Thi đi bạn sợ à ?
             <br />
+            <b><AiOutlineComment size={25} />Số lượt đánh giá: </b>{totalcomments}
             <br />
             <p style={{fontWeight: 'bold'}}>Các đánh giá tốt nhất</p>
             <div>
@@ -128,9 +140,9 @@ const HomeExam = () => {
                         value={comment.rate}
                         precision={0.5}
                         getLabelText={getLabelText}
-                        onChangeActive={(event, newHover) => {
-                          setHover(newHover);
-                        }}
+                        // onChangeActive={(event, newHover) => {
+                        //   setHover(newHover);
+                        // }}
                         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                       />
                       
@@ -159,15 +171,13 @@ const HomeExam = () => {
 
                 <Card className='ListExam-child' key={index}>
                   <Card.Body>
-                    <Card.Title>{isLoaded ? item.examname : 'Loading ...'}</Card.Title>
+                    <Card.Title>{item.examname}</Card.Title>
                     <Card.Text>
                       <CiClock1 size={25} />Thời gian làm bài - 120 phút
                       <br></br>
-                      <CiUser size={25} />Số người tham gia - 100
+                      <CiUser size={25} />Số người tham gia - {item.examtotalparticipants}
                       <br></br>
-                      <AiOutlineComment size={25} />Đánh giá - 100
-                      <br></br>
-                      4 phần thi - {isLoaded ? item.totalquestions : '...'} câu hỏi
+                      4 phần thi - {item.examtotalquestions} câu hỏi
                     </Card.Text>
                     <Button variant="primary" onClick={() => handleShow(item)}>Xem</Button>
                   </Card.Body>
