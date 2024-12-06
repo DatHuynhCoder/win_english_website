@@ -5,6 +5,7 @@ import App from './App';
 import Home from './pages/home/Home'
 import Login from './pages/SigninSignup/Login'
 import Admin from './pages/Admin/AdminPage'
+import AdminDashboard from './pages/Admin/AdminDashboard';
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
 import User from './pages/User/User'
@@ -23,6 +24,8 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import '@coreui/coreui/dist/css/coreui.min.css'
 
 /**
  * @important !!!
@@ -49,10 +52,6 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home/>
-      },
-      {
-        path: "/admin",
-        element: <Admin/>
       },
       {
         path: "/about",
@@ -85,6 +84,16 @@ const router = createBrowserRouter([
     path: "/payment",
     element: <Payment/>,
     errorElement: <ErrorRoutes/>
+  },
+  {
+    path: "/admin",
+    element: <Admin/>,
+    children: [
+      {
+        index: true,
+        element: <AdminDashboard/>
+      }
+    ]
   }
 ])
 

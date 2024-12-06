@@ -16,8 +16,8 @@ const ContentHeader = () => {
       <Dropdown isOpen={dropdownOpen} toggle={toggle} >
       <DropdownToggle className={styles.customdropdowntoggle} >
         English (US)
-      </DropdownToggle  >
-      <DropdownMenu >
+      </DropdownToggle>
+      <DropdownMenu>
         <DropdownItem>English (US)</DropdownItem>
         <DropdownItem>Vietnamese (VIE)</DropdownItem>
         <DropdownItem>Japanese (JAP)</DropdownItem>
