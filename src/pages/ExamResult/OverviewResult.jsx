@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 import { FaCheckCircle, FaMinusCircle, FaClock, FaAssistiveListeningSystems, FaBookReader } from "react-icons/fa";
 import { GoXCircleFill } from "react-icons/go";
@@ -16,6 +17,7 @@ import { IoArrowBack } from "react-icons/io5";
 import './OverviewResult.scss'
 
 const OverviewResult = ({ resultData }) => {
+    const navigate = useNavigate();
     return (
         <div className="overview-container">
             <h2 className='result-title'>Kết quả thi: {resultData.nameExam}</h2>
@@ -115,7 +117,10 @@ const OverviewResult = ({ resultData }) => {
                     </Col>
                 </Row>
             </div>
-            <Button className='back-btn fw-bold'><IoArrowBack size={24} color='white'/>  Quay về đề thi</Button>
+            <Button 
+            className='back-btn fw-bold'
+            onClick={() => navigate('/exam-library')}
+            ><IoArrowBack size={24} color='white'/>  Quay về đề thi</Button>
         </div>
     )
 }
