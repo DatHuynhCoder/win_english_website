@@ -99,11 +99,11 @@ const ExamResult = () => {
 
   //xac thuc voi accesstoken va cookies va store examresult
   useEffect(() => {
-    setAccessToken(cookies.get("accessToken"))
-    const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
-    console.log('check decoded accessToken in user page: ', decodedAccessToken)
-    console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
-    setUserid(decodedAccessToken.userid)
+    // setAccessToken(cookies.get("accessToken"))
+    // const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
+    // console.log('check decoded accessToken in user page: ', decodedAccessToken)
+    // console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
+    // setUserid(decodedAccessToken.userid)
     console.log(resultData);
     if (accessToken) {
       //create date take exam
