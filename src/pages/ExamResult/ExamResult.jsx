@@ -16,6 +16,7 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
 import './ExamResult.scss'
+import { toast } from "react-toastify";
 
 const labels = {
   0.5: 'Useless',
@@ -51,6 +52,8 @@ const ExamResult = () => {
   let numCorrect = 0;
   let numWrong = 0;
   let numSkip = 0;
+  let numUserListen = 0;
+  let numUserRead = 0;
 
   if (userAnswer && qBank) {
     qBank.forEach((item, index) => {
@@ -58,17 +61,28 @@ const ExamResult = () => {
         numSkip++;
       } else if (userAnswer[index] === item.answer) {
         numCorrect++;
+        if (index < 100) numUserListen++;
+        else numUserRead++;
       } else {
         numWrong++;
       }
     });
   }
 
-  const calTotalScore = (numCorrect) => {
-    if (numCorrect === 0 || numCorrect === 1 || numCorrect === 2) {
+  //Tính điểm listening
+  const calListenScore = (numUserListen) => {
+    if (numUserListen === 0) return 5;
+    else if (numUserListen >= 1 && numUserListen <= 75) return numUserListen * 5 + 10;
+    else if (numUserListen >= 76 && numUserListen <= 95) return numUserListen * 5 + 15;
+    else return 495;
+  }
+
+  //Tính điểm reading
+  const calReadingScore = (numUserRead) => {
+    if (numUserRead === 0 || numUserRead === 1 || numUserRead === 2) {
       return 5;
     }
-    return numCorrect * 5 - 5;
+    return numUserRead * 5 - 5;
   }
 
   const accuracy = qBank && qBank.length > 0
@@ -83,6 +97,9 @@ const ExamResult = () => {
     return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
   };
 
+  const listeningScore = calListenScore(numUserListen);
+  const readingScore = calReadingScore(numUserRead);
+
   const resultData = {
     nameExam: examname,
     numCorrect,
@@ -90,11 +107,11 @@ const ExamResult = () => {
     duration: formatTime(duration),
     numSkip,
     accuracy,
-    totalScore: calTotalScore(numCorrect),
-    listeningScore: 450,
-    numUserListen: 87,
-    readingScore: 365,
-    numUserRead: 74,
+    listeningScore,
+    numUserListen,
+    readingScore,
+    numUserRead,
+    totalScore: listeningScore + readingScore,
   }
 
   //xac thuc voi accesstoken va cookies va store examresult
@@ -144,6 +161,9 @@ const ExamResult = () => {
 
       storeExamResult();
     }
+    else {
+      toast.error('Bạn cần đăng nhập để lưu kết quả đề thi !');
+    }
   }, [accessToken]);
 
   return (
@@ -151,30 +171,30 @@ const ExamResult = () => {
       <div className="main-content">
         <OverviewResult resultData={resultData} />
         <hr />
-        <DetailResult userAnswer={userAnswer} qBank={qBank} ispremium={ispremium}/>
+        <DetailResult userAnswer={userAnswer} qBank={qBank} ispremium={ispremium} />
       </div>
 
       <div className="comment-container">
         {/* <Comment /> */}
         <div class="comment-input-container">
-          <input 
-            placeholder="Nhập đánh giá của bạn tại đây" 
+          <input
+            placeholder="Nhập đánh giá của bạn tại đây"
             class="comment-input-field" type="text"
-            style={{border: '1px solid black'}}
+            style={{ border: '1px solid black' }}
             onChange={(e) => setComment(e.target.value)}
-            />
-          <label 
-            for="comment-input-field" 
+          />
+          <label
+            for="comment-input-field"
             class="comment-input-label"
           >
             Nhập đánh giá của bạn tại đây
           </label>
           <span class="comment-input-highlight"></span>
         </div>
-        <div style={{display:'flex', width: '600px', padding: '20px'}}>
+        <div style={{ display: 'flex', width: '600px', padding: '20px' }}>
           <span>Đánh giá: &nbsp;</span>
-          <div style={{width: '200px', height: '25px'}}>
-            <Box sx={{ width: 200, display: 'flex', alignItems: 'center', height :30 }}>
+          <div style={{ width: '200px', height: '25px' }}>
+            <Box sx={{ width: 200, display: 'flex', alignItems: 'center', height: 30 }}>
               <Rating
                 name="hover-feedback"
                 value={rate}
@@ -194,16 +214,16 @@ const ExamResult = () => {
             </Box>
           </div>
         </div>
-        <div style={{padding: 20}}>
-          <button 
-            style={{paddingLeft: 10, paddingRight: 10, borderRadius: 10}}
+        <div style={{ padding: 20 }}>
+          <button
+            style={{ paddingLeft: 10, paddingRight: 10, borderRadius: 10 }}
             onClick={() => {
-              if(!accessToken) {
-                alert('Đăng nhập để để lại đánh giá !')
+              if (!accessToken) {
+                toast.error('Đăng nhập để để lại đánh giá !')
               }
               else {
-                if(comment === '') {
-                  alert('Phần comment không được để trống')
+                if (comment === '') {
+                  toast.error('Phần comment không được để trống')
                 }
                 else {
                   const date = new Date();
@@ -218,8 +238,8 @@ const ExamResult = () => {
                     rate,
                     commentdate
                   }).then(res => {
-                    if(res.data.Status === 'Success') {
-                      alert('Đánh giá thành công')
+                    if (res.data.Status === 'Success') {
+                      toast.success('Đánh giá thành công')
                       console.log('insert comment successfully !')
                     }
                     else {
@@ -231,7 +251,7 @@ const ExamResult = () => {
             }}
           >Gửi</button>
         </div>
-        
+
       </div>
     </div>
   )
