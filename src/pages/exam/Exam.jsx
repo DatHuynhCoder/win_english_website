@@ -91,7 +91,9 @@ const Exam = () => {
         {currentQuestions.map((item, index) => (
           <div key={item.questionid}>
             <h3 className="question-number">{offset + index + 1}</h3>
-            <h3 className="question-title">. {item.question}</h3>
+            {item.isimage === 1
+              ? <img src= {item.question} alt="question-pic" style={{maxWidth: '100%'}}/>
+            : <h3 className="question-title">. {item.question}</h3>}
             {item.options.map((option) => (
               <div key={option} className="radio-option">
                 <input
@@ -106,7 +108,7 @@ const Exam = () => {
             ))}
           </div>
         ))}
-        <Button variant='primary' onClick={handleSumnit} style={{margin: "20px 0"}}>Nộp bài</Button>
+        <Button variant='primary' onClick={handleSumnit} style={{ margin: "20px 0" }}>Nộp bài</Button>
         <ReactPaginate
           breakLabel="..."
           nextLabel="Next >"
