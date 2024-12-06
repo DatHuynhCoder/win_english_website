@@ -99,7 +99,7 @@ const OverviewResult = ({ resultData }) => {
                                     <Card.Title className="title-7 ms-2">Listening</Card.Title>
                                 </div>
                                 <Card.Text className='result'>{resultData.listeningScore} / 495</Card.Text>
-                                <Card.Text>Trả lời đúng {resultData.numCorrectListen} / 100 </Card.Text>
+                                <Card.Text>Trả lời đúng {resultData.numUserListen} / 100 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -111,7 +111,7 @@ const OverviewResult = ({ resultData }) => {
                                     <Card.Title className="title-7 ms-2">Reading</Card.Title>
                                 </div>
                                 <Card.Text className='result'>{resultData.readingScore} / 495</Card.Text>
-                                <Card.Text>Trả lời đúng {resultData.numCorrectRead} / 100</Card.Text>
+                                <Card.Text>Trả lời đúng {resultData.numUserRead} / 100</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
