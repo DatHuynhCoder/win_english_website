@@ -7,6 +7,7 @@ import Tracking from './Tracking';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 //use axios
 import axios from 'axios'
 
@@ -16,25 +17,28 @@ import './Exam.scss'
 const Exam = () => {
   const [userAnswer, setUserAnswer] = useState([]);
   const [startTime, setStartTime] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
-
   const location = useLocation();
   const examid = location.state?.examId;
   const examname = location.state?.examname;
   const examaudio = location.state?.examaudio;
   const examtotalparticipants = location.state?.examtotalparticipants;
 
-  //get question data from database
-  const [qBank,setQBank] = useState([]);
+  const questionsPerPage = 10; //Điều chỉnh số câu mỗi trang
+  const offset = currentPage * questionsPerPage;
 
-  useEffect(()=>{
+  //get question data from database
+  const [qBank, setQBank] = useState([]);
+
+  useEffect(() => {
     setStartTime(Date.now());
 
     //axios
     const getQuestion = async () => {
       try {
         const response = await axios.get('http://localhost:8081/get-qbank-by-id', {
-          params: { examid: examid}
+          params: { examid: examid }
         });
         const formattedData = response.data.map((item) => ({
           ...item,
@@ -58,10 +62,10 @@ const Exam = () => {
     const duration = Math.floor((endTime - startTime) / 1000); //duration: seconds
     navigate('/exam-result', {
       state: {
-        userAnswer, 
-        qBank, 
-        duration, 
-        examid, 
+        userAnswer,
+        qBank,
+        duration,
+        examid,
         examname,
         examtotalparticipants
       }
@@ -74,30 +78,54 @@ const Exam = () => {
     setUserAnswer(updatedAnswers);
   };
 
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  const currentQuestions = qBank.slice(offset, offset + questionsPerPage);
+
   return (
     <div className="exam-container">
       <div className="main-content">
         <AudioPlayer audioSrc={examaudio} />
-        {qBank.map((item, index) => (
-          <div key={item.questionid} >
-            <h3 className='question-number'>{index + 1}</h3>
-            <h3 className='question-title'>. {item.question}</h3>
+        {currentQuestions.map((item, index) => (
+          <div key={item.questionid}>
+            <h3 className="question-number">{offset + index + 1}</h3>
+            <h3 className="question-title">. {item.question}</h3>
             {item.options.map((option) => (
-              <div key={option} className='radio-option'>
+              <div key={option} className="radio-option">
                 <input
                   type="radio"
-                  className={`${item.questionid}-${option}`}
                   name={`question-${item.questionid}`}
                   value={option}
-                  checked={userAnswer[index] === option}
-                  onChange={() => handleAnswerChange(option, index)}
+                  checked={userAnswer[offset + index] === option}
+                  onChange={() => handleAnswerChange(option, offset + index)}
                 />
                 <label htmlFor={`${item.questionid}-${option}`}>{option}</label>
               </div>
             ))}
           </div>
         ))}
-        <Button variant='primary' onClick={handleSumnit}>Nộp bài</Button>
+        <Button variant='primary' onClick={handleSumnit} style={{margin: "20px 0"}}>Nộp bài</Button>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={Math.ceil(qBank.length / questionsPerPage)}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
       </div>
       <div className="tracking-content">
         <Tracking userAnswer={userAnswer} />
