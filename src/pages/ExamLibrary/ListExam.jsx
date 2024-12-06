@@ -19,6 +19,8 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
 
+import Toeic_pic from '../../assets/toeic_pic.jpg'
+
 const labels = {
   0.5: 'Useless',
   1: 'Useless+',
@@ -172,6 +174,7 @@ const ListExam = ({ search }) => {
                   <Card.Body>
                     <Card.Title>{item.examname}</Card.Title>
                     <Card.Text>
+                      <img src={Toeic_pic} alt="pic" style={{width: '100%'}}/>
                       <CiClock1 size={25} />Thời gian làm bài - 120 phút
                       <br></br>
                       <CiUser size={25} />Số người tham gia - {item.examtotalparticipants}
