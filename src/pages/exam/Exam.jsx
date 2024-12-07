@@ -42,7 +42,13 @@ const Exam = () => {
         });
         const formattedData = response.data.map((item) => ({
           ...item,
-          options: JSON.parse(item.options), // Xử lý kiểu dữ liệu JSON
+          options: JSON.parse(item.options),
+          // Xử lý kiểu dữ liệu JSON, đảm bảo đầu đầu ra luôn là chuỗi
+          supportimgs: item.supportimgs
+            ? Array.isArray(JSON.parse(item.supportimgs))
+              ? JSON.parse(item.supportimgs)
+              : [JSON.parse(item.supportimgs)]
+            : []
         }));
         console.log('check exam question: ', formattedData);
         setQBank(formattedData);
@@ -90,10 +96,20 @@ const Exam = () => {
         <AudioPlayer audioSrc={examaudio} />
         {currentQuestions.map((item, index) => (
           <div key={item.questionid}>
+            {(item.supportimgs || []).map((imgitem, index) => (
+              <div key={index}>
+                <img
+                  src={imgitem}
+                  alt={`supportimg-${index}`}
+                  style={{ maxWidth: '100%' }}
+                />
+              </div>
+            ))}
+
             <h3 className="question-number">{offset + index + 1}</h3>
             {item.isimage === 1
-              ? <img src= {item.question} alt="question-pic" style={{maxWidth: '100%'}}/>
-            : <h3 className="question-title">. {item.question}</h3>}
+              ? <img src={item.question} alt="question-pic" style={{ maxWidth: '100%' }} />
+              : <h3 className="question-title">. {item.question}</h3>}
             {item.options.map((option) => (
               <div key={option} className="radio-option">
                 <input
