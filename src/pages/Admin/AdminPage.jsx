@@ -75,10 +75,12 @@ const AdminPage = () => {
                 Tổng quan
               </CNavItem>
             </Link>
-            <CNavItem href="#">
-              <CIcon customClassName="nav-icon" icon={cilSpeedometer}/> 
-              Quản lý người dùng
-            </CNavItem>
+            <Link to={"/admin/usermanage"} style={{textDecoration: 'none'}}>
+              <CNavItem href="#">
+                <CIcon customClassName="nav-icon" icon={cilSpeedometer}/> 
+                Quản lý người dùng
+              </CNavItem>
+            </Link>
             {/* <CNavGroup
               toggler={
                 <>
