@@ -117,7 +117,10 @@ const Header = () => {
               <NavLink to={`/user`} className={'nav-link'}>Khóa học</NavLink>
               <NavLink to={`/exam-library`} className={'nav-link'}>Đề thi</NavLink>
               <NavLink to={`/about`} className={'nav-link'}>Về chúng tôi</NavLink>
-              <NavLink to={`/admin`} className={'nav-link'}>Lộ trình</NavLink>
+              {
+                accessToken && <NavLink to={`/admin`} className={'nav-link'}>Admin</NavLink>
+              }
+              
             </Nav>
             <Nav>
               {isPre === 1 ? 
@@ -126,7 +129,7 @@ const Header = () => {
                     <LuCrown color='gold' size={25} />
                     {
                       <span>You are VIP !</span>
-                    }
+                    } 
                   </span>
                 </NavLink>
                 : 

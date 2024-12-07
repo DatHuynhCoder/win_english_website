@@ -1,18 +1,18 @@
-import Sidebar from './Sidebar'
-import styles from './AdminPage.module.css'
-import React, { useState, useEffect, useContext } from 'react';
-import ContentHeader from './ContentHeader'
-import ContentMain from './ContentMain'
-import { Leaderboard } from './Leaderboarddata';
-import {ChartData} from './Leaderboarddata';
+// import Sidebar from './Sidebar'
+// import styles from './AdminPage.module.css'
+import React, {useEffect } from 'react';
+// import ContentHeader from './ContentHeader'
+// import ContentMain from './ContentMain'
+// import { Leaderboard } from './Leaderboarddata';
+// import {ChartData} from './Leaderboarddata';
 
-import { ContextStore } from '../../context/Context';
+// import { ContextStore } from '../../context/Context';
 import Cookies from 'universal-cookie';
 import { jwtDecode } from 'jwt-decode';
 
 import logoWinEng from '../../assets/logoWinEng.svg'
 import { Image } from "react-bootstrap"
-import { Link, useNavigate, Outlet, redirect } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 import { 
   CSidebar, 
@@ -24,7 +24,7 @@ import {
   CNavGroup,
   CBadge
 } from '@coreui/react';
-import {cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers} from '@coreui/icons'
+import {cilSpeedometer, cilLayers} from '@coreui/icons'
 import {CIcon} from '@coreui/icons-react'
 
 // const AdminPage = () => {
@@ -42,14 +42,21 @@ import {CIcon} from '@coreui/icons-react'
 
 const AdminPage = () => {
   const cookies = new Cookies()
-  const navigate = useNavigate()
   useEffect(() => {
     const token = cookies.get("accessToken")
-    console.log('check token in admin page: ', token)
-    if(!token) {
-      alert('Admin permission required !')
-      navigate('/')
+    if(token) {
+      const decodedToken = jwtDecode(token)
+      console.log('check token in admin page: ', token)
+      if(decodedToken.isadmin === 0) {
+        alert('Admin permission required !')
+        window.history.back()
+      }
     }
+    else {
+      alert('Admin permission required !')
+      window.history.back()
+    }
+    
     return () => {}
   }, [])
   return (
