@@ -6,6 +6,7 @@ import Home from './pages/home/Home'
 import Login from './pages/SigninSignup/Login'
 import Admin from './pages/Admin/AdminPage'
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import UserManagement from './pages/Admin/UserManagement';
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
 import User from './pages/User/User'
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AdminDashboard/>
+      },
+      {
+        path: "/admin/usermanage",
+        element: <UserManagement/>
       }
     ]
   }
