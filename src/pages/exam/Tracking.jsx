@@ -62,6 +62,7 @@ const Tracking = ({ userAnswer }) => {
                             key={index}
                             className="tracking-btn"
                             variant={item === '' ? 'info' : 'primary'}
+                            size='sm'
                         >
                             {index + 1}
                         </Button>

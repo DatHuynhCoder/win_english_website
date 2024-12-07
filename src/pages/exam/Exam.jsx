@@ -25,7 +25,7 @@ const Exam = () => {
   const examaudio = location.state?.examaudio;
   const examtotalparticipants = location.state?.examtotalparticipants;
 
-  const questionsPerPage = 10; //Điều chỉnh số câu mỗi trang
+  const questionsPerPage = 15; //Điều chỉnh số câu mỗi trang
   const offset = currentPage * questionsPerPage;
 
   //get question data from database
@@ -97,11 +97,11 @@ const Exam = () => {
         {currentQuestions.map((item, index) => (
           <div key={item.questionid}>
             {(item.supportimgs || []).map((imgitem, index) => (
-              <div key={index}>
+              <div key={index} style={{textAlign: 'center'}}>
                 <img
                   src={imgitem}
                   alt={`supportimg-${index}`}
-                  style={{ maxWidth: '100%' }}
+                  style={{ maxWidth: '70%' }}
                 />
               </div>
             ))}
