@@ -97,7 +97,7 @@ const Exam = () => {
         {currentQuestions.map((item, index) => (
           <div key={item.questionid}>
             {(item.supportimgs || []).map((imgitem, index) => (
-              <div key={index} style={{textAlign: 'center'}}>
+              <div key={index} style={{ textAlign: 'center' }}>
                 <img
                   src={imgitem}
                   alt={`supportimg-${index}`}
@@ -106,22 +106,24 @@ const Exam = () => {
               </div>
             ))}
 
-            <h3 className="question-number">{offset + index + 1}</h3>
-            {item.isimage === 1
-              ? <img src={item.question} alt="question-pic" style={{ maxWidth: '100%' }} />
-              : <h3 className="question-title">. {item.question}</h3>}
-            {item.options.map((option) => (
-              <div key={option} className="radio-option">
-                <input
-                  type="radio"
-                  name={`question-${item.questionid}`}
-                  value={option}
-                  checked={userAnswer[offset + index] === option}
-                  onChange={() => handleAnswerChange(option, offset + index)}
-                />
-                <label htmlFor={`${item.questionid}-${option}`}>{option}</label>
-              </div>
-            ))}
+            <div className="question-box">
+              <h3 className="question-number">{offset + index + 1}</h3>
+              {item.isimage === 1
+                ? <img src={item.question} alt="question-pic" style={{ maxWidth: '100%' }} />
+                : <h3 className="question-title">. {item.question}</h3>}
+              {item.options.map((option) => (
+                <div key={option} className="radio-option">
+                  <input
+                    type="radio"
+                    name={`question-${item.questionid}`}
+                    value={option}
+                    checked={userAnswer[offset + index] === option}
+                    onChange={() => handleAnswerChange(option, offset + index)}
+                  />
+                  <label htmlFor={`${item.questionid}-${option}`}>{option}</label>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
         <Button variant='primary' onClick={handleSumnit} style={{ margin: "20px 0" }}>Nộp bài</Button>
