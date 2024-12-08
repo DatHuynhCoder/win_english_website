@@ -126,7 +126,12 @@ const Exam = () => {
             </div>
           </div>
         ))}
-        <Button variant='primary' onClick={handleSumnit} style={{ margin: "20px 0" }}>Nộp bài</Button>
+        <Button 
+        variant='primary' 
+        onClick={handleSumnit} 
+        style={{ margin: "20px 0" }}
+        className='submit-btn'
+        >Nộp bài</Button>
         <ReactPaginate
           breakLabel="..."
           nextLabel="Next >"

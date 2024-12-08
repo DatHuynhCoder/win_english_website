@@ -24,7 +24,7 @@
         }
 
         .question-title {
-            display: inline-block;
+            display: inline;
             font-size: 1.25rem;
             margin-left: 5px;
         }
@@ -50,7 +50,7 @@
             label:hover {
                 color: #007bff;
             }
-        }
+        }  
     }
 
     .tracking-content {

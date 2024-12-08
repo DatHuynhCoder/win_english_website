@@ -1,41 +1,97 @@
-.result-title {
-    font-weight: bold;
-}
-
-.result-content {
-    margin-bottom: 24px;
-    .card {
-        text-align: center;
-        border: 2px solid rgba(0, 0, 0, 0.175);
-        box-shadow: 2px 2px 5px lightblue;
-        .title-1 {
-            color: green;
-        }
-        
-        .title-2 {
-            color: red;
-        }
-        
-        .title-3 {
-            color: purple;
-        }
-        
-        .title-4 {
-            color: gray;
-        }
-        
-        .title-5 {
-            color: yellow;
-        }
-        
-        .title-6 {
-            color: blue;
-        }
+.overview-container {
+    .result-title {
+        font-weight: bold;
+    }
     
-        .result{
-            font-weight: bold;
-            font-size: 24px;
-            margin-bottom: 0;
+    .result-content {
+        margin-bottom: 24px;
+        .card {
+            text-align: center;
+            border: 2px solid rgba(0, 0, 0, 0.175);
+            box-shadow: 2px 2px 5px lightblue;
+            .title-1 {
+                color: green;
+            }
+            
+            .title-2 {
+                color: red;
+            }
+            
+            .title-3 {
+                color: purple;
+            }
+            
+            .title-4 {
+                color: gray;
+            }
+            
+            .title-5 {
+                color: yellow;
+            }
+            
+            .title-6 {
+                color: blue;
+            }
+        
+            .result{
+                font-weight: bold;
+                font-size: 24px;
+                margin-bottom: 0;
+            }
         }
     }
+
+    .back-btn {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 15px 40px;
+        display: inline-block;
+        border-radius: 100px;
+        transition: all 0.2s;
+        background-color: #2529b3;
+        color: #fff; 
+        animation: moveInBottom 5s ease-out backwards;
+        
+        &::after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            border-radius: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: #2529b3;
+            transition: all 0.4s;
+        }
+        
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        
+            &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+            }
+        }
+        
+        &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        }
+        
+        @keyframes moveInBottom {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }      
 }
