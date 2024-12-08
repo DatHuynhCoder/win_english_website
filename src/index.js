@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Home from './pages/home/Home'
 import Login from './pages/SigninSignup/Login'
+import { OTPVerification } from './pages/SigninSignup/OTPVerification';
 import Admin from './pages/Admin/AdminPage'
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserManagement from './pages/Admin/UserManagement';
@@ -38,6 +39,7 @@ import {
 } from "react-router-dom"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ResetPassword from './pages/SigninSignup/ResetPassword';
 
 
 const router = createBrowserRouter([
@@ -99,6 +101,16 @@ const router = createBrowserRouter([
         element: <UserManagement/>
       }
     ]
+  },
+  {
+    path: "/otp",
+    element: <OTPVerification/>,
+    errorElement: <ErrorRoutes/>
+  },
+  {
+    path: "/resetpassword",
+    element: <ResetPassword/>,
+    errorElement: <ErrorRoutes/>
   }
 ])
 
