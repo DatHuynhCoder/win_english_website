@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie'
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ContextStore } from '../../context/Context';
 import styles from './LoginSignupStyles.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -68,7 +68,7 @@ const Login = () => {
           setAccessToken(null)
         }
       })
-      .then(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   const handleSignup = (e) => {
@@ -99,6 +99,35 @@ const Login = () => {
     }
   }
 
+  const handleForgetPass = () => {
+    if(signinEmail === '') alert('Vui lòng nhập email !')
+    else {
+      axios.get('http://localhost:8081/get-user-by-email?email=' + signinEmail).then(res => {
+        console.log('check res when get-user-by-email: ', res.data.length)
+        if(res.data.length) { // exist an user with that email
+          const OTPCode = Math.floor(Math.random() * 9000 + 1000) // gửi mã OTP này đến mail của user
+          axios.post("http://localhost:8081/send-recovery-email", { // gửi mã otp đến mail
+            OTP: OTPCode,
+            recipient_email: signinEmail
+          }).then(res => {
+            if(res.data.Status === 'Success') {
+              console.log('Send email successfully !')
+              navigate('/otp', {
+                state: {
+                  OTPCode: OTPCode,
+                  resetEmail: signinEmail
+                }
+              })
+            }
+          })
+        }
+        else {
+          alert('Không tồn tại người dùng')
+        }
+      })
+    }
+  }
+
   return (
     <div className={styles.loginbody}>
       <div className={`${styles.containerLogin} ${isActive ? styles.active : ''}`}>
@@ -119,7 +148,8 @@ const Login = () => {
             <input type="email" placeholder="Email" onChange={(e) => setSigninEmail(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setSigninPassword(e.target.value)} />
             <div className={styles.forgetpassword}>
-              <a href="#">Forget Your Password?</a>
+              {/* <Link to={'/otp'}>Forget Your Password?</Link> */}
+              <p style={{cursor: 'pointer'}} onClick={() => handleForgetPass()}>Forget Your Password?</p>
             </div>
             <span>or using</span>
             <div className={styles.socialicons}>
