@@ -6,10 +6,11 @@
   height: 700px;
   padding-top: 50px;
   margin-top: 40px;
+  align-items: center;
   .HomeFeedback-title {
     text-align: center;
-    margin: 30px 0;
-    color: white;
+    margin: 20px 0;
+    color: black;
   }
   .HomeFeedback-main {
     display: flex;
@@ -31,9 +32,9 @@
         text-align: center;
         height: 250px;
         .HomeFeedback-avatar {
-          width: 200px;
-          height: 200px;
-          margin: 20px 0;
+          width: 150px;
+          height: 150px;
+          margin-top: 20px;
           border-radius: 50%;
           position: relative;
         }
@@ -53,8 +54,8 @@
         }
       }
       .HomeFeedback-feedback-area {
-        padding: 10px 10px;
-        padding: 30px;
+        padding: 0 30px;
+        text-align: center;
         .HomeFeedback-feedback {
           font-style: italic;
           color: white  ;

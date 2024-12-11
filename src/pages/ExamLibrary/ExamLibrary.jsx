@@ -18,7 +18,7 @@ import { useContext, useEffect } from 'react';
 import { ContextStore } from '../../context/Context';
 import axios from 'axios';
 
-import DefaultAvatar from '../../assets/galaxy_slayer_Zed.jpg'
+import DefaultAvatar from '../../assets/defaultAvatar.png'
 
 function ResponsiveExample({ setSearch, user }) {
   const navigate = useNavigate()
