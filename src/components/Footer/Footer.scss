@@ -9,18 +9,18 @@
             color: #fff;
         }
 
-        .icon {
+        .icon-footer {
             filter: grayscale(100%);
             transition: filter 0.5s ease;
             padding-right: 10px;
         }
 
-        .icon-container {
+        .icon-footer-container {
             color: #fff;
             &:hover {
                 text-decoration: underline;
 
-                .icon {
+                .icon-footer {
                     filter: grayscale(0%);
                 }
             }

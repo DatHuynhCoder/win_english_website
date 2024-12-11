@@ -25,7 +25,7 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
   }
 
   const handleNotPremium = () => {
-    toast.error('Nộp đi Bruv, Ko nạp mà đòi hỏi quá !');
+    toast.error('Xin hãy đăng ký gói VIP để mở khóa chức năng xem chi tiết đáp án');
   }
 
   return (
@@ -62,7 +62,7 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-            Đặt quyền cho gói Premium
+            Chi tiết đáp án 
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
