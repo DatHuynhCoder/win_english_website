@@ -47,49 +47,49 @@ const Footer = () => {
           <Col>
             <Nav className="flex-column fs-6">
               <p className="fw-bold">Kết nối với chúng tôi</p>
-              <NavLink to="https://www.facebook.com/" className="nav-link icon-container">
+              <NavLink to="https://www.facebook.com/" className="nav-link icon-footer-container">
                 <Image
                   src={FacebookIcon}
-                  alt="Facebook icon"
+                  alt="Facebook icon-footer"
                   width={58}
                   height={58}
-                  className="icon"
+                  className="icon-footer"
                 />
                 Facebook</NavLink>
-              <NavLink to="https://www.instagram.com/" className="nav-link icon-container" >
+              <NavLink to="https://www.instagram.com/" className="nav-link icon-footer-container" >
                 <Image
                   src={InstagramIcon}
-                  alt="Instagram icon"
+                  alt="Instagram icon-footer"
                   width={58}
                   height={58}
-                  className="icon"
+                  className="icon-footer"
                 />
                 Intagram</NavLink>
-              <NavLink to="https://www.tiktok.com/" className="nav-link icon-container">
+              <NavLink to="https://www.tiktok.com/" className="nav-link icon-footer-container">
                 <Image
                   src={TiktokIcon}
-                  alt="Tiktok icon"
+                  alt="Tiktok icon-footer"
                   width={58}
                   height={58}
-                  className="icon"
+                  className="icon-footer"
                 />
                 TikTok</NavLink>
-              <NavLink to="https://www.youtube.com/" className="nav-link icon-container">
+              <NavLink to="https://www.youtube.com/" className="nav-link icon-footer-container">
                 <Image
                   src={YoutubeIcon}
-                  alt="Youtube icon"
+                  alt="Youtube icon-footer"
                   width={58}
                   height={58}
-                  className="icon"
+                  className="icon-footer"
                 />
                 Youtube</NavLink>
-              <NavLink to="https://web.telegram.org/a/" className="nav-link icon-container">
+              <NavLink to="https://web.telegram.org/a/" className="nav-link icon-footer-container">
                 <Image
                   src={TelegramIcon}
-                  alt="Telegram icon"
+                  alt="Telegram icon-footer"
                   width={58}
                   height={58}
-                  className="icon"
+                  className="icon-footer"
                 />
                 Telegram</NavLink>
             </Nav>

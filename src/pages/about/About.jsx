@@ -5,8 +5,14 @@ import Policies from './Policies'
 import Moto from './Moto'
 import Banner from './Banner'
 import FAQ from './FAQ'
+//pic for policy
+import policy_pic1 from '../../assets/policy_pic1.png'
+import policy_pic2 from '../../assets/policy_pic2.png'
+import policy_pic3 from '../../assets/policy_pic3.png'
+import policy_pic4 from '../../assets/policy_pic4.png'
+import policy_pic5 from '../../assets/policy_pic5.png'
+import policy_pic6 from '../../assets/policy_pic6.png'
 
-import policy_pic1 from '../../assets/policy_info_accessible.svg'
 
 const About = () => {
   const policyData = [
@@ -16,29 +22,29 @@ const About = () => {
       logo: policy_pic1
     },
     {
-      title: 'Thông tin',
-      content: 'Chúng tôi tin rằng việc tiếp cận thông tin phải dễ dàng và nhanh chóng. Và chia sẻ thông tin giữa các nhân viên, đối tác và khách hàng cũng được chú trọng',
-      logo: policy_pic1
+      title: 'Lương & Phúc lợi',
+      content: 'Để tạo điều kiện kiện làm việc tốt nhất cho nhân viên, chúng tôi có nhiều chính sách đến lương thưởng, phụ cấp chi phí đi lại, ăn uống cùng bảo hiểm cho toàn bộ nhân viên',
+      logo: policy_pic2
     },
     {
-      title: 'Thông tin',
-      content: 'Chúng tôi tin rằng việc tiếp cận thông tin phải dễ dàng và nhanh chóng. Và chia sẻ thông tin giữa các nhân viên, đối tác và khách hàng cũng được chú trọng',
-      logo: policy_pic1
+      title: 'Làm việc linh hoạt',
+      content: 'Cho phép làm việc từ xa, lựa chọn giờ làm việc linh hoạt với bản thân, có chính sách nghỉ không lương tạo điều kiện giải quyết chuyện cá nhân',
+      logo: policy_pic3
     },
     {
-      title: 'Thông tin',
-      content: 'Chúng tôi tin rằng việc tiếp cận thông tin phải dễ dàng và nhanh chóng. Và chia sẻ thông tin giữa các nhân viên, đối tác và khách hàng cũng được chú trọng',
-      logo: policy_pic1
+      title: 'Khen thưởng & công nhận',
+      content: 'Vinh danh các cá nhân có thành tích nổi bật, tăng lương thưởng và quà tặng vào các dịp lễ, Tết',
+      logo: policy_pic4
     },
     {
-      title: 'Thông tin',
-      content: 'Chúng tôi tin rằng việc tiếp cận thông tin phải dễ dàng và nhanh chóng. Và chia sẻ thông tin giữa các nhân viên, đối tác và khách hàng cũng được chú trọng',
-      logo: policy_pic1
+      title: 'Sức khỏe & đời sống',
+      content: 'Hỗ trợ khám sức khỏe định kỳ, tổ chức các buổi tư vấn tâm lí và nhiều hoạt động team building',
+      logo: policy_pic5
     },
     {
-      title: 'Thông tin',
-      content: 'Chúng tôi tin rằng việc tiếp cận thông tin phải dễ dàng và nhanh chóng. Và chia sẻ thông tin giữa các nhân viên, đối tác và khách hàng cũng được chú trọng',
-      logo: policy_pic1
+      title: 'Minh bạch & công bằng',
+      content: 'Lắng nghe ý kiến nhân viên, đánh giá các cá nhân một cách công bằng, không phân biệt giới tính, màu da hay dân tộc nào',
+      logo: policy_pic6
     },
   ]
 
