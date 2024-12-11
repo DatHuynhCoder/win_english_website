@@ -15,6 +15,7 @@ import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
 import Exam from './pages/exam/Exam';
 import Payment from './pages/Payment/Payment';
+import Instruction from './pages/Instruction/Instruction';
 
 import { ContextProvider } from './context/Context';
 //use toast
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "/exam-result",
         element: <ExamResult />
+      },
+      {
+        path: "/instruction",
+        element: <Instruction/>
       }
     ],
   },

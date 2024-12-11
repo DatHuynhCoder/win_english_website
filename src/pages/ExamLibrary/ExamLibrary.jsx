@@ -12,7 +12,7 @@ import ListExam from './ListExam'
 import './ExamLibrary.scss'
 
 import SearchButton from './SearchButton'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useContext, useEffect } from 'react';
 import { ContextStore } from '../../context/Context';
@@ -21,6 +21,7 @@ import axios from 'axios';
 import DefaultAvatar from '../../assets/galaxy_slayer_Zed.jpg'
 
 function ResponsiveExample({ setSearch, user }) {
+  const navigate = useNavigate()
   return (
     <>
       <div className='ExamLibrary-head'>
@@ -37,7 +38,7 @@ function ResponsiveExample({ setSearch, user }) {
             </Button>
           </InputGroup>
 
-          <SearchButton />
+          {/* <SearchButton /> */}
 
         </div>
         <div className="ExamLibrary-UserProfile">
@@ -45,9 +46,12 @@ function ResponsiveExample({ setSearch, user }) {
             <>
               <img src={user[0].useravatarurl || DefaultAvatar} alt="avatar" className="ExamLibrary-UserProfile-Avatar" />
               <h5 className="ExamLibrary-UserProfile-Name">{user[0].username || "Unknown User"}</h5>
-              <button className='ExamLibrary-UserProfile-MyProfileBtn' style={{ borderRadius: '10px' }}>
+              {/* <button className='ExamLibrary-UserProfile-MyProfileBtn' style={{ borderRadius: '10px' }}>
                 <Link to={'/user'} className='ExamLibrary-UserProfile-MyProfileBtn-Text'>Hồ sơ của tôi</Link>
-              </button>
+              </button> */}
+              <Button variant="outline-info" onClick={() => navigate('/user')}>
+                Hồ sơ của tôi
+              </Button>
             </>
           ) : (
             <p>Loading user data...</p>

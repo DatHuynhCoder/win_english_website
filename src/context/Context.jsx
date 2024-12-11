@@ -4,14 +4,18 @@ const ContextStore = createContext()
 const ContextProvider = ({children}) => {
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
-  const [userid, setUserid] = useState();
-  const [ispremium,setIspremium] = useState();
+  const [userid, setUserid] = useState()
+  const [ispremium,setIspremium] = useState()
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [useravatarurl, setUseravatarurl] = useState('')
   return (
     <ContextStore.Provider value={{
       accessToken, setAccessToken,
       refreshToken, setRefreshToken,
       userid, setUserid,
-      ispremium,setIspremium
+      ispremium,setIspremium,
+      isAdmin, setIsAdmin,
+      useravatarurl, setUseravatarurl
     }}>
       {children}
     </ContextStore.Provider>
