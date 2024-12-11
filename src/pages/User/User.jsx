@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 
 import { FcPlus } from "react-icons/fc";
 
-import DefaultAvatar from '../../assets/galaxy_slayer_Zed.jpg'
+import DefaultAvatar from '../../assets/defaultAvatar.png'
 
 import { jwtDecode } from "jwt-decode";
 
@@ -140,7 +140,7 @@ export default function User() {
   //use axios to request get-user-by-id và get-exam-result-by-id
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    if(accessToken) {
+    if(accessToken && userid) {
       const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
       console.log('check decoded accessToken in user page: ', decodedAccessToken)
       console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
@@ -150,7 +150,7 @@ export default function User() {
         getExamResultById();
       }
     }
-  }, [accessToken]);
+  }, [accessToken,userid]);
 
   return (
     <div className="user-profile">
