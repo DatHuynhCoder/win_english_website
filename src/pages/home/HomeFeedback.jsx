@@ -10,6 +10,23 @@ import avatar1 from '../../assets/home-comment-avatar-1.jpg'
 import avatar2 from '../../assets/home-comment-avatar-2.jpeg'
 import avatar3 from '../../assets/home-comment-avatar-3.jpg'
 
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
+
+const labels = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
 const HomeFeedbackData = [
   {
     name: 'Jasurbek Esonboyev',
@@ -36,6 +53,9 @@ const HomeFeedbackData = [
 
 const HomeFeedback = () => {
   const {accessToken} = useContext(ContextStore)
+  function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+  }
   return (
     <div className='HomeFeedback-container'>
       <h1 className="HomeFeedback-title">Feedback</h1>
@@ -51,6 +71,18 @@ const HomeFeedback = () => {
               <div className='HomeFeedback-name-area'>
                 <p className='HomeFeedback-name'>{item.name}</p>
                 <p className='HomeFeedback-date'>{item.date}</p>
+                <div style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Box sx={{ width: 200, display: 'flex', alignItems: 'center', margin: '0 auto'}}>
+                    <Rating
+                      name="hover-feedback"
+                      value={item.rating}
+                      precision={0.5}
+                      getLabelText={getLabelText}
+                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                      style={{margin: '0 auto'}}
+                    />
+                  </Box>
+                </div>
               </div>
               <div className='HomeFeedback-feedback-area'>
                 <p className='HomeFeedback-feedback'>{item.feedback}</p>

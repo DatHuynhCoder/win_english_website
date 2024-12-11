@@ -25,6 +25,8 @@ import logoWinEng from '../../assets/logoWinEng.svg'
 import { useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 
+import DefaultAvatar from '../../assets/defaultAvatar.png'
+
 const Header = () => {
   const {
     accessToken, setAccessToken, 
@@ -45,6 +47,7 @@ const Header = () => {
     if(accessToken) {
       const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
       setIspremium(decodedAccessToken.ispremium)
+      setIsAdmin(decodedAccessToken.isadmin)
       setUseravatarurl(decodedAccessToken.useravatarurl)
       console.log('check decoded accessToken in header: ', decodedAccessToken)
       console.log('===> check userid in decoded token in header: ', decodedAccessToken.userid)
@@ -124,10 +127,7 @@ const Header = () => {
               <NavLink to={`/exam-library`} className={'nav-link'}>Đề thi</NavLink>
               <NavLink to={`/about`} className={'nav-link'}>Về chúng tôi</NavLink>
               <NavLink to={`/instruction`} className={'nav-link'}>Hướng dẫn</NavLink>
-              {
-                accessToken && <NavLink to={`/admin`} className={'nav-link'}>Admin</NavLink>
-              }
-              
+              {isAdmin === 1 && <NavLink to={`/admin`} className={'nav-link'}>Admin</NavLink>}
             </Nav>
             <Nav>
               {ispremium === 1 ? 
@@ -149,7 +149,7 @@ const Header = () => {
                   </span>
                 </NavLink>
               }
-              <NavDropdown title={<FaUser />} id="basic-nav-dropdown">
+              <NavDropdown title={<img src={useravatarurl !== '' ? useravatarurl : DefaultAvatar} style={{width: 40, borderRadius: 25}}></img>} id="basic-nav-dropdown">
                 {accessToken && <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>}
                 {!accessToken && <NavLink to={`/login`} className={'dropdown-item'}>Đăng nhập/<br></br>Đăng ký</NavLink>}
                 {accessToken && <NavDropdown.Divider/>}
