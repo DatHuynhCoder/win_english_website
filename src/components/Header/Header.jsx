@@ -13,6 +13,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import { ContextStore } from '../../context/Context'
+import { toast } from 'react-toastify';
 
 import { NavLink, useNavigate } from 'react-router-dom'
 
@@ -25,7 +26,13 @@ import { useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 
 const Header = () => {
-  const {accessToken, setAccessToken, userid, setUserid} = useContext(ContextStore)
+  const {
+    accessToken, setAccessToken, 
+    userid, setUserid,
+    ispremium,setIspremium,
+    isAdmin, setIsAdmin,
+    useravatarurl, setUseravatarurl
+  } = useContext(ContextStore)
   const cookies = new Cookies()
   const [isPre, setIsPre] = useState()
   const navigate = useNavigate()
@@ -37,10 +44,12 @@ const Header = () => {
     setAccessToken(cookies.get("accessToken"))
     if(accessToken) {
       const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
-      setIsPre(decodedAccessToken.ispremium)
+      setIspremium(decodedAccessToken.ispremium)
+      setUseravatarurl(decodedAccessToken.useravatarurl)
       console.log('check decoded accessToken in header: ', decodedAccessToken)
       console.log('===> check userid in decoded token in header: ', decodedAccessToken.userid)
       setUserid(decodedAccessToken.userid)
+      if(decodedAccessToken.isAdmin === 1) setIspremium(true)
     }
   }, [accessToken])
   return (
@@ -54,7 +63,7 @@ const Header = () => {
           <Modal.Title>Nâng cấp lên Pro</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Nâng lên Pro đi, không nghiện đâu
+          Bạn có thể xem đáp án chi tiết của từng câu hỏi sau khi làm bài
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -63,10 +72,8 @@ const Header = () => {
           <Button
             variant="primary"
             onClick={() => {
-              // navigate('/payment')
               if(!accessToken) {
-                alert('Login first !')
-                navigate('/login')
+                toast.error('Login first !')
               }
               else {
                 axios.post('http://localhost:8081/payment', {
@@ -114,22 +121,22 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <NavLink to={`/user`} className={'nav-link'}>Khóa học</NavLink>
               <NavLink to={`/exam-library`} className={'nav-link'}>Đề thi</NavLink>
               <NavLink to={`/about`} className={'nav-link'}>Về chúng tôi</NavLink>
+              <NavLink to={`/instruction`} className={'nav-link'}>Hướng dẫn</NavLink>
               {
                 accessToken && <NavLink to={`/admin`} className={'nav-link'}>Admin</NavLink>
               }
               
             </Nav>
             <Nav>
-              {isPre === 1 ? 
-                <NavLink to={`/`} className={'nav-link'}>
+              {ispremium === 1 ? 
+                <NavLink to={`#`} className={'nav-link'}>
                   <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'gold' }}>
                     <LuCrown color='gold' size={25} />
                     {
                       <span>You are VIP !</span>
-                    } 
+                    }
                   </span>
                 </NavLink>
                 : 
@@ -143,14 +150,14 @@ const Header = () => {
                 </NavLink>
               }
               <NavDropdown title={<FaUser />} id="basic-nav-dropdown">
-                <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>
-                <NavLink to={`/login`} className={'dropdown-item'}>Đăng nhập<br></br>hoặc<br></br> đăng ký</NavLink>
-                <NavDropdown.Divider />
-                <NavLink to={`/login`} className={'dropdown-item'} onClick={() => {
+                {accessToken && <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>}
+                {!accessToken && <NavLink to={`/login`} className={'dropdown-item'}>Đăng nhập/<br></br>Đăng ký</NavLink>}
+                {accessToken && <NavDropdown.Divider/>}
+                {accessToken && <NavLink to={`/login`} className={'dropdown-item'} onClick={() => {
                   if(!cookies.get("accessToken")) alert("Login first !")
                   cookies.remove("accessToken")
                   cookies.remove("refreshToken")
-                }}>Đăng xuất</NavLink>
+                }}>Đăng xuất</NavLink>}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

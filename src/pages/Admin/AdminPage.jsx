@@ -9,6 +9,7 @@ import React, {useEffect } from 'react';
 // import { ContextStore } from '../../context/Context';
 import Cookies from 'universal-cookie';
 import { jwtDecode } from 'jwt-decode';
+import { toast } from 'react-toastify';
 
 import logoWinEng from '../../assets/logoWinEng.svg'
 import { Image } from "react-bootstrap"
@@ -48,12 +49,13 @@ const AdminPage = () => {
       const decodedToken = jwtDecode(token)
       console.log('check token in admin page: ', token)
       if(decodedToken.isadmin === 0) {
-        alert('Admin permission required !')
+        toast.warning('Admin permission required !')
         window.history.back()
       }
     }
     else {
-      alert('Admin permission required !')
+      // alert('Admin permission required !')
+      toast.warning('Admin permission required !')
       window.history.back()
     }
     
@@ -106,7 +108,7 @@ const AdminPage = () => {
             <Link to={'/'} style={{textDecoration: 'none'}}>
               <CNavItem href="/">
                 <CIcon customClassName="nav-icon" icon={cilLayers}/>
-                Return to home
+                Trở về trang chủ
               </CNavItem>
             </Link>
           </CSidebarNav>

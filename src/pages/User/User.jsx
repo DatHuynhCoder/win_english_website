@@ -300,7 +300,7 @@ export default function User() {
                   </Row>
                   <Row className="mb-3">
                     <Col sm={3}>
-                      <h6 className="mb-0">Phone</h6>
+                      <h6 className="mb-0">Số điện thoại</h6>
                     </Col>
                     <Col sm={9} className="text-secondary">
                       {user[0].userphone}
