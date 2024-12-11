@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ContextStore } from '../../context/Context';
 import styles from './LoginSignupStyles.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const cookies = new Cookies()
@@ -46,7 +47,7 @@ const Login = () => {
       .then(res => {
         console.log(res)
         if (res.data.Status === 'Success') {
-          alert(res.data.Status)
+          toast.success('Đăng nhập thành công, chúc bạn đạt kết quả tốt !')
           setAccessToken(res.data.accessToken) // set accessToken
           const decodedAccessToken = jwtDecode(res.data.accessToken)
           console.log('decodedAccessToken: ', decodedAccessToken)
@@ -64,7 +65,7 @@ const Login = () => {
           navigate('/')
         }
         else {
-          alert(res.data.Error)
+          toast.error('Đăng nhập thất bại, vui lòng nhập lại')
           setAccessToken(null)
         }
       })
@@ -75,7 +76,7 @@ const Login = () => {
     e.preventDefault()
     console.log('signup clicked')
     if (password !== confirmPassword) {
-      alert('different between password and password confirmed')
+      toast.error('Mật khẩu và mật khẩu xác nhận không trùng khớp !')
     }
     else {
       const info = {
@@ -88,11 +89,11 @@ const Login = () => {
         .then(res => {
           console.log(res)
           if (res.data.Status === 'Success') {
-            alert(res.data.Status)
+            toast.success('Đăng ký tài khoản thành công, xin hãy đăng nhập !')
             navigate('/login')
           }
           else {
-            alert('Error !!!')
+            toast.error('Đăng ký tài khoản thất bại !')
           }
         })
         .then(err => console.log(err))
@@ -100,7 +101,7 @@ const Login = () => {
   }
 
   const handleForgetPass = () => {
-    if(signinEmail === '') alert('Vui lòng nhập email !')
+    if(signinEmail === '') toast.warning('Vui lòng nhập email !')
     else {
       axios.get('http://localhost:8081/get-user-by-email?email=' + signinEmail).then(res => {
         console.log('check res when get-user-by-email: ', res.data.length)
@@ -122,7 +123,7 @@ const Login = () => {
           })
         }
         else {
-          alert('Không tồn tại người dùng')
+          toast.error('Không tồn tại người dùng')
         }
       })
     }
