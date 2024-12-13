@@ -43,6 +43,10 @@ const Login = () => {
       email: signinEmail,
       password: signinPassword,
     }
+    if(signinEmail === '' || signinPassword === '') {
+      toast.error('Các trường không được để trống')
+    }
+    else
     axios.post('http://localhost:8081/login', info)
       .then(res => {
         console.log(res)
@@ -65,7 +69,7 @@ const Login = () => {
           navigate('/')
         }
         else {
-          toast.error('Đăng nhập thất bại, vui lòng nhập lại')
+          toast.error(res.data.Error)
           setAccessToken(null)
         }
       })
