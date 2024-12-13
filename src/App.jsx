@@ -20,9 +20,9 @@ const App = () => {
       <div className="Main-content">
         <Outlet/>
       </div>
-      {/* <div className="footer-container"> */}
+      <div className="footer-container">
         <Footer/>
-      {/* </div> */}
+      </div>
     </div>
   );
 }

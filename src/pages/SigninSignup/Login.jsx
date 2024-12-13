@@ -43,6 +43,10 @@ const Login = () => {
       email: signinEmail,
       password: signinPassword,
     }
+    if(signinEmail === '' || signinPassword === '') {
+      toast.error('Các trường không được để trống')
+    }
+    else
     axios.post('http://localhost:8081/login', info)
       .then(res => {
         console.log(res)
@@ -65,18 +69,27 @@ const Login = () => {
           navigate('/')
         }
         else {
-          toast.error('Đăng nhập thất bại, vui lòng nhập lại')
+          toast.error(res.data.Error)
           setAccessToken(null)
         }
       })
       .catch(err => console.log(err))
   }
-
+  const isAllNumbers = (str) => {
+    if (!str) return false;
+    return /^\d+$/.test(str);
+  }
   const handleSignup = (e) => {
     e.preventDefault()
     console.log('signup clicked')
-    if (password !== confirmPassword) {
-      toast.error('Mật khẩu và mật khẩu xác nhận không trùng khớp !')
+    if(username === '' || phonenumber === '' || email === '' || password === '' || confirmPassword === '') {
+      toast.error('Các trường không được để trống')
+    }
+    else if(!isAllNumbers(phonenumber)) {
+      toast.error('Số điện thoại không được chứa ký tự khác số')
+    }
+    else if (password !== confirmPassword) {
+      toast.error('Mật khẩu và mật khẩu xác nhận phải giống nhau')
     }
     else {
       const info = {
@@ -93,7 +106,7 @@ const Login = () => {
             navigate('/login')
           }
           else {
-            toast.error('Đăng ký tài khoản thất bại !')
+            alert('Error !!!')
           }
         })
         .then(err => console.log(err))
