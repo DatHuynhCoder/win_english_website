@@ -21,7 +21,7 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
   const handleShowModal = (question_item) => {
     setSelectedQuestion(question_item);
     setShowModal(true);
-    console.log("Co phai vip ko",ispremium)
+    console.log("Co phai vip ko", ispremium)
   }
 
   const handleNotPremium = () => {
@@ -62,14 +62,18 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-            Chi tiết đáp án 
+            Chi tiết đáp án
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>{selectedQuestion.question}</h4>
-          <p>Câu trả lời đúng: <span style={{color: 'green'}}>{selectedQuestion.answer}</span></p>
-          <p>Giải thích: {selectedQuestion.detailanswer}</p>
+          {selectedQuestion?.question?.includes('http://localhost:8081/')
+            ? <img src={selectedQuestion.question} alt="questionpic" style={{ maxWidth: '100%' }} />
+            : <h4>{selectedQuestion?.question}</h4>
+          }
+          <p>Câu trả lời đúng: <span style={{ color: 'green' }}>{selectedQuestion?.answer}</span></p>
+          <p>Giải thích: {selectedQuestion?.detailanswer}</p>
         </Modal.Body>
+
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseModal}>
             Đóng
