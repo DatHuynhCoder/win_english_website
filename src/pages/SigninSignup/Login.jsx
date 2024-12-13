@@ -70,12 +70,21 @@ const Login = () => {
       })
       .catch(err => console.log(err))
   }
-
+  const isAllNumbers = (str) => {
+    if (!str) return false;
+    return /^\d+$/.test(str);
+  }
   const handleSignup = (e) => {
     e.preventDefault()
     console.log('signup clicked')
-    if (password !== confirmPassword) {
-      alert('different between password and password confirmed')
+    if(username === '' || phonenumber === '' || email === '' || password === '' || confirmPassword === '') {
+      alert('Các trường không được để trống')
+    }
+    else if(!isAllNumbers(phonenumber)) {
+      alert('Số điện thoại không được chứa ký tự khác số')
+    }
+    else if (password !== confirmPassword) {
+      alert('Mật khẩu và mật khẩu xác nhận phải giống nhau')
     }
     else {
       const info = {
@@ -92,7 +101,7 @@ const Login = () => {
             navigate('/login')
           }
           else {
-            alert('Error !!!')
+            alert(res.data.Error)
           }
         })
         .then(err => console.log(err))
