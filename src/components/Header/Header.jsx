@@ -130,7 +130,7 @@ const Header = () => {
               {isAdmin === 1 && <NavLink to={`/admin`} className={'nav-link'}>Admin</NavLink>}
             </Nav>
             <Nav>
-              {ispremium === 1 ? 
+              {accessToken ? ispremium === 1 ? 
                 <NavLink to={`#`} className={'nav-link'}>
                   <span style={{ fontSize: '13px', fontWeight: 'bold', color: 'gold' }}>
                     <LuCrown color='gold' size={25} />
@@ -148,6 +148,8 @@ const Header = () => {
                     }
                   </span>
                 </NavLink>
+                :
+                <></>
               }
               <NavDropdown title={<img src={useravatarurl !== '' ? useravatarurl : DefaultAvatar} style={{width: 40,height: 40, borderRadius: 25}}></img>} id="basic-nav-dropdown">
                 {accessToken && <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>}
