@@ -149,7 +149,7 @@ const Header = () => {
                   </span>
                 </NavLink>
               }
-              <NavDropdown title={<img src={useravatarurl !== '' ? useravatarurl : DefaultAvatar} style={{width: 40, borderRadius: 25}}></img>} id="basic-nav-dropdown">
+              <NavDropdown title={<img src={useravatarurl !== '' ? useravatarurl : DefaultAvatar} style={{width: 40,height: 40, borderRadius: 25}}></img>} id="basic-nav-dropdown">
                 {accessToken && <NavLink to={`/user`} className={'dropdown-item'}>Trang cá nhân</NavLink>}
                 {!accessToken && <NavLink to={`/login`} className={'dropdown-item'}>Đăng nhập/<br></br>Đăng ký</NavLink>}
                 {accessToken && <NavDropdown.Divider/>}
