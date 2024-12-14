@@ -1,6 +1,6 @@
 // import Sidebar from './Sidebar'
 // import styles from './AdminPage.module.css'
-import React, {useEffect } from 'react';
+import React, {useContext, useEffect } from 'react';
 // import ContentHeader from './ContentHeader'
 // import ContentMain from './ContentMain'
 // import { Leaderboard } from './Leaderboarddata';
@@ -27,6 +27,7 @@ import {
 } from '@coreui/react';
 import {cilSpeedometer, cilLayers} from '@coreui/icons'
 import {CIcon} from '@coreui/icons-react'
+import { ContextStore } from '../../context/Context';
 
 // const AdminPage = () => {
 //   return (
@@ -42,23 +43,21 @@ import {CIcon} from '@coreui/icons-react'
 // }
 
 const AdminPage = () => {
+  const {
+    accessToken, setAccessToken,
+    refreshToken, setRefreshToken,
+    userid, setUserid,
+    ispremium,setIspremium,
+    isAdmin, setIsAdmin,
+    useravatarurl, setUseravatarurl
+  } = useContext(ContextStore)
   const cookies = new Cookies()
+
   useEffect(() => {
-    const token = cookies.get("accessToken")
-    if(token) {
-      const decodedToken = jwtDecode(token)
-      console.log('check token in admin page: ', token)
-      if(decodedToken.isadmin === 0) {
-        toast.warning('Admin permission required !')
-        window.history.back()
-      }
-    }
-    else {
-      // alert('Admin permission required !')
-      toast.warning('Admin permission required !')
+    if(!accessToken || !isAdmin) {
+      alert(`Admin ${isAdmin} permission required !`)
       window.history.back()
     }
-    
     return () => {}
   }, [])
   return (
