@@ -46,7 +46,7 @@ const ListExam = ({ search }) => {
 
   const [listExam, setListExam] = useState([]);
   // const [isLoaded, setIsLoaded] = useState(false)
-
+  const [sortCode, setSortCode] = useState(0)
   //use axios to request get exam
   useEffect(() => {
     // setAccessToken(cookies.get("accessToken"))
@@ -107,6 +107,11 @@ const ListExam = ({ search }) => {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
   }
 
+  const sorting = (arr) => {
+    if(sortCode === 0) return arr.sort((a, b) => a.examtotalparticipants - b.examtotalparticipants)
+    else return arr.sort((a, b) => b.examtotalparticipants - a.examtotalparticipants)
+  }
+
   return (
     <>
       <div className="ListExam-container">
@@ -119,7 +124,6 @@ const ListExam = ({ search }) => {
             <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Thi đi bạn sợ à ?
             <br />
             <b><AiOutlineComment size={25} />Số lượt đánh giá: </b>{totalcomments}
             <br />
@@ -128,7 +132,7 @@ const ListExam = ({ search }) => {
             <div>
                 {
                   topComment.map((comment) => {
-                    return <div style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
+                    return <div style={{border: '1px solid black', borderRadius: '10px', margin: 3, padding: 5, boxShadow: '2px 2px'}}>
                     <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
                     <p style={{marginBottom: -2}}>{comment.commentdate}</p>
                     <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
@@ -159,9 +163,18 @@ const ListExam = ({ search }) => {
             </Button>
           </Modal.Footer>
         </Modal>
+        <div style={{marginBottom: '30px'}}>
+          Sắp xếp theo số lượt làm bài:
+          <Button variant="outline-primary" onClick={() => {
+            setSortCode(0)
+          }} style={{marginLeft: 10, marginRight: 10}}>Tăng dần</Button>
+          <Button variant="outline-primary" onClick={() => {
+            setSortCode(1)
+          }}>Giảm dần</Button>
+        </div>
         <Row className='g-5'>
           {
-            listExam.filter((item) => {
+            sorting(listExam).filter((item) => {
               return search.toLowerCase() === '' ? item
                 :
                 (
@@ -177,7 +190,7 @@ const ListExam = ({ search }) => {
                       <img src={Toeic_pic} alt="pic" style={{width: '100%'}}/>
                       <CiClock1 size={25} />Thời gian làm bài - 120 phút
                       <br></br>
-                      <CiUser size={25} />Số người tham gia - {item.examtotalparticipants}
+                      <CiUser size={25} />Số lượt làm bài - {item.examtotalparticipants}
                       <br></br>
                       4 phần thi - {item.examtotalquestions} câu hỏi
                     </Card.Text>
