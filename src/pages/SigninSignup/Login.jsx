@@ -106,7 +106,7 @@ const Login = () => {
             navigate('/login')
           }
           else {
-            alert('Error !!!')
+            toast.error(res.data.Error)
           }
         })
         .then(err => console.log(err))
