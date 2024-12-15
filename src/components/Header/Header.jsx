@@ -86,8 +86,15 @@ const Header = () => {
                   if(res.data.return_code === 1) {
                     console.log('check userid in context: ', userid)
                     console.log('check accessToken in context: ', accessToken)
+                    const date = new Date();
+                    const day = date.getDate();
+                    const month = date.getMonth() + 1;
+                    const year = date.getFullYear();
+                    const commentdate = `${day} / ${month} / ${year}`;
                     axios.post('http://localhost:8081/set-premium', {
-                      userid: userid
+                      userid: userid,
+                      timepremium: commentdate,
+                      payid: 1,
                     }, {
                       headers: {
                         Authorization: `Bearer ${accessToken}`
