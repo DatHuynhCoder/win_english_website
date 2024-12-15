@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 import { FaCheckCircle, FaMinusCircle, FaClock, FaAssistiveListeningSystems, FaBookReader } from "react-icons/fa";
 import { GoXCircleFill } from "react-icons/go";
@@ -16,6 +17,7 @@ import { IoArrowBack } from "react-icons/io5";
 import './OverviewResult.scss'
 
 const OverviewResult = ({ resultData }) => {
+    const navigate = useNavigate();
     return (
         <div className="overview-container">
             <h2 className='result-title'>Kết quả thi: {resultData.nameExam}</h2>
@@ -49,7 +51,7 @@ const OverviewResult = ({ resultData }) => {
                                 <Card.Title className='title-3'>Thời gian làm</Card.Title>
                                 <FaClock color='purple' size={40} />
                                 <Card.Text className='result'>{resultData.duration}</Card.Text>
-                                <Card.Text>Bạn hoàn thành kịp lúc !</Card.Text>
+                                <Card.Text>Hoàn thành kịp thời !</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -97,7 +99,7 @@ const OverviewResult = ({ resultData }) => {
                                     <Card.Title className="title-7 ms-2">Listening</Card.Title>
                                 </div>
                                 <Card.Text className='result'>{resultData.listeningScore} / 495</Card.Text>
-                                <Card.Text>Trả lời đúng {resultData.numCorrectListen} / 100 </Card.Text>
+                                <Card.Text>Trả lời đúng {resultData.numUserListen} / 100 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -109,13 +111,16 @@ const OverviewResult = ({ resultData }) => {
                                     <Card.Title className="title-7 ms-2">Reading</Card.Title>
                                 </div>
                                 <Card.Text className='result'>{resultData.readingScore} / 495</Card.Text>
-                                <Card.Text>Trả lời đúng {resultData.numCorrectRead} / 100</Card.Text>
+                                <Card.Text>Trả lời đúng {resultData.numUserRead} / 100</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
             </div>
-            <Button className='back-btn fw-bold'><IoArrowBack size={24} color='white'/>  Quay về đề thi</Button>
+            <Button 
+            className='back-btn fw-bold'
+            onClick={() => navigate('/exam-library')}
+            ><IoArrowBack size={24} color='white'/>  Quay về đề thi</Button>
         </div>
     )
 }

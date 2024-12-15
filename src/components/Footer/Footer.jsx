@@ -20,9 +20,10 @@ import "./Footer.scss"
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className='footer-container'>
       <Container fluid>
         <Row
+          className='row-footer'
           style={{ backgroundColor: '#385986', color: '#fff', padding: 50 }}
         >
           <Col>
@@ -40,55 +41,55 @@ const Footer = () => {
               <p className="fw-bold">Về chúng tôi</p>
               <NavLink className="nav-link">Giới thiệu</NavLink>
               <NavLink className="nav-link">Liên hệ</NavLink>
-              <NavLink className="nav-link">FAQ</NavLink>
+              <NavLink to="/about" className="nav-link">FAQ</NavLink>
             </Nav>
           </Col>
           <Col>
             <Nav className="flex-column fs-6">
               <p className="fw-bold">Kết nối với chúng tôi</p>
-              <NavLink to="https://www.facebook.com/" className="nav-link icon-container">
+              <NavLink to="https://www.facebook.com/" className="nav-link icon-footer-container">
                 <Image
                   src={FacebookIcon}
-                  alt="Facebook icon"
-                  width={48}
-                  height={48}
-                  className="icon"
+                  alt="Facebook icon-footer"
+                  width={58}
+                  height={58}
+                  className="icon-footer"
                 />
                 Facebook</NavLink>
-              <NavLink to="https://www.instagram.com/" className="nav-link icon-container" >
+              <NavLink to="https://www.instagram.com/" className="nav-link icon-footer-container" >
                 <Image
                   src={InstagramIcon}
-                  alt="Instagram icon"
-                  width={48}
-                  height={48}
-                  className="icon"
+                  alt="Instagram icon-footer"
+                  width={58}
+                  height={58}
+                  className="icon-footer"
                 />
                 Intagram</NavLink>
-              <NavLink to="https://www.tiktok.com/" className="nav-link icon-container">
+              <NavLink to="https://www.tiktok.com/" className="nav-link icon-footer-container">
                 <Image
                   src={TiktokIcon}
-                  alt="Tiktok icon"
-                  width={48}
-                  height={48}
-                  className="icon"
+                  alt="Tiktok icon-footer"
+                  width={58}
+                  height={58}
+                  className="icon-footer"
                 />
                 TikTok</NavLink>
-              <NavLink to="https://www.youtube.com/" className="nav-link icon-container">
+              <NavLink to="https://www.youtube.com/" className="nav-link icon-footer-container">
                 <Image
                   src={YoutubeIcon}
-                  alt="Youtube icon"
-                  width={48}
-                  height={48}
-                  className="icon"
+                  alt="Youtube icon-footer"
+                  width={58}
+                  height={58}
+                  className="icon-footer"
                 />
                 Youtube</NavLink>
-              <NavLink to="https://web.telegram.org/a/" className="nav-link icon-container">
+              <NavLink to="https://web.telegram.org/a/" className="nav-link icon-footer-container">
                 <Image
                   src={TelegramIcon}
-                  alt="Telegram icon"
-                  width={48}
-                  height={48}
-                  className="icon"
+                  alt="Telegram icon-footer"
+                  width={58}
+                  height={58}
+                  className="icon-footer"
                 />
                 Telegram</NavLink>
             </Nav>

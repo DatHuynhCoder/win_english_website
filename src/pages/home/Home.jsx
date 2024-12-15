@@ -7,128 +7,32 @@ import HomeExam from "./HomeExam"
 import HomeFeedback from "./HomeFeedback"
 import ChooseUs from "./ChooseUs"
 
-import pic1 from '../../assets/pic1.jpg'  
-import pic2 from '../../assets/pic2.jpg'
-import pic3 from '../../assets/pic3.jpg'
-import pic4 from '../../assets/pic4.jpg'
-import pic5 from '../../assets/pic5.jpg'
-import pic6 from '../../assets/pic6.jpg'
+// import carousel1 from '../../assets/carousel1.jpg'  
+import carousel2 from '../../assets/carousel2.jpg'
+import carousel3 from '../../assets/carousel3.jpg'
+import carousel4 from '../../assets/carousel4.png'
 
 const IntroductionCarouselData = [
+  // {
+  //   title: 'First slide label',
+  //   content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
+  //   image: carousel1
+  // },
   {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
+    title: 'KHO ĐỀ THI PHONG PHÚ',
+    content: 'THỬ SỨC VỚI NHỮNG ĐỀ CÓ ĐỘ KHÓ CAO',
+    image: carousel2
   },
   {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
+    title: 'THAO TÁC ĐƠN GIẢN',
+    content: 'DỄ DÀNG LÀM QUEN',
+    image: carousel3
   },
   {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
+    title: 'KIỂM TRA TRÌNH ĐỘ MIỄN PHÍ',
+    content: 'NHANH CHÓNG - CHÍNH XÁC - HIỆU QUẢ',
+    image: carousel4
   },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  }
-]
-
-const HomeCourseData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  }
-]
-
-const HomeExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  }
-]
-
-const HomeFeedbackData = [
-  {
-    name: 'First slide label',
-    feedback: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    avatar: pic1
-  },
-  {
-    name: 'Second slide label',
-    feedback: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    avatar: pic2
-  },
-  {
-    name: 'Third slide label',
-    feedback: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    avatar: pic3
-  }
 ]
 
 const ChooseUsData = [
@@ -143,9 +47,9 @@ const Home = () => {
   return (
     <>
       <IntroductionCarousel IntroductionCarouselData={IntroductionCarouselData}/>
-      <HomeCourse HomeCourseData={HomeCourseData}/>
-      <HomeExam HomeExamData={HomeExamData}/>
-      <HomeFeedback HomeFeedbackData={HomeFeedbackData}/>
+      <HomeCourse/>
+      <HomeExam/>
+      <HomeFeedback/>
       <ChooseUs ChooseUsData={ChooseUsData}/>
     </>
   )

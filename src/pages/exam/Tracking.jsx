@@ -15,7 +15,7 @@ const Tracking = ({ userAnswer }) => {
     };
 
     return (
-        <>
+        <div className='container'>
             <p className='timer-title'>Thời gian làm bài</p>
             <div className="timer-countdown">
                 <CountdownCircleTimer
@@ -34,10 +34,43 @@ const Tracking = ({ userAnswer }) => {
                 </CountdownCircleTimer>
 
             </div>
-            {userAnswer.map((item, index) => (
-                <Button className='tracking-btn' variant={item === '' ? 'info' : 'primary'}>{index + 1}</Button>
-            ))}
-        </>
+            {userAnswer.map((item, index) => {
+                const renderPart = () => {
+                    switch (index) {
+                        case 0:
+                            return <div className='parttxt'>Part 1</div>
+                        case 6:
+                            return <div className='parttxt'>Part 2</div>
+                        case 31:
+                            return <div className='parttxt'>Part 3</div>
+                        case 70:
+                            return <div className='parttxt'>Part 4</div>
+                        case 100:
+                            return <div className='parttxt'>Part 5</div>
+                        case 130:
+                            return <div className='parttxt'>Part 6</div>
+                        case 146:
+                            return <div className='parttxt'>Part 7</div>
+                        default:
+                            return null
+                    }
+                }
+                return (
+                    <>
+                        {renderPart()}
+                        <Button
+                            key={index}
+                            className="tracking-btn"
+                            variant={item === '' ? 'info' : 'primary'}
+                            size='sm'
+                        >
+                            {index + 1}
+                        </Button>
+                    </>
+                );
+            })}
+
+        </div>
     )
 }
 

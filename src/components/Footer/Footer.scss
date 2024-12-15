@@ -1,14 +1,29 @@
-.icon {
-    filter: grayscale(100%);
-    transition: filter 0.5s ease;
-    padding-right: 5px;
-}
+.footer-container {
+    .row-footer {
+        background-image: url('../../assets/footerbg/footerbg2.png');
+        background-repeat: no-repeat;
+        background-color: rgba(0, 0, 0, 0.5);
+        background-position: center;
+        background-size: cover;
+        a.nav-link.active {
+            color: #fff;
+        }
 
-.icon-container {
-    &:hover {
-        text-decoration: underline;
-        .icon {
-            filter: grayscale(0%);
+        .icon-footer {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+            padding-right: 10px;
+        }
+
+        .icon-footer-container {
+            color: #fff;
+            &:hover {
+                text-decoration: underline;
+
+                .icon-footer {
+                    filter: grayscale(0%);
+                }
+            }
         }
     }
 }

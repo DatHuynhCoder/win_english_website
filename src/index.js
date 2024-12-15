@@ -3,20 +3,21 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import Home from './pages/home/Home'
-import Login from './pages/SigninSignup/Login'
+import Login from './pages/Login'
 import Admin from './pages/Admin'
 import About from './pages/about/About'
 import ErrorRoutes from './pages/ErrorRoutes';
-import User from './pages/User'
+import User from './pages/User/User'
 import ExamLibrary from './pages/ExamLibrary/ExamLibrary';
 import ExamResult from './pages/ExamResult/ExamResult';
-import Payment from './pages/Payment/Payment';
 
 import reportWebVitals from './reportWebVitals';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import '@coreui/coreui/dist/css/coreui.min.css'
 
 /**
  * @important !!!
@@ -28,61 +29,64 @@ import {
 } from "react-router-dom"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ResetPassword from './pages/SigninSignup/ResetPassword';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-    errorElement: <ErrorRoutes/>,
+    element: <App />,
+    errorElement: <ErrorRoutes />,
     children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />
       },
       {
         path: "/home",
-        element: <Home/>
-      },
-      {
-        path: "/admin",
-        element: <Admin/>
+        element: <Home />
       },
       {
         path: "/about",
-        element: <About/>
+        element: <About />
       },
       {
         path: "/exam-library",
-        element: <ExamLibrary/>
+        element: <ExamLibrary />
+      },
+      {
+        path: "/exam",
+        element: <Exam />
       },
       {
         path: "/user",
-        element: <User/>
+        element: <User />
       },
       {
         path: "/exam-result",
         element: <ExamResult />
+      },
+      {
+        path: "/instruction",
+        element: <Instruction />
       }
     ],
   },
   {
     path: "/login",
-    element: <Login/>,
-    errorElement: <ErrorRoutes/>,
-  },
-  {
-    path: "/payment",
-    element: <Payment/>,
-    errorElement: <ErrorRoutes/>,
+    element: <Login />,
+    errorElement: <ErrorRoutes />,
   },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}/>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ContextProvider>
+    <RouterProvider router={router} />
+    <ToastContainer />
+  </ContextProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -11,17 +11,27 @@ const IntroductionCarousel = ({IntroductionCarouselData}) => {
       <Carousel data-bs-theme="dark">
         {
           IntroductionCarouselData.map((item, index) => (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <div style={{ width: '70%', margin: '0 auto' }}>
                 <img
-                  className="image-style d-block w-100 ta-c"
+                  className="image-style d-block w-100 h-100 ta-c"
                   src={item.image}
                   alt={item.title}
+                  // style={{width: '1100px', height: '500px'}}
                 />
               </div>
               <Carousel.Caption>
-                <h5>{item.title}</h5>
-                <p>{item.content}</p>
+                {index === 2 ? (<>
+                  <h5 style={{color: 'white', fontWeight: 'bold'}}>{item.title}</h5>
+                  <p style={{color: 'white', fontWeight: 'bold'}}>{item.content}</p>
+                  </>
+                ) : (
+                  <>
+                  <h5 style={{fontWeight: 'bold'}}>{item.title}</h5>
+                  <p style={{fontWeight: 'bold'}}>{item.content}</p>
+                  </>
+                )}
+                
               </Carousel.Caption>
             </Carousel.Item>
           ))

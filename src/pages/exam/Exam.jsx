@@ -4,109 +4,78 @@
 
 import AudioPlayer from './AudioPlayer';
 import Tracking from './Tracking';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+//use axios
+import axios from 'axios'
 
-import Examaudio from '../../assets/audio/Test_8.mp3'
+// import Examaudio from 'http://localhost:8081/audio/Test_8.mp3'
 import './Exam.scss'
 
-const qBank = [
-  {
-    id: 0,
-    question: "Which word best fits in blank (1) to complete the sentence?",
-    options: ["A. being concerned", "B. concerned", "C. having concerned", "D. concerning"],
-    answer: "D. concerning" 
-  },
-  {
-    id: 1,
-    question: "Which phrase best fits in blank (2) to complete the sentence?",
-    options: ["A. like", "B. similar", "C. as well as", "D. such as"],
-    answer: "C. as well as"
-  },
-  {
-    id: 2,
-    question: "Which preposition best fits in blank (3) to complete the sentence?",
-    options: ["A. Under", "B. Among", "C. For", "D. Between"],
-    answer: "A. Under"
-  },
-  {
-    id: 3,
-    question: "Which phrase best fits in blank (4) to complete the sentence?",
-    options: ["A. only used", "B. to be used", "C. by using", "D. for using"],
-    answer: "C. by using"
-  },
-  {
-    id: 4,
-    question: "Which verb tense best fits in blank (5) to complete the sentence?",
-    options: ["A. has staged", "B. had been staged", "C. is staging", "D. was staged"],
-    answer: "D. was staged"
-  },
-  {
-    id: 5,
-    question: "Which word best fits in blank (6) to complete the sentence?",
-    options: ["A. wish", "B. retaliate", "C. suggest", "D. deceive"],
-    answer: "C. suggest"
-  },
-  {
-    id: 6,
-    question: "Which word best fits in blank (7) to complete the sentence?",
-    options: ["A. price", "B. rent", "C. fee", "D. income"],
-    answer: "D. income"
-  },
-  {
-    id: 7,
-    question: "Which word or phrase best fits in blank (8) to complete the sentence?",
-    options: ["A. Yet", "B. For", "C. On the ground that", "D. Whereas"],
-    answer: "A. Yet"
-  },
-  {
-    id: 8,
-    question: "Which word best fits in blank (9) to complete the sentence?",
-    options: ["A. little", "B. far", "C. many", "D. less"],
-    answer: "B. far"
-  },
-  {
-    id: 9,
-    question: "Which pronoun best fits in blank (10) to complete the sentence?",
-    options: ["A. where", "B. whose", "C. that", "D. who"],
-    answer: "D. who"
-  },
-  {
-    id: 10,
-    question: "Which preposition best fits in blank (11) to complete the sentence?",
-    options: ["A. with", "B. from", "C. along", "D. into"],
-    answer: "D. into"
-  },
-  {
-    id: 11,
-    question: "Which verb tense best fits in blank (12) to complete the sentence?",
-    options: ["A. will undergo", "B. undergoing", "C. had undergone", "D. to be undergone"],
-    answer: "C. had undergone"
-  },
-  {
-    id: 12,
-    question: "Which phrase best fits in blank (13) to complete the sentence?",
-    options: ["A. much as", "B. most", "C. like", "D. same as"],
-    answer: "D. same as"
-  },
-  {
-    id: 13,
-    question: "Which word best fits in blank (14) to complete the sentence?",
-    options: ["A. nothing", "B. everything", "C. something", "D. anything"],
-    answer: "A. nothing"
-  }
-];
-
-
-
-
 const Exam = () => {
-  const [userAnswer, setUserAnswer] = useState(Array(qBank.length).fill(''));
+  const [userAnswer, setUserAnswer] = useState([]);
+  const [startTime, setStartTime] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+  const examid = location.state?.examId;
+  const examname = location.state?.examname;
+  const examaudio = location.state?.examaudio;
+  const examtotalparticipants = location.state?.examtotalparticipants;
+
+  const questionsPerPage = 15; //Điều chỉnh số câu mỗi trang
+  const offset = currentPage * questionsPerPage;
+
+  //get question data from database
+  const [qBank, setQBank] = useState([]);
+
+  useEffect(() => {
+    setStartTime(Date.now());
+
+    //axios
+    const getQuestion = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/get-qbank-by-id', {
+          params: { examid: examid }
+        });
+        const formattedData = response.data.map((item) => ({
+          ...item,
+          options: JSON.parse(item.options),
+          // Xử lý kiểu dữ liệu JSON, đảm bảo đầu đầu ra luôn là chuỗi
+          supportimgs: item.supportimgs
+            ? Array.isArray(JSON.parse(item.supportimgs))
+              ? JSON.parse(item.supportimgs)
+              : [JSON.parse(item.supportimgs)]
+            : []
+        }));
+        console.log('check exam question: ', formattedData);
+        setQBank(formattedData);
+        setUserAnswer(Array(response.data.length).fill(''));
+      }
+      catch (error) {
+        console.log('Co loi trong qua trinh them data: ', error);
+      }
+    };
+    if (examid) {
+      getQuestion();
+    }
+  }, []);
 
   const handleSumnit = () => {
-    navigate('/exam-result', {state: {userAnswer, qBank}});
+    const endTime = Date.now();
+    const duration = Math.floor((endTime - startTime) / 1000); //duration: seconds
+    navigate('/exam-result', {
+      state: {
+        userAnswer,
+        qBank,
+        duration,
+        examid,
+        examname,
+        examtotalparticipants
+      }
+    });
   }
 
   const handleAnswerChange = (option, index) => {
@@ -115,30 +84,73 @@ const Exam = () => {
     setUserAnswer(updatedAnswers);
   };
 
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
+
+  const currentQuestions = qBank.slice(offset, offset + questionsPerPage);
+
   return (
     <div className="exam-container">
       <div className="main-content">
-        <AudioPlayer audioSrc={Examaudio} />
-        {qBank.map((item, index) => (
-          <div key={item.id} >
-            <h3 className='question-number'>{index + 1}</h3>
-            <h3 className='question-title'>. {item.question}</h3>
-            {item.options.map((option) => (
-              <div key={option} className='radio-option'>
-                <input
-                  type="radio"
-                  className={`${item.id}-${option}`}
-                  name={`question-${item.id}`}
-                  value={option}
-                  checked={userAnswer[index] === option}
-                  onChange={() => handleAnswerChange(option, index)}
+        <AudioPlayer audioSrc={examaudio} />
+        {currentQuestions.map((item, index) => (
+          <div key={item.questionid}>
+            {(item.supportimgs || []).map((imgitem, index) => (
+              <div key={index} style={{ textAlign: 'center' }}>
+                <img
+                  src={imgitem}
+                  alt={`supportimg-${index}`}
+                  style={{ maxWidth: '70%' }}
                 />
-                <label htmlFor={`${item.id}-${option}`}>{option}</label>
               </div>
             ))}
+
+            <div className="question-box">
+              <h3 className="question-number">{offset + index + 1}</h3>
+              {item.isimage === 1
+                ? <img src={item.question} alt="question-pic" style={{ maxWidth: '100%' }} />
+                : <h3 className="question-title">. {item.question}</h3>}
+              {item.options.map((option) => (
+                <div key={option} className="radio-option">
+                  <input
+                    type="radio"
+                    name={`question-${item.questionid}`}
+                    value={option}
+                    checked={userAnswer[offset + index] === option}
+                    onChange={() => handleAnswerChange(option, offset + index)}
+                  />
+                  <label htmlFor={`${item.questionid}-${option}`}>{option}</label>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
-        <Button variant='primary' onClick={handleSumnit}>Nộp bài</Button>
+        <Button 
+        variant='primary' 
+        onClick={handleSumnit} 
+        style={{ margin: "20px 0" }}
+        className='submit-btn'
+        >Nộp bài</Button>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={Math.ceil(qBank.length / questionsPerPage)}
+          previousLabel="< Previous"
+          renderOnZeroPageCount={null}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
       </div>
       <div className="tracking-content">
         <Tracking userAnswer={userAnswer} />

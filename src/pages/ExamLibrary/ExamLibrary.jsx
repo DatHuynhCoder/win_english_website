@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 
 import Button from 'react-bootstrap/Button';
@@ -9,98 +10,18 @@ import { IoSearch } from "react-icons/io5";
 import ListExam from './ListExam'
 
 import './ExamLibrary.scss'
-import pic1 from '../../assets/pic1.jpg'
-import pic2 from '../../assets/pic2.jpg'
-import pic3 from '../../assets/pic3.jpg'
-import pic4 from '../../assets/pic4.jpg'
-import pic5 from '../../assets/pic5.jpg'
-import pic6 from '../../assets/pic6.jpg'
 
 import SearchButton from './SearchButton'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const RawListExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  },
-  {
-    title: 'Seventh slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic1
-  }
-]
+import { useContext, useEffect } from 'react';
+import { ContextStore } from '../../context/Context';
+import axios from 'axios';
 
-const ListExamData = [
-  {
-    title: 'First slide label',
-    content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.',
-    image: pic1
-  },
-  {
-    title: 'Second slide label',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: pic2
-  },
-  {
-    title: 'Third slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic3
-  },
-  {
-    title: 'Fourth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic4
-  },
-  {
-    title: 'Fifth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic5
-  },
-  {
-    title: 'Sixth slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic6
-  },
-  {
-    title: 'Seventh slide label',
-    content: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.',
-    image: pic1
-  }
-]
+import DefaultAvatar from '../../assets/defaultAvatar.png'
 
-const UserProfile = {
-  name: "User",
-  avatar: pic1
-}
-
-function ResponsiveExample({setSearch}) {
+function ResponsiveExample({ setSearch, user }) {
+  const navigate = useNavigate()
   return (
     <>
       <div className='ExamLibrary-head'>
@@ -113,32 +34,73 @@ function ResponsiveExample({setSearch}) {
               onChange={(e) => setSearch(e.target.value)}
             />
             <Button variant="outline-secondary" id="button-addon2">
-              <IoSearch size={25}/>
+              <IoSearch size={25} />
             </Button>
           </InputGroup>
 
-          <SearchButton/>
+          {/* <SearchButton /> */}
 
         </div>
-        <div className='ExamLibrary-UserProfile'>
-          <img src={pic1} alt="avatar" className='ExamLibrary-UserProfile-Avatar'/>
-          <h5 className='ExamLibrary-UserProfile-Name'>{UserProfile.name}</h5>
-          <button className='ExamLibrary-UserProfile-MyProfileBtn' style={{borderRadius: '10px'}}>
-            <Link to={'/user'} className='ExamLibrary-UserProfile-MyProfileBtn-Text'>Hồ sơ của tôi</Link>
-          </button>
+        <div className="ExamLibrary-UserProfile">
+          {user.length > 0 ? (
+            <>
+              <img src={user[0].useravatarurl || DefaultAvatar} alt="avatar" className="ExamLibrary-UserProfile-Avatar" />
+              <h5 className="ExamLibrary-UserProfile-Name">{user[0].username || "Unknown User"}</h5>
+              {/* <button className='ExamLibrary-UserProfile-MyProfileBtn' style={{ borderRadius: '10px' }}>
+                <Link to={'/user'} className='ExamLibrary-UserProfile-MyProfileBtn-Text'>Hồ sơ của tôi</Link>
+              </button> */}
+              <Button variant="outline-info" onClick={() => navigate('/user')}>
+                Hồ sơ của tôi
+              </Button>
+            </>
+          ) : (
+            <p>Loading user data...</p>
+          )}
         </div>
+
       </div>
     </>
   );
 }
 
 const ExamLibrary = () => {
-  const [search, setSearch]  = useState('')
+  const { accessToken, setAccessToken, userid, setUserid } = useContext(ContextStore);
+  const [search, setSearch] = useState('');
+  //get user data
+  const [user, setUser] = useState([]);
+
+
+  //use axios to request get-user-by-id
+  useEffect(() => {
+    if (accessToken && userid) {
+      const getUserById = async () => {
+        try {
+          const response = await axios.get('http://localhost:8081/get-user-by-id', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            params: { userid }
+          });
+          console.log("API Response:", response.data);
+          if (response.data && response.data.length > 0) {
+            setUser(response.data);
+          } else {
+            console.log("No user data found");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error.response || error.message);
+        }
+      };
+      getUserById();
+    } else {
+      console.warn("Missing accessToken or userid");
+    }
+  }, [accessToken, userid]);
+
+
   return (
     <div className='ExamLibrary-container'>
-      <h1 style={{textAlign: 'center'}}>Thư viện đề thi</h1>
-      <ResponsiveExample search={search} setSearch={setSearch}/>
-      <ListExam search={search}/>
+      <h1 style={{ textAlign: 'center' }}>Thư viện đề thi</h1>
+      <ResponsiveExample search={search} setSearch={setSearch} user={user} />
+      <ListExam search={search} />
     </div>
   )
 }

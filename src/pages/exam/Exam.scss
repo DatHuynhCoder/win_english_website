@@ -2,7 +2,7 @@
     background-color: #B0C9F1;
     padding: 20px 2.5%;
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 80% 20%;
     gap: 5px;
 
     .main-content {
@@ -14,16 +14,18 @@
             display: inline-block;
             background-color: #628ECB;
             color: #fff;
-            font-size: 24px;
+            font-size: 16px;
             line-height: 30px;
             width: 30px;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 50%;
+            margin: 10px 0;
+            font-weight: bold;
         }
 
         .question-title {
-            display: inline-block;
-            font-size: 24px;
+            display: inline;
+            font-size: 1.25rem;
             margin-left: 5px;
         }
 
@@ -48,11 +50,11 @@
             label:hover {
                 color: #007bff;
             }
-        }
+        }  
     }
 
     .tracking-content {
-        padding: 20px 3%;
+        padding: 20px 2%;
         background-color: #fff;
         border-radius: 16px;
     }
