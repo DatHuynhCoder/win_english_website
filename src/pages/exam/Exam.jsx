@@ -4,7 +4,7 @@
 
 import AudioPlayer from './AudioPlayer';
 import Tracking from './Tracking';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -30,6 +30,9 @@ const Exam = () => {
 
   //get question data from database
   const [qBank, setQBank] = useState([]);
+
+  //Useref to navigate to what question you want
+  const questionNav = useRef([]);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -88,6 +91,18 @@ const Exam = () => {
     setCurrentPage(event.selected);
   };
 
+  //Scroll to a specific question
+  const scrollToQuestion = (questionIndex) => {
+    const page = Math.floor(questionIndex / questionsPerPage);
+    setCurrentPage(page); // Navigate to the correct page
+    setTimeout(() => {
+      const questionElement = questionNav.current[questionIndex % questionsPerPage];
+      if (questionElement) {
+        questionElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
+  };
+
   const currentQuestions = qBank.slice(offset, offset + questionsPerPage);
 
   return (
@@ -95,7 +110,10 @@ const Exam = () => {
       <div className="main-content">
         <AudioPlayer audioSrc={examaudio} />
         {currentQuestions.map((item, index) => (
-          <div key={item.questionid}>
+          <div
+            key={item.questionid}
+            ref={(el) => (questionNav.current[index] = el)}
+          >
             {(item.supportimgs || []).map((imgitem, index) => (
               <div key={index} style={{ textAlign: 'center' }}>
                 <img
@@ -126,11 +144,11 @@ const Exam = () => {
             </div>
           </div>
         ))}
-        <Button 
-        variant='primary' 
-        onClick={handleSumnit} 
-        style={{ margin: "20px 0" }}
-        className='submit-btn'
+        <Button
+          variant='primary'
+          onClick={handleSumnit}
+          style={{ margin: "20px 0" }}
+          className='submit-btn'
         >Nộp bài</Button>
         <ReactPaginate
           breakLabel="..."
@@ -150,10 +168,11 @@ const Exam = () => {
           breakLinkClassName="page-link"
           containerClassName="pagination"
           activeClassName="active"
+          forcePage={currentPage}
         />
       </div>
       <div className="tracking-content">
-        <Tracking userAnswer={userAnswer} />
+        <Tracking userAnswer={userAnswer} scrollToQuestion={scrollToQuestion} />
       </div>
 
     </div>
