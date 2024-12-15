@@ -125,7 +125,7 @@ const HomeExam = () => {
             <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Thi đi bạn sợ à ?
+            <img src={Toeic_pic} alt="" style={{width: '100%'}}/>
             <br />
             <b><AiOutlineComment size={25} />Số lượt đánh giá: </b>{totalcomments}
             <br />
