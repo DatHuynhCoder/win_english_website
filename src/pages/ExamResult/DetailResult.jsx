@@ -29,7 +29,7 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
   }
 
   return (
-    <div className='container'>
+    <div className='detail-result-container'>
       <h2 className="detail-result-title">Đáp án</h2>
       <div className="fact-container">
         <CgSearchLoading size={30} color="#fff" />
@@ -41,8 +41,29 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
             qBank.map((item, index) => {
               const isCorrect = userAnswer[index] === item.answer;
               const answerColor = isCorrect ? 'green' : 'red';
-
+              const renderPart = () => {
+                switch (index) {
+                  case 0:
+                    return <div className='parttxt'>Part 1</div>
+                  case 6:
+                    return <div className='parttxt'>Part 2</div>
+                  case 31:
+                    return <div className='parttxt'>Part 3</div>
+                  case 70:
+                    return <div className='parttxt'>Part 4</div>
+                  case 100:
+                    return <div className='parttxt'>Part 5</div>
+                  case 130:
+                    return <div className='parttxt'>Part 6</div>
+                  case 146:
+                    return <div className='parttxt'>Part 7</div>
+                  default:
+                    return null
+                }
+              }
               return (
+                <>
+                {renderPart()}
                 <Col xs={12} sm={6} md={3} key={index}>
                   <div className="answer-container" onClick={ispremium === 0 ? handleNotPremium : () => handleShowModal(item)}>
                     <Button variant="primary" className="answer-btn">{index + 1}</Button>
@@ -51,6 +72,7 @@ const DetailResult = ({ userAnswer = [], qBank = [], ispremium }) => {
                     </div>
                   </div>
                 </Col>
+                </>
               );
             })
           ) : (

@@ -15,7 +15,7 @@ const Tracking = ({ userAnswer, scrollToQuestion }) => {
     };
 
     return (
-        <div className='container'>
+        <div className='tracking-container'>
             <p className='timer-title'>Thời gian làm bài</p>
             <div className="timer-countdown">
                 <CountdownCircleTimer
