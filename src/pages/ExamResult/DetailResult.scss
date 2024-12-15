@@ -1,4 +1,4 @@
-.container {
+.detail-result-container {
     .fact-container {
         background-color: #61E45D;
         display: flex;
@@ -11,6 +11,12 @@
             color: #166419;
             font-weight: bold;
         }
+    }
+
+    .parttxt {
+        font-weight: bold;
+        font-size: 24px;
+        margin: 10px 0;
     }
 
     .answer-container {
