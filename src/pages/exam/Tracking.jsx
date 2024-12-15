@@ -7,7 +7,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 import './Tracking.scss'
 
-const Tracking = ({ userAnswer }) => {
+const Tracking = ({ userAnswer, scrollToQuestion }) => {
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
@@ -63,6 +63,7 @@ const Tracking = ({ userAnswer }) => {
                             className="tracking-btn"
                             variant={item === '' ? 'info' : 'primary'}
                             size='sm'
+                            onClick={() => scrollToQuestion(index)}
                         >
                             {index + 1}
                         </Button>
