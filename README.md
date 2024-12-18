@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# 🌟 Website Luyện Thi TOEIC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Giới thiệu
+Website luyện thi TOEIC là một nền tảng trực tuyến hỗ trợ người học rèn luyện và cải thiện kỹ năng tiếng Anh, đặc biệt trong việc chuẩn bị cho kỳ thi TOEIC. Website cung cấp các bài thi thử, bộ câu hỏi theo từng phần của kỳ thi, và giao diện dễ sử dụng để tạo trải nghiệm học tập hiệu quả.
 
-## Available Scripts
+## 🎯 Mục tiêu
+- Hỗ trợ người học tiếng Anh ôn luyện hiệu quả.
+- Cung cấp các bài thi thử TOEIC với giao diện và chức năng tương tự kỳ thi thực tế.
+- Giúp người dùng theo dõi quá trình học tập thông qua thống kê và báo cáo điểm số.
 
-In the project directory, you can run:
+## 🛠️ Tính năng chính
+- **Đăng ký/Đăng nhập**: Người dùng có thể tạo tài khoản và đăng nhập để lưu trữ tiến trình học tập.
+- **Làm bài thi thử**: Gồm các bài thi theo từng phần (Listening, Reading) hoặc toàn bộ đề thi TOEIC.
+- **Chấm điểm tự động**: Hệ thống tự động chấm điểm và hiển thị kết quả ngay sau khi làm bài.
+- **Xem lịch sử và thống kê kết quả**: Người dùng có thể theo dõi điểm số và quá trình học tập.
+- **Hệ thống câu hỏi đa dạng**: Các câu hỏi được phân loại theo độ khó và chủ đề.
 
-### `npm start`
+## 📖 Công nghệ sử dụng
+- **Frontend**:
+  - HTML, CSS, JavaScript
+  - Thư viện: Reactjs, Bootstrap
+- **Backend**:
+  - Node.js, Express.js
+- **Cơ sở dữ liệu**:
+  - MySQL (sử dụng XAMPP để quản lý dữ liệu)
+- **Quản lý phiên bản**:
+  - Git và GitHub
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Cài đặt và chạy dự án
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Yêu cầu hệ thống
+- Node.js (phiên bản mới nhất)
+- MySQL
+- Git
 
-### `npm test`
+### 2. Cách cài đặt
+1. Clone repository:
+   ```bash
+   git clone https://github.com/DatHuynhCoder/win_english_website.git
+   ```
+2. Cài đặt các thư viện cần thiết:
+   ```bash
+   npm install
+   ```
+3. Chạy dự án frontend:
+   ```bash
+   npm start
+   ```
+5. Truy cập website tại: http://localhost:3000
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📝 Hướng phát triển
+- **Nâng cấp giao diện**: Thân thiện hơn với người dùng và tối ưu cho mọi thiết bị.
+- **Thêm tính năng học từ vựng**: Xây dựng các bài học từ vựng liên quan đến TOEIC.
+- **Tăng cường bảo mật**: Bổ sung các cơ chế bảo vệ dữ liệu người dùng.
+- **Cải thiện hệ thống câu hỏi**: Đa dạng hơn và sát với thực tế kỳ thi TOEIC.
 
-### `npm run build`
+## 📬 Liên hệ
+Nếu có bất kỳ thắc mắc hoặc góp ý nào, vui lòng liên hệ:
+- **Email**: 22520212@gm.uit.edu.com
+- **GitHub**: [https://github.com/DatHuynhCoder](https://github.com/DatHuynhCoder)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ❤️ Cảm ơn
+Cảm ơn bạn đã quan tâm đến dự án! Hy vọng website luyện thi TOEIC này sẽ hữu ích cho bạn trong quá trình học tập.
