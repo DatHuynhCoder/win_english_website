@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 const UserManagement = () => {
   const [listUser, setListUser] = useState([])
+  const [rerender, setRerender] = useState(false)
   // const [totalUsers, setTotalUsers] = useState(0)
   // const [totalTakeExam, setTotalTakeExam] = useState(0)
   // const [totalListeningScore, setTotalListeningScore] = useState(0)
@@ -20,7 +21,7 @@ const UserManagement = () => {
         toast.error('Xóa người dùng không thành công');
       else 
         toast.success('Xóa người dùng thành công');
-    }).finally(res => window.location.reload())
+    }).finally(res => setRerender(!rerender))
   }
   useEffect(() => {
     axios.get('http://localhost:8081/get-all-user').then(res => {
@@ -35,7 +36,7 @@ const UserManagement = () => {
   //     setTotalReadingScore(res.data[0].readingscore)
   //     setTotalScore(res.data[0].totalscore)
   //   })
-  }, [])
+  }, [rerender])
   return (
     <div style={{padding: '100px'}}>
       <h3 style={{color: 'black'}}>Danh sách người dùng</h3>
@@ -47,6 +48,8 @@ const UserManagement = () => {
             <th>Họ và Tên</th>
             <th>Điện thoại</th>
             <th>Email</th>
+            <th>Số lần làm bài</th>
+            <th>Điểm trung bình</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -58,7 +61,7 @@ const UserManagement = () => {
                   user.useravatarurl === "" ? 
                   '' 
                   : 
-                  <img src={user.useravatarurl} style={{width: '100px', borderRadius: 50}} alt='img'></img>
+                  <img src={user.useravatarurl} style={{width: '80px', height: '80px', borderRadius: 50}} alt='img'></img>
                 }
               </td>
               <td>
@@ -72,6 +75,12 @@ const UserManagement = () => {
               </td>
               <td>
                 {user.useremail}
+              </td>
+              <td>
+                {user.solanthi}
+              </td>
+              <td>
+                {user.solanthi !== 0 ? Math.round(user.tongdiem / user.solanthi) : 0}
               </td>
               <td>
                 <Button variant="outline-secondary" id="button-addon2" 

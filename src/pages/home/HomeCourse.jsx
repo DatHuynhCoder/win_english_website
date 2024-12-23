@@ -137,7 +137,7 @@ const HomeCourse = () => {
             <div>
                 {
                   topComment.map((comment, index) => {
-                    return <div key={index} style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5}}>
+                    return <div key={index} style={{border: '1px solid black', borderRadius: '10px', margin: 2, padding: 5, boxShadow: '3px 3px'}}>
                     <p style={{marginBottom: -2, fontWeight: 'bold'}}>{comment.username}</p>
                     <p style={{marginBottom: -2}}>{comment.commentdate}</p>
                     <Box sx={{ width: 200, display: 'flex', alignItems: 'center'}}>
