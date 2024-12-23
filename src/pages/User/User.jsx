@@ -16,6 +16,11 @@ import { ContextStore } from '../../context/Context';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
+import { FaCheckCircle, FaMinusCircle, FaClock, FaAssistiveListeningSystems, FaBookReader } from "react-icons/fa";
+import { GoXCircleFill } from "react-icons/go";
+import { GoGoal } from "react-icons/go";
+import { LuGoal } from "react-icons/lu";
+
 import { toast } from 'react-toastify';
 
 import { FcPlus } from "react-icons/fc";
@@ -34,6 +39,8 @@ export default function User() {
   const [userFullName, setUserFullName] = useState('');
   const [userPhone, setUserPhone] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [selectedResult, setSelectedResult] = useState(null);
+  const [resultShowModal, setResultShowModal] = useState(false);
   const [userAvatarUrl, setUserAvatarUrl] = useState('');
   const [previewAvatar, setPreviewAvatar] = useState('');
   //get user data
@@ -44,6 +51,14 @@ export default function User() {
 
   //close modal
   const handleCloseModal = () => setShowModal(false);
+  //show result modal
+  const handleShowResultModal = (item) => {
+    setSelectedResult(item);
+    setResultShowModal(true);
+  };
+  //close result modal
+  const handleCloseResultModal = () => setResultShowModal(false);
+
   // get user by id
   const getUserById = async () => {
     try {
@@ -86,12 +101,12 @@ export default function User() {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append('avatar', file);
-  
+
       try {
         const response = await axios.post('http://localhost:8081/upload-avatar', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-  
+
         setPreviewAvatar(URL.createObjectURL(file));
         setUserAvatarUrl(response.data.avatarUrl);
       } catch (error) {
@@ -140,7 +155,7 @@ export default function User() {
   //use axios to request get-user-by-id và get-exam-result-by-id
   useEffect(() => {
     setAccessToken(cookies.get("accessToken"))
-    if(accessToken && userid) {
+    if (accessToken && userid) {
       const decodedAccessToken = jwtDecode(cookies.get("accessToken"))
       console.log('check decoded accessToken in user page: ', decodedAccessToken)
       console.log('===> check userid in decoded token: ', decodedAccessToken.userid)
@@ -150,7 +165,7 @@ export default function User() {
         getExamResultById();
       }
     }
-  }, [accessToken,userid]);
+  }, [accessToken, userid]);
 
   return (
     <div className="user-profile">
@@ -342,11 +357,11 @@ export default function User() {
                               <td>{item.examname}</td>
                               <td>{item.duration}</td>
                               <td>{item.totalscore}</td>
-                              <td>Xem chi tiết</td>
+                              <td><Button variant='primary' onClick={() => handleShowResultModal(item)}>Xem chi tiết</Button></td>
                             </tr>
                           ))
-                          : <tr><td colSpan={5} align='center'>Bạn chưa thi bài nào</td></tr>
-                        }
+                            : <tr><td colSpan={5} align='center'>Bạn chưa thi bài nào</td></tr>
+                          }
                         </tbody>
                       </Table>
                     </Card.Body>
@@ -354,6 +369,126 @@ export default function User() {
                 </Col>
               </Row>
             </Col>
+
+            {/* Result Modal */}
+            <Modal show={resultShowModal}
+              onHide={handleCloseResultModal}
+              size='xl'
+              backdrop='static'
+            >
+              {selectedResult ?
+                (<>
+                  <Modal.Header closeButton>
+                    <Modal.Title>{selectedResult.examname}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="result-user-content">
+                      <Row className='g-2'>
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-1'>Trả lời đúng</Card.Title>
+                              <FaCheckCircle color='green' size={40} />
+                              <Card.Text className='result'>{selectedResult.numscorrect}</Card.Text>
+                              <Card.Text>Câu hỏi</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-2'>Trả lời sai</Card.Title>
+                              <GoXCircleFill color='red' size={40} />
+                              <Card.Text className='result'>{selectedResult.numswrong}</Card.Text>
+                              <Card.Text>Câu hỏi</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-3'>Thời gian làm</Card.Title>
+                              <FaClock color='purple' size={40} />
+                              <Card.Text className='result'>{selectedResult.duration}</Card.Text>
+                              <Card.Text>Hoàn thành</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-4'>Bỏ qua</Card.Title>
+                              <FaMinusCircle color='gray' size={40} />
+                              <Card.Text className='result'>{selectedResult.numsskip}</Card.Text>
+                              <Card.Text>Câu hỏi</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-5'>Độ chính xác</Card.Title>
+                              <GoGoal color='yellow' size={40} />
+                              <Card.Text className='result'>{selectedResult.accuracy}</Card.Text>
+                              <Card.Text>%</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+
+                        <Col xs={12} sm={6} md={4} lg={2}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <Card.Title className='title-6'>Điểm</Card.Title>
+                              <LuGoal color='blue' size={40} />
+                              <Card.Text className='result' style={{ color: 'blue' }}>{selectedResult.totalscore}</Card.Text>
+                              <Card.Text>Chúc mừng bạn</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                      </Row>
+
+                      <Row className='g-5 mt-0'>
+                        <Col xs={12} sm={6}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <div className="d-flex align-items-center justify-content-center">
+                                <FaAssistiveListeningSystems size={40} />
+                                <Card.Title className="title-7 ms-2">Listening</Card.Title>
+                              </div>
+                              <Card.Text className='result'>{selectedResult.listeningscore} / 495</Card.Text>
+                              <Card.Text>Trả lời đúng {selectedResult.numslisteningcorrect} / 100 </Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                        <Col xs={12} sm={6}>
+                          <Card style={{ width: '100%' }}>
+                            <Card.Body>
+                              <div className="d-flex align-items-center justify-content-center">
+                                <FaBookReader size={40} />
+                                <Card.Title className="title-7 ms-2">Reading</Card.Title>
+                              </div>
+                              <Card.Text className='result'>{selectedResult.readingscore} / 495</Card.Text>
+                              <Card.Text>Trả lời đúng {selectedResult.numsreadingcorrect} / 100</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                      </Row>
+
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseResultModal}>
+                      Đóng
+                    </Button>
+                  </Modal.Footer>
+                </>)
+                : (<p>Nodata</p>)
+              }
+            </Modal>
           </Row>
         )}
       </Container>

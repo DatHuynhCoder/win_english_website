@@ -43,38 +43,50 @@ const Login = () => {
       email: signinEmail,
       password: signinPassword,
     }
-    if(signinEmail === '' || signinPassword === '') {
+    if (signinEmail === '' || signinPassword === '') {
       toast.error('Các trường không được để trống')
     }
+    else if(!validateEmail(signinEmail)){
+      toast.error('Email không hợp lệ');
+    }
     else
-    axios.post('http://localhost:8081/login', info)
-      .then(res => {
-        console.log(res)
-        if (res.data.Status === 'Success') {
-          toast.success('Đăng nhập thành công, chúc bạn đạt kết quả tốt !')
-          setAccessToken(res.data.accessToken) // set accessToken
-          const decodedAccessToken = jwtDecode(res.data.accessToken)
-          console.log('decodedAccessToken: ', decodedAccessToken)
-          cookies.set("accessToken", res.data.accessToken, {
+      axios.post('http://localhost:8081/login', info)
+        .then(res => {
+          console.log(res)
+          if (res.data.Status === 'Success') {
+            toast.success('Đăng nhập thành công, chúc bạn đạt kết quả tốt !')
+            setAccessToken(res.data.accessToken) // set accessToken
+            const decodedAccessToken = jwtDecode(res.data.accessToken)
+            console.log('decodedAccessToken: ', decodedAccessToken)
+            cookies.set("accessToken", res.data.accessToken, {
 
-          })
-          setRefreshToken(res.data.refreshToken) // set refreshToken
-          const decodedRefreshToken = jwtDecode(res.data.refreshToken)
-          console.log('decodedRefreshToken: ', decodedRefreshToken)
-          cookies.set("refreshToken", res.data.refreshToken, {
+            })
+            setRefreshToken(res.data.refreshToken) // set refreshToken
+            const decodedRefreshToken = jwtDecode(res.data.refreshToken)
+            console.log('decodedRefreshToken: ', decodedRefreshToken)
+            cookies.set("refreshToken", res.data.refreshToken, {
 
-          })
-          setUserid(decodedAccessToken.userid);
-          setIspremium(decodedAccessToken.ispremium);
-          navigate('/')
-        }
-        else {
-          toast.error(res.data.Error)
-          setAccessToken(null)
-        }
-      })
-      .catch(err => console.log(err))
+            })
+            setUserid(decodedAccessToken.userid);
+            setIspremium(decodedAccessToken.ispremium);
+            navigate('/')
+          }
+          else {
+            toast.error(res.data.Error)
+            setAccessToken(null)
+          }
+        })
+        .catch(err => console.log(err))
   }
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const isAllNumbers = (str) => {
     if (!str) return false;
     return /^\d+$/.test(str);
@@ -82,14 +94,17 @@ const Login = () => {
   const handleSignup = (e) => {
     e.preventDefault()
     console.log('signup clicked')
-    if(username === '' || phonenumber === '' || email === '' || password === '' || confirmPassword === '') {
+    if (username === '' || phonenumber === '' || email === '' || password === '' || confirmPassword === '') {
       toast.error('Các trường không được để trống')
     }
-    else if(!isAllNumbers(phonenumber)) {
+    else if (!isAllNumbers(phonenumber)) {
       toast.error('Số điện thoại không được chứa ký tự khác số')
     }
     else if (password !== confirmPassword) {
       toast.error('Mật khẩu và mật khẩu xác nhận phải giống nhau')
+    }
+    else if (!validateEmail(email)) {
+      toast.error('Email không hợp lệ');
     }
     else {
       const info = {
@@ -114,17 +129,20 @@ const Login = () => {
   }
 
   const handleForgetPass = () => {
-    if(signinEmail === '') toast.warning('Vui lòng nhập email !')
+    if (signinEmail === '') toast.warning('Vui lòng nhập email !')
+    else if (!validateEmail(signinEmail)) {
+      toast.error('Email không hợp lệ')
+    }
     else {
       axios.get('http://localhost:8081/get-user-by-email?email=' + signinEmail).then(res => {
         console.log('check res when get-user-by-email: ', res.data.length)
-        if(res.data.length) { // exist an user with that email
+        if (res.data.length) { // exist an user with that email
           const OTPCode = Math.floor(Math.random() * 9000 + 1000) // gửi mã OTP này đến mail của user
           axios.post("http://localhost:8081/send-recovery-email", { // gửi mã otp đến mail
             OTP: OTPCode,
             recipient_email: signinEmail
           }).then(res => {
-            if(res.data.Status === 'Success') {
+            if (res.data.Status === 'Success') {
               console.log('Send email successfully !')
               navigate('/otp', {
                 state: {
@@ -163,7 +181,7 @@ const Login = () => {
             <input type="password" placeholder="Password" onChange={(e) => setSigninPassword(e.target.value)} />
             <div className={styles.forgetpassword}>
               {/* <Link to={'/otp'}>Forget Your Password?</Link> */}
-              <p style={{cursor: 'pointer'}} onClick={() => handleForgetPass()}>Forget Your Password?</p>
+              <p style={{ cursor: 'pointer' }} onClick={() => handleForgetPass()}>Forget Your Password?</p>
             </div>
             <span>or using</span>
             <div className={styles.socialicons}>
