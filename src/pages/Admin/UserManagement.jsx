@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 const UserManagement = () => {
   const [listUser, setListUser] = useState([])
+  const [rerender, setRerender] = useState(false)
   // const [totalUsers, setTotalUsers] = useState(0)
   // const [totalTakeExam, setTotalTakeExam] = useState(0)
   // const [totalListeningScore, setTotalListeningScore] = useState(0)
@@ -20,7 +21,7 @@ const UserManagement = () => {
         toast.error('Xóa người dùng không thành công');
       else 
         toast.success('Xóa người dùng thành công');
-    }).finally(res => window.location.reload())
+    }).finally(res => setRerender(!rerender))
   }
   useEffect(() => {
     axios.get('http://localhost:8081/get-all-user').then(res => {
@@ -35,7 +36,7 @@ const UserManagement = () => {
   //     setTotalReadingScore(res.data[0].readingscore)
   //     setTotalScore(res.data[0].totalscore)
   //   })
-  }, [])
+  }, [rerender])
   return (
     <div style={{padding: '100px'}}>
       <h3 style={{color: 'black'}}>Danh sách người dùng</h3>
@@ -58,7 +59,7 @@ const UserManagement = () => {
                   user.useravatarurl === "" ? 
                   '' 
                   : 
-                  <img src={user.useravatarurl} style={{width: '100px', borderRadius: 50}} alt='img'></img>
+                  <img src={user.useravatarurl} style={{width: '80px', height: '80px', borderRadius: 50}} alt='img'></img>
                 }
               </td>
               <td>
