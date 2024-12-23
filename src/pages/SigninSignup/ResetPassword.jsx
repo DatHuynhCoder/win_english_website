@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './ResetPassword.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const ResetPassword = () => {
   const location = useLocation()
@@ -16,10 +17,10 @@ const ResetPassword = () => {
     console.log('hello')
     if(password)
     if(password === '' || confirmedPassword === '') {
-      alert('Vui lòng nhập đầy đủ các trường')
+      toast.warning('Vui lòng nhập đầy đủ các trường')
     }
     else if(password !== confirmedPassword) {
-      alert('Mật khẩu và xác nhận mật khẩu phải giống nhau')
+      toast.error('Mật khẩu và xác nhận mật khẩu phải giống nhau')
     }
     else {
       axios.post('http://localhost:8081/update-password-by-email', {
@@ -27,11 +28,11 @@ const ResetPassword = () => {
         password: password
       }).then(res => {
         if(res.data.Status === 'Error') {
-          alert('Lỗi')
+          toast.error('Lỗi')
           console.log(res.data.Message)
         }
         else {
-          alert('Cập nhật mật khẩu thành công')
+          toast.success('Cập nhật mật khẩu thành công')
           navigate('/login')
         }
       })

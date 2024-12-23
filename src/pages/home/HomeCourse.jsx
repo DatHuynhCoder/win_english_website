@@ -128,7 +128,7 @@ const HomeCourse = () => {
           <Modal.Header closeButton>
             <Modal.Title>{selectedExam.examname}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>            
+          <Modal.Body>
             <img src={Toeic_pic} alt="" style={{width: '100%'}}/>
             <br />
             <b><AiOutlineComment size={25} />Số lượt đánh giá: </b>{totalcomments}

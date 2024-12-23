@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './OTPVerification.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export const OTPVerification = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ export const OTPVerification = () => {
   const handleVerify = () => {
     const OTPUserInput = OTPInput.one + OTPInput.two + OTPInput.three + OTPInput.four
     if(OTPUserInput === OTPCode.toString()) {
-      alert('Verify successfully')
+      toast.success('Verify successfully')
       // navigate to reset password
       navigate('/resetpassword', {
         state: {
@@ -25,7 +26,7 @@ export const OTPVerification = () => {
       })
     }
     else {
-      alert('OTP not correct !')
+      toast.error('OTP not correct !')
     }
   }
   return (
