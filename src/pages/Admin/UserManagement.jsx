@@ -48,6 +48,8 @@ const UserManagement = () => {
             <th>Họ và Tên</th>
             <th>Điện thoại</th>
             <th>Email</th>
+            <th>Số lần làm bài</th>
+            <th>Điểm trung bình</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -73,6 +75,12 @@ const UserManagement = () => {
               </td>
               <td>
                 {user.useremail}
+              </td>
+              <td>
+                {user.solanthi}
+              </td>
+              <td>
+                {user.solanthi !== 0 ? Math.round(user.tongdiem / user.solanthi) : 0}
               </td>
               <td>
                 <Button variant="outline-secondary" id="button-addon2" 
